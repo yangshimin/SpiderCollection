@@ -1,0 +1,401 @@
+const dom = new JSDOM(`<div id="cf-content" style="display:none">
+
+    <div id="cf-bubbles">
+      <div class="bubbles"></div>
+      <div class="bubbles"></div>
+      <div class="bubbles"></div>
+    </div>
+    <h1><span data-translate="checking_browser">Checking your browser before accessing</span> glassdoor.com.</h1>
+
+    <div id="no-cookie-warning" class="cookie-warning" data-translate="turn_on_cookies" style="display:none">
+      <p data-translate="turn_on_cookies" style="color:#bd2426;">Please enable Cookies and reload the page.</p>
+    </div>
+    <p data-translate="process_is_automatic">This process is automatic. Your browser will redirect to your requested content shortly.</p>
+    <p data-translate="allow_5_secs" id="cf-spinner-allow-5-secs" >Please allow up to 5 seconds&hellip;</p>
+    <p data-translate="redirecting" id="cf-spinner-redirecting" style="display:none">Redirecting&hellip;</p>
+  </div><form class="challenge-form" id="challenge-form" action="/?__cf_chl_jschl_tk__=cd3ce437ab53ab2f4a758f26ca0c407d25e9fcac-1615694379-0-Ac8b5a-1l_fv6FMpLRLDrIihw9STzrx29LBvsyo2x6Ya-gF-lZYaEPvnu1COnbNFUzJRcO6CZFBYBkwG5AwMselWq_WSB0Qk2mzQAF023xh-LLCcLY_I_mzg7WYuFwqwsk5yYxJl9vh682FzrABPAnjTN4FOrUDDW3F3aDenWAORnPhVlRumJPL6dQyevZO4ZPbdsqtX4rQ215tRf3pApgb8mDMbCLspEeJIXRnu_WU20UXZEhxFj_07u0fvCYqZd8d7Xg_IZUkf-QBbAjWL63gamfrjKuvbxIpuLQJln8PcBwpeYQKNB7vQ6qiqxvZwu8QcBh5KKk4NR53l46OJAMNO9Y7VUIYbpKmV0zyarUe_9Bvwnrz5F7WZ6PGvDT9SEw" method="POST" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="r" value="5261f2c1ad869d701df49a81420ca0b55054177e-1615694379-0-ARs26Su9Xv4Bd8BbLbAU3OD0DMZZ7klnIf6migz96WI+XYK7QuiZ6180z6CuwObZHbLXN4TJnK9uVY1YuJ+UZ6fNjyurA7eiC+Nnynn0ZKMzUNl1KC/iOoiXU/7MsYiDTg+jsKzEacnBwCzwxjFAVkdXWNVptBXhg7Y1tNdvBes4KRMQUmRGUtBeRmwNHhOFHs86XwUnduIOZE+hJnsGedY+mknHj42uF6WYUl9XMkP5oaUDnJmjjhsbVM0hSzDZ8cyWEPZjf0ubbIu1L7Ynw9STu6LaqC3saomG2VVZuxuH/T2bJIAx5N6OgJfKxOLaqyuUJLgrr+SI21cd7eImtpsnKxvwyna0pgJc3MK9VLedF406jLWbDu8flXnunEKbmOfYpxW4RBbO4ScJXkxBSMDOuYfy/pMuDtqmuremetIQGCQOG9O/9WpjMwGa1TSSJpDHm9sZSjfKMWo8XDU5upwWhNYiKnPNST+ZFfZSaWr8zITijqPFIG1+N8YdQu50vjfB44CS0ODnSkGLQPvGpHYiX4qvYScRaRT4+pWtXzwpUl5k6JeEVelFM8tIDIZ34gFyRfV4ReriKGP0g2OVQ2OUKeLHJNv53JNDYyXpSvC7KTGAJykAXN9Fy0fVjCTK6asH34yxfWNQJfDsFzxLjZgpBf4Wpp7bYLNToF24sXYrSGih8MArcsRwusMUMtxgtmF3V09tdsdhkHYJs5k+KcIavVA8751VZPPlRhWeCnGyTh4MckE1hZ9FSDztQ8NiTxajrqWmmRqe+iofKHUcHVlRQafOwfhq7IAiTmAiZf+5016c3BmxvK8xBqPHD9iRFhaXouHYcg2MuG0AE8ATcPcU1Bt51ZW2BzOL5H1YZoSjB9ZmJ1v1qLGoB+a9eUwQ20Dzj+9IqPUrNqe1XnM3Xyza2/F/Y/NJshVfUS96pIlqHd7ZrGP67fbPCl7Tdyd5HuRfO2vrbE+cGh7Od4FqU/Bsvxord2NpHhg4QIsolLcLLs4jyRrDr/78IJyN9Z5UkwqOxI86HbgYCXE1TYHlwg3TQlgsqTlgSKPEgAooC6b43N9LSXqhdYwyzT4swfFpEPtu2DxxWGitE0KCXVatSvyZaTPEGDYiQJXCaQLHhH5VvTDd5zIQ05WHyh/2inR9oXNgA6He1s9qSDptgKIfBjAHyHekwQ/NkVIbVjONs5wy7PQLkqKxtHlV/HmOmI5438Gab6aruS1gUKDosYj+/Rmej9qMhkNKPs08L17+5yJOSbppXgGupguIvErPUFen6s3FH6TjI/3yEdck3rVkcCeIzd8+FyD84+zJs7eJAv5I15xy5secIFpJt+WonrlqwI+cFLvuwqmL6kKvfCv6L6z5WYH9EdcYCg1RG+PZ3OqM3mfp1THCSFVbiQZNURS8iKqT718J2cToyK8InkY4oPlnJPJ2kGFzakwOZumucPNtteormJX2SiI54paXzwpCNLPK2cmVB9p0DmId3TEiq+IMycJOUoS8wXmwA0HX2pei7CFahQLwhm9FqCkYyz8blD0juIIJt1cZurAak7orUT0VAL37Z43sR/jfyRO1Pjc4n8wzJaDzLBmI4i8huQxwNlHXkJpY1NtjYyPhkm9qd8w="/>
+    <input type="hidden" value="ff13de57b177673d0c8c52a8a18fa2e8" id="jschl-vc" name="jschl_vc"/>
+    <!-- <input type="hidden" value="" id="jschl-vc" name="jschl_vc"/> -->
+    <input type="hidden" name="pass" value="1615694383.562-BX1xF6Pdpt"/>
+    <input type="hidden" id="jschl-answer" name="jschl_answer"/>
+  </form><script></script><script></script><script></script><script></script><script></script><script></script>`, {
+    url: "https://www.glassdoor.com/",
+    referrer: "https://www.baidu.com/",
+    contentType: "text/html",
+    includeNodeLocations: true,
+    pretendToBeVisual: true,
+    resources: "usable",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+});
+window = dom.window;
+window._cf_atob = atob;
+window["RTCPeerConnection"] = function(){};
+window["DeviceOrientationEvent"] = function () {};
+window["DeviceMotionEvent"] = function () {};
+
+Node = window.Element;
+Object.defineProperties(window.HTMLElement.prototype, {
+    offsetLeft: {
+        get: function () {
+            return parseFloat(window.getComputedStyle(this).marginLeft) || 0;
+        }
+    },
+    offsetTop: {
+        get: function () {
+            return parseFloat(window.getComputedStyle(this).marginTop) || 0;
+        }
+    },
+    offsetHeight: {
+        get: function () {
+            return parseFloat(window.getComputedStyle(this).height) || 0;
+        }
+    },
+    offsetWidth: {
+        get: function () {
+            return parseFloat(window.getComputedStyle(this).width) || 0;
+        }
+    }
+});
+
+function randomString(len) {
+    len = len || 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+};
+
+var navigator = new Object();
+navigator.appCodeName = "Mozilla";
+navigator.appName = "Netscape";
+navigator.appVersion = "5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36";
+navigator.cookieEnabled = true;
+navigator.connection = {
+    'connection': null,
+    'effectiveType': "4g",
+    'rtt': 50,
+    'downlink': 10,
+    'saveData': false
+};
+navigator.deviceMemory = 8;
+navigator.hardwareConcurrency;
+navigator.doNotTrack = null;
+navigator.language = "zh-CN";
+navigator.languages = ["zh-CN", "zh"];
+navigator.onLine = true;
+navigator.platform = 'Win32';
+navigator.product = 'Gecko';
+navigator.productSub = '20030107';
+navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36";
+navigator.vendor = "Google Inc.";
+navigator.vendorSub = "";
+
+plugins = [
+    {
+        'description': "APlayer III ActiveX hosting plugin for Firefox",
+        'filename': "npaplayer.dll",
+        'length': 1,
+        'name': "APlayer ActiveX hosting plugin"
+    },
+    {
+        'description': "ASUS Update",
+        'filename': "npAsusUpdate3.dll",
+        'length': 1,
+        'name': "ASUS Update"
+    }
+];
+
+any_plugins = true;
+
+if (any_plugins) {
+    for (var i = 0; i < 10; i++) {
+        var p = {
+            'description': randomString(parseInt(Math.random() * 20)),
+            'filename': randomString(parseInt(Math.random() * 20)) + ".dll",
+            'length': 1,
+            'name': randomString(parseInt(Math.random() * 10))
+        };
+
+        plugins.push(p)
+    }
+}
+
+navigator.plugins = plugins;
+
+delete window.navigator;
+window.navigator = navigator;
+
+location = new Object();
+location.url = "https://www.glassdoor.com/";
+location.href = "https://www.glassdoor.com/";
+location.hostname = "www.glassdoor.com";
+location.port = "";
+location.protocol = "http:";
+
+// document.location = location;
+delete window.location
+window.location = location;
+
+history = new Object();
+history.length = 5;
+history.scrollRestoration = "auto";
+history.state = null;
+delete window.history
+window.history = history;
+
+screen = new Object();
+screen.availHeight = 1040;
+screen.availLeft = 2560;
+screen.availTop = 0;
+screen.availWidth = 1920;
+screen.colorDepth = 24;
+screen.height = 1080;
+screen.pixelDepth = 24;
+screen.width = 1920;
+screen.innerHeight = 937;
+screen.orientation = {
+    angle: 0,
+    onchange: null,
+    type: "landscape-primary"
+};
+
+delete window.screen
+window.screen = screen;
+window.parent = window;
+window.top = window;
+window.self = window;
+window.window = window;
+
+document = window.document;
+function Image() {
+    var img = document.createElement("img");
+    return img;
+}
+
+var styleSheet = document.createElement("style");
+styleSheet.setAttribute('type', 'text/css');
+var head = document.getElementsByTagName("head")[0];
+head.appendChild(styleSheet);
+styleSheet = document.styleSheets[document.styleSheets.length - 1];
+
+styleSheet.insertRule("#challenge-form {}", 0);
+var rule = styleSheet.cssRules[0];
+var style = rule.style;
+style.setProperty("height", "42px")
+style.setProperty('width', '1920px')
+
+window["sendRequest"] = function (s) {
+    for(var i=1; i <=window._cf_chl_ctx.chC; i++){
+        var fp = window._cf_chl_ctx[String(i)].fp;
+        if (fp && fp.length === 0){
+            window._cf_chl_ctx[String(i)].fp = [
+                {
+                    "i": 8,
+                    "h": 28
+                },
+                {
+                    "i": 20,
+                    "h": 14
+                }
+            ];
+            break
+        }
+    }
+    var data = {
+        "url": s,
+        "data": window["_cf_chl_ctx"]
+    };
+    // fs.writeFileSync('result.txt', JSON.stringify(data));
+    res.send(JSON.stringify(data));
+};
+SHA256 = function (s) {
+    var t, v, w, x;
+    return t = {}, t["pJrHy"] = function (z, A) {
+        return z + A;
+    }, t["ZpmFF"] = function (z, A) {
+        return z >> A;
+    }, t["myOEZ"] = function (z, A) {
+        return z | A;
+    }, t["neFfE"] = function (z, A) {
+        return z >>> A;
+    }, t["ToLyE"] = function (z, A) {
+        return z - A;
+    }, t["QTAJk"] = function (z, A) {
+        return z < A;
+    }, t["RsvqG"] = function (z, A) {
+        return z > A;
+    }, t["HJFGP"] = function (z, A) {
+        return z | A;
+    }, t["JaoGy"] = function (z, A) {
+        return z >> A;
+    }, t["fRjXg"] = function (z, A) {
+        return z + A;
+    }, t["AUqXO"] = "0123456789abcdef", t["iGWsY"] = function (z, A) {
+        return z & A;
+    }, t["kmArX"] = function (z, A) {
+        return z + A;
+    }, t["wMdlc"] = function (z, A) {
+        return z * A;
+    }, t["dUIny"] = function (z, A) {
+        return z - A;
+    }, t["blmEi"] = function (z, A) {
+        return z % A;
+    }, t["mAnHt"] = "pJCig", t["nLUiT"] = "ZJhPN", t["tuIPC"] = function (z, A) {
+        return z >> A;
+    }, t["vGnwX"] = function (z, A) {
+        return z << A;
+    }, t["FFMtj"] = function (z, A) {
+        return z << A;
+    }, t["ITELN"] = function (z, A) {
+        return z >> A;
+    }, t["LsUma"] = "5|15|11|10|3|14|9|8|16|7|1|2|0|6|12|4|13", t["wnynV"] = function (y, z, A) {
+        return y(z, A);
+    }, t["BDmet"] = function (y, z, A) {
+        return y(z, A);
+    }, t["HgLqc"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ywpig"] = function (y, z, A) {
+        return y(z, A);
+    }, t["bTCTp"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ezEJw"] = function (y, z, A) {
+        return y(z, A);
+    }, t["xCaOS"] = function (z, A) {
+        return z ^ A;
+    }, t["QHdbi"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ffbal"] = function (y, z, A) {
+        return y(z, A);
+    }, t["pBmob"] = function (y, z, A) {
+        return y(z, A);
+    }, t["OafBq"] = function (z, A) {
+        return z ^ A;
+    }, t["jDydM"] = function (z, A) {
+        return z ^ A;
+    }, t["VPWGh"] = function (z, A) {
+        return z & A;
+    }, t["FkiGe"] = function (z, A) {
+        return z / A;
+    }, v = t, w = function w(y, z) {
+        var A;
+        return A = v["pJrHy"](y & 65535, z & 65535), (y >> 16) + (z >> 16) + v["ZpmFF"](A, 16) << 16 | A & 65535;
+    }, x = function x(y, z) {
+        return v["myOEZ"](v["neFfE"](y, z), y << v["ToLyE"](32, z));
+    }, s = function (y, A, z) {
+        for (y = y["replace"](/\r\n/g, "\n"), z = "", A = 0; A < y["length"]; A++) {
+            var B;
+            B = y["charCodeAt"](A);
+            if (128 > B) {
+                z += String["fromCharCode"](B);
+            } else {
+                v["QTAJk"](127, B) && v["RsvqG"](2048, B) ? z += String["fromCharCode"](v["HJFGP"](v["JaoGy"](B, 6), 192)) : (z += String["fromCharCode"](v["JaoGy"](B, 12) | 224), z += String["fromCharCode"](v["HJFGP"](v["JaoGy"](B, 6) & 63, 128))), z += String["fromCharCode"](v["HJFGP"](B & 63, 128));
+            }
+        }
+        return z;
+    }(s), function (y, A, z) {
+        for (z = "", A = 0; A < 4 * y["length"]; z += v["fRjXg"](v["AUqXO"]["charAt"](v["iGWsY"](y[v["JaoGy"](A, 2)] >> v["kmArX"](v["wMdlc"](8, v["dUIny"](3, A % 4)), 4), 15)), v["AUqXO"]["charAt"](y[A >> 2] >> v["wMdlc"](8, 3 - v["blmEi"](A, 4)) & 15)), A++) ;
+        return z;
+    }(function (z, A, C, B) {
+        if (B = {}, B["tsnyJ"] = function (V, W) {
+            return V + W;
+        }, C = B, v["mAnHt"] !== v["nLUiT"]) {
+            var D, E, F, G, H;
+            for (D = [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298], E = [1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225], F = Array(64), z[v["tuIPC"](A, 5)] |= v["vGnwX"](128, v["dUIny"](24, A % 32)), z[v["FFMtj"](v["ITELN"](A + 64, 9), 4) + 15] = A, G = 0; v["QTAJk"](G, z["length"]); G += 16) {
+                var I, J;
+                for (I = v["LsUma"]["split"]("|"), J = 0; !![];) {
+                    switch (I[J++]) {
+                        case "0":
+                            E[3] = v["wnynV"](w, O, E[3]);
+                            continue;
+                        case "1":
+                            E[1] = v["BDmet"](w, R, E[1]);
+                            continue;
+                        case "2":
+                            E[2] = w(P, E[2]);
+                            continue;
+                        case "3":
+                            var K = E[4];
+                            continue;
+                        case "4":
+                            E[6] = v["HgLqc"](w, N, E[6]);
+                            continue;
+                        case "5":
+                            var L = E[0];
+                            continue;
+                        case "6":
+                            E[4] = v["ywpig"](w, K, E[4]);
+                            continue;
+                        case "7":
+                            E[0] = v["bTCTp"](w, L, E[0]);
+                            continue;
+                        case "8":
+                            var M = E[7];
+                            continue;
+                        case "9":
+                            var N = E[6];
+                            continue;
+                        case "10":
+                            var O = E[3];
+                            continue;
+                        case "11":
+                            var P = E[2];
+                            continue;
+                        case "12":
+                            E[5] = v["ezEJw"](w, Q, E[5]);
+                            continue;
+                        case "13":
+                            E[7] = v["ezEJw"](w, M, E[7]);
+                            continue;
+                        case "14":
+                            var Q = E[5];
+                            continue;
+                        case "15":
+                            var R = E[1];
+                            continue;
+                        case "16":
+                            for (H = 0; 64 > H; H++) {
+                                var S;
+                                if (S = H, 16 > H) var T = z[H + G]; else {
+                                    var U;
+                                    T = F[H - 2];
+                                    T = v["xCaOS"](x(T, 17), x(T, 19)) ^ T >>> 10;
+                                    T = w(T, F[v["dUIny"](H, 7)]);
+                                    U = F[H - 15];
+                                    U = v["xCaOS"](x(U, 7) ^ v["ezEJw"](x, U, 18), v["neFfE"](U, 3));
+                                    T = v["QHdbi"](w, w(T, U), F[H - 16]);
+                                }
+                                F[S] = T;
+                                S = K;
+                                S = v["ffbal"](x, S, 6) ^ v["ffbal"](x, S, 11) ^ v["pBmob"](x, S, 25);
+                                S = v["pBmob"](w, w(w(v["pBmob"](w, M, S), v["OafBq"](v["iGWsY"](K, Q), ~K & N)), D[H]), F[H]);
+                                M = L;
+                                M = v["jDydM"](x(M, 2) ^ x(M, 13), x(M, 22));
+                                T = w(M, L & R ^ L & P ^ v["VPWGh"](R, P));
+                                M = N;
+                                N = Q;
+                                Q = K;
+                                K = v["pBmob"](w, O, S);
+                                O = P;
+                                P = R;
+                                R = L;
+                                L = w(S, T);
+                            }
+                            continue;
+                    }
+                    break;
+                }
+            }
+            return E;
+        } else var V = function V() {
+            return C["tsnyJ"]("\\u", ("0000" + w["charCodeAt"](0)["toString"](16))["slice"](-4));
+        };
+    }(function (y, A, z) {
+        for (z = [], A = 0; A < 8 * y["length"]; z[A >> 5] |= v["VPWGh"](y["charCodeAt"](v["FkiGe"](A, 8)), 255) << v["dUIny"](24, A % 32), A += 8) ;
+        return z;
+    }(s), 8 * s["length"]));
+};
