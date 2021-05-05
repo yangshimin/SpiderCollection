@@ -149,5 +149,6 @@ if _cf_chl_opt_pattern:
 
             new_signature = signature_ctx.call("res", str_62, str_65, json.dumps(data))
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
+            # post 请求还需要提交cookie
             new_decrypt_res = s.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers)
             print(new_decrypt_res.text)

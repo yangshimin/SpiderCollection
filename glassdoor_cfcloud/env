@@ -109,6 +109,9 @@ plugins = [
         'name': "ASUS Update"
     }
 ];
+plugins.item = function(length){
+    return this[length >= 4294967296?0:length]
+};
 
 any_plugins = true;
 
@@ -141,12 +144,7 @@ location.protocol = "http:";
 delete window.location
 window.location = location;
 
-history = new Object();
-history.length = 5;
-history.scrollRestoration = "auto";
-history.state = null;
-delete window.history
-window.history = history;
+history = window.history;
 
 screen = new Object();
 screen.availHeight = 1040;
@@ -208,7 +206,8 @@ window["sendRequest"] = function (s) {
     }
     var data = {
         "url": s,
-        "data": window["_cf_chl_ctx"]
+        "data": window["_cf_chl_ctx"],
+        "cookie": document.cookie
     };
     // fs.writeFileSync('result.txt', JSON.stringify(data));
     res.send(JSON.stringify(data));
