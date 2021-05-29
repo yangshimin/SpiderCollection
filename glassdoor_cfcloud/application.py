@@ -16,6 +16,8 @@ import requests
 import execjs
 from urllib.parse import urlparse
 
+from glassdoor_cfcloud.browser_env import browser_env, browser_plug
+
 formatter = '%(asctime)s - %(filename)s[line:%(lineno)d] -%(levelname)s: %(message)s'
 logging.basicConfig(level=logging.INFO, stream=sys.stdout, format=formatter)
 
@@ -145,6 +147,12 @@ if _cf_chl_opt_pattern:
         else:
             url = res_data.get("url")
             data = res_data.get("data")
+            for key, item in data.items():
+                if isinstance(item, dict):
+                    if item.get('a') and isinstance(item.get('a'), dict):
+                        data[key]['a'] = browser_env
+                    if item.get("plug"):
+                        data[key]['plug'] = browser_plug
 
             new_decrypt_url = "https://www.glassdoor.com" + url
 
@@ -153,9 +161,9 @@ if _cf_chl_opt_pattern:
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
             # 这个new_decrypt_data的值应该有一些地方不对
             new_decrypt_res = s.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers)
-            print(new_decrypt_res.text)
-            decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
-                                               data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})
-            decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent',
-                                           decode_js_response.text)
-            print(decode_js)
+            if new_decrypt_res.status_code == 200:
+                decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
+                                                   data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})
+                decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent',
+                                               decode_js_response.text)
+                print(decode_js)

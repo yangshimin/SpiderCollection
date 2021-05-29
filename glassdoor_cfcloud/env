@@ -96,19 +96,41 @@ navigator.vendor = "Google Inc.";
 navigator.vendorSub = "";
 
 plugins = [
-    {
-        'description': "APlayer III ActiveX hosting plugin for Firefox",
-        'filename': "npaplayer.dll",
-        'length': 1,
-        'name': "APlayer ActiveX hosting plugin"
-    },
-    {
-        'description': "ASUS Update",
-        'filename': "npAsusUpdate3.dll",
-        'length': 1,
-        'name': "ASUS Update"
-    }
-];
+            {
+                "name": "Chrome PDF Plugin",
+                "description": "Portable Document Format",
+                "mimeTypes": [
+                    {
+                        "type": "application/x-google-chrome-pdf",
+                        "suffixes": "pdf"
+                    }
+                ]
+            },
+            {
+                "name": "Chrome PDF Viewer",
+                "description": "",
+                "mimeTypes": [
+                    {
+                        "type": "application/pdf",
+                        "suffixes": "pdf"
+                    }
+                ]
+            },
+            {
+                "name": "Native Client",
+                "description": "",
+                "mimeTypes": [
+                    {
+                        "type": "application/x-nacl",
+                        "suffixes": ""
+                    },
+                    {
+                        "type": "application/x-pnacl",
+                        "suffixes": ""
+                    }
+                ]
+            }
+        ];
 plugins.item = function(length){
     return this[length >= 4294967296?0:length]
 };
@@ -188,6 +210,22 @@ style.setProperty("height", "42px")
 style.setProperty('width', '1920px')
 
 window["sendRequest"] = function (s) {
+    for(var i=1; i <=window._cf_chl_ctx.chC; i++){
+        var fp = window._cf_chl_ctx[String(i)].fp;
+        if (fp && fp.length === 0){
+            window._cf_chl_ctx[String(i)].fp = [
+                {
+                    "i": 6,
+                    "h": 28
+                },
+                {
+                    "i": 19,
+                    "h": 14
+                }
+            ];
+            break
+        }
+    }
     var data = {
         "url": s,
         "data": window["_cf_chl_ctx"],
