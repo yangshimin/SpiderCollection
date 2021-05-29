@@ -119,8 +119,8 @@ if _cf_chl_opt_pattern:
 
     decrypt_data = f'v_{cf_chl_opt["cRay"]}={signature}'
     decrypt_res = s.post(decrypt_url, data=decrypt_data, headers=decrypt_headers)
-    decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
-                                       data={"cRay": cf_chl_opt['cRay'], "decrypt_data": decrypt_res.text})
+    decode_js_response = s.post("http://127.0.0.1:8090/first_decode",
+                                data={"cRay": cf_chl_opt['cRay'], "decrypt_data": decrypt_res.text})
     decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent', decode_js_response.text)
 
     decode_js = decode_js.replace("window._ =", 'var _ =').replace('window._=', 'var _ =')
@@ -148,9 +148,10 @@ if _cf_chl_opt_pattern:
 
             new_decrypt_url = "https://www.glassdoor.com" + url
 
-            new_signature = signature_ctx.call("res", str_62, str_65, 'compressToEncodedURIComponent', json.dumps(data))
+            new_signature = signature_ctx.call("res", str_62, str_65,
+                                               'compressToEncodedURIComponent', json.dumps(data))
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
-            # post 请求还需要提交cookie
+            # 这个new_decrypt_data的值应该有一些地方不对
             new_decrypt_res = s.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers)
             print(new_decrypt_res.text)
             decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
