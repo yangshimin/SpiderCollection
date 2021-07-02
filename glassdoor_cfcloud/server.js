@@ -29,15 +29,15 @@ api.post('/first_decode', function (req, res){
 })
 
 api.post('/answer_js', function (req, res){
-    const fs = require('fs');
-    const atob = require('atob');
-    var canvas = require('canvas');
-    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    sessionStorage = require("sessionstorage");
-    localStorage = new LocalStorage('./scratch');
-    const jsdom = require("jsdom");
-    const {JSDOM} = jsdom;
+
+    const _cf_chl_opt = JSON.parse(req.body._cf_chl_opt);
+    const _cf_chl_ctx = JSON.parse(req.body._cf_chl_ctx);
+    fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt))
+    fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx))
+    const {window, navigator, screen, location, String, Image, document, history} = require('./myProxy');
+
+
+
 
     var execute_js_str = req.body.execute_js_str;
     if (execute_js_str.includes('history.replaceState')){
