@@ -173,19 +173,41 @@ let plugins = [
         'description': "Portable Document Format",
         'filename': "internal-pdf-viewer",
         'length': 1,
-        'name': "Chrome PDF Plugin"
+        'name': "Chrome PDF Plugin",
+        'mimeTypes': [
+            {
+                "type": "application/x-google-chrome-pdf",
+                "suffixes": "pdf"
+            }
+        ]
     },
     {
         'description': "",
         'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
         'length': 1,
-        'name': "Chrome PDF Viewer"
+        'name': "Chrome PDF Viewer",
+        "mimeTypes": [
+            {
+                "type": "application/pdf",
+                "suffixes": "pdf"
+            }
+        ]
     },
     {
         'description': "",
         'filename': "internal-nacl-plugin",
         'length': 1,
-        'name': "Native Client"
+        'name': "Native Client",
+        "mimeTypes": [
+            {
+                "type": "application/x-nacl",
+                "suffixes": ""
+            },
+            {
+                "type": "application/x-pnacl",
+                "suffixes": ""
+            }
+        ]
     }
 ];
 plugins.item = function (x){
@@ -193,19 +215,6 @@ plugins.item = function (x){
         return plugins[0]
     }
     return plugins[x]
-};
-let any_plugins = true;
-if (any_plugins) {
-    for (var i = 0; i < 10; i++) {
-        var p = {
-            'description': randomString(parseInt(Math.random() * 20)),
-            'filename': randomString(parseInt(Math.random() * 20)) + ".dll",
-            'length': 1,
-            'name': randomString(parseInt(Math.random() * 10))
-        };
-
-        plugins.push(p)
-    }
 };
 
 let mynavigator = {
@@ -307,7 +316,34 @@ let myhistory = {
     replaceState: function (){},
 };
 
+let myChrome = {
+    app: {
+        InstallState: {},
+        RunningState: {},
+        getDetails: function(){},
+        getIsInstalled: function(){},
+        installState: function(){},
+        isInstalled: false,
+        runningState: function(){},
+
+    },
+    csi: function () {},
+    loadTimes: function(){},
+    runtime: {
+        OnInstalledReason: {},
+        OnRestartRequiredReason: {},
+        PlatformArch: {},
+        PlatformNaclArch: {},
+        PlatformOs: {},
+        RequestUpdateCheckStatus: {},
+        connect: {},
+        id: undefined,
+        sendMessage: function () {},
+    }
+};
+
 let mywindow = {
+    chrome: myChrome,
     XMLHttpRequest: XMLHttpRequest,
     canvas: canvas,
     sessionStorage: {},
@@ -328,7 +364,6 @@ let mywindow = {
     },
     screen: mysrceen,
     location: mylocation,
-    chrome: {},
     document: mydocument,
     history: myhistory,
     sendRequest: function (s) {
@@ -414,6 +449,9 @@ function getMethodHandler(WatchName) {
 function getObjhandler(WatchName) {
     let handler = {
         get(target, propKey, receiver) {
+            if (propKey === 'xmlhttprequest'){
+                debugger
+            }
             let result = Reflect.get(target, propKey, receiver)
             if (result instanceof Object) {
                 if (typeof result === "function") {

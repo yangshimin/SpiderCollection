@@ -157,6 +157,12 @@ if _cf_chl_opt_pattern:
             #     except Exception as e:
             #         pass
 
+            for key, item in data.items():
+                if isinstance(item, dict) and 'Error:Ninjas' in item.get("a", ''):
+                    logging.info("替换Ninjas")
+                    data[key]['a'] = 'Error:Ninjas>piratesatevalevalatA.<computed>https://www.glas'
+                    break
+
             new_decrypt_url = "https://www.glassdoor.com" + url
 
             new_signature = signature_ctx.call("res", str_62, str_65,
