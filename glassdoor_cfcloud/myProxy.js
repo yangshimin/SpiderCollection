@@ -148,16 +148,44 @@ let mydocument = {
 
 let plugins = [
     {
-        'description': "APlayer III ActiveX hosting plugin for Firefox",
-        'filename': "npaplayer.dll",
+        'description': "Portable Document Format",
+        'filename': "internal-pdf-viewer",
         'length': 1,
-        'name': "APlayer ActiveX hosting plugin"
+        'name': "Chrome PDF Plugin",
+        'mimeTypes': [
+            {
+                "type": "application/x-google-chrome-pdf",
+                "suffixes": "pdf"
+            }
+        ]
     },
     {
-        'description': "ASUS Update",
-        'filename': "npAsusUpdate3.dll",
+        'description': "",
+        'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
         'length': 1,
-        'name': "ASUS Update"
+        'name': "Chrome PDF Viewer",
+        "mimeTypes": [
+            {
+                "type": "application/pdf",
+                "suffixes": "pdf"
+            }
+        ]
+    },
+    {
+        'description': "",
+        'filename': "internal-nacl-plugin",
+        'length': 1,
+        'name': "Native Client",
+        "mimeTypes": [
+            {
+                "type": "application/x-nacl",
+                "suffixes": ""
+            },
+            {
+                "type": "application/x-pnacl",
+                "suffixes": ""
+            }
+        ]
     }
 ];
 plugins.item = function (x){
