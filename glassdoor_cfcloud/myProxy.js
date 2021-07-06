@@ -167,18 +167,6 @@ plugins.item = function (x){
     return plugins[x]
 }
 let any_plugins = true;
-if (any_plugins) {
-    for (var i = 0; i < 10; i++) {
-        var p = {
-            'description': randomString(parseInt(Math.random() * 20)),
-            'filename': randomString(parseInt(Math.random() * 20)) + ".dll",
-            'length': 1,
-            'name': randomString(parseInt(Math.random() * 10))
-        };
-
-        plugins.push(p)
-    }
-};
 
 let mynavigator = {
     appName: "Netscape",
