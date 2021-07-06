@@ -1,3 +1,9 @@
+// 设置Node
+let myNode = function(){}
+myNode.prototype = {
+    appendChild: function (ele){return ele}
+}
+
 // 获取不可枚举属性
 function get_nonenum_only(enum_able, no_enum){
     let noneum_only = {};
@@ -605,7 +611,7 @@ let iframe_contentWindow_property= {
     "WebGLBuffer": function(){},
     "WebGLActiveInfo": function(){},
     "WebGL2RenderingContext": function(){},
-    "WaveShaperNode": function(){},
+    "WaveShaperNode": myNode,
     "VisualViewport": function(){},
     "ValidityState": function(){},
     "VTTCue": function(){},
@@ -1464,7 +1470,13 @@ let iframe_contentDocument = {
     documentElement: {},
     xmlEncoding: null,
     xmlVersion: null,
-    body: {},
+    body: {
+        appendChild: function (ele) {
+            return ele
+        },
+        removeChild: function (ele) {
+        },
+    },
     head: {},
     images: {},
     embeds: {},

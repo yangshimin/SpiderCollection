@@ -33,7 +33,7 @@ api.post('/answer_js', function (req, res){
     const _cf_chl_ctx = JSON.parse(req.body._cf_chl_ctx);
     fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt))
     fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx))
-    const {window, navigator, screen, location, String, Image, document, history} = require('./myProxy');
+    const {window, navigator, screen, location, String, Image, document, history, Node} = require('./myProxy');
 
     var execute_js_str = req.body.execute_js_str;
     try{

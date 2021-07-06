@@ -1,12 +1,20 @@
-const fs = require('fs');
-var pureWindow = require('./pure_window');
+var pureWindow = require('./pure_window')
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var canvas = require('canvas');
 var atob = require('atob');
 const jsdom = require("jsdom");
+const fs = require("fs");
 const {JSDOM} = jsdom;
-const dom = new JSDOM(`<div id="cf-content" style="display:none">
+const dom = new JSDOM(`
+    <head>
+    <title>Security | Glassdoor</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'/>
+    <meta name="theme-color" content="#0caa41">
+    <style type="text/css">body,html{margin:0;padding:0;background:#fff;font-family:Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;font-size:16px}div,h1,h2,h3,h4,h5,h6,p{color:#20262e}.header{-webkit-box-shadow:inset 0 -1px 0 0 #dee0e3;box-shadow:inset 0 -1px 0 0 #dee0e3}.header .center{height:45px}.header .center:before{content:"";height:100%;margin-right:-.25em}.header .center:before,.logo{display:inline-block;vertical-align:middle}.center{width:996px;margin:0 auto}.article,.center{box-sizing:border-box}.article{max-width:690px;padding:16px;margin:16px 0;background-color:#fff;box-shadow:0 0 2px #c4c7cc;height:100%;border-radius:3px}h1{font-size:20px;font-weight:900;line-height:1em;margin-top:0}h2{font-size:18px;font-weight:400;margin:16px 0}@media only screen and (max-width:767px){.header .center{text-align:center}.center{padding:0;width:100%}.article{max-width:none;margin:16px}}@media only screen and (min-width:768px) and (max-width:1023px){.center{width:100%;margin:0;padding:0 14px}}</style>
+    <meta http-equiv="refresh" content="12">
     
+    <div id="cf-content" style="display:none">
     <div id="cf-bubbles">
       <div class="bubbles"></div>
       <div class="bubbles"></div>
@@ -56,46 +64,6 @@ function randomString(len) {
 };
 
 
-// var _cf_chl_opt = {
-//     "cvId": "2",
-//     "cType": "non-interactive",
-//     "cNounce": "96015",
-//     "cRay": "64aa9dcbcc7db150",
-//     "cHash": "4eaf57ee0a50afa",
-//     "cFPWv": "b",
-//     "cTTimeMs": "4000",
-//     "cRq": {
-//         "ru": "aHR0cHM6Ly93d3cuZ2xhc3Nkb29yLmNvbS8=",
-//         "ra": "TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzg4LjAuNDMyNC4xOTAgU2FmYXJpLzUzNy4zNg==",
-//         "rm": "R0VU",
-//         "d": "wuVX4pBM/eo6G+3A6QiR/KwUUaNyk09CgI+kdgulgiZTi70P7lD9bjLS7NgZHTGqCGCzf2ofKibp8jUNPj9+YHx2eFR80wG539dFxt9Ksw9dhhOMHZbKPYp0DO1UOKehVbq+FBttuMusgERd/C8JLKz1gws+2k6UNFaB3eH7I07h9MXN+pas44+gA79kLV7L/3dIYvP+guY5jqjWdiMDGE5eBJEhKw1Lsl3FotgiWQaNHaC9KYwxFEfVyUm+/pk2ZEOcd4dUGdFSUyoooQssgvSxIhKvHxUUJ53TSJYffFmvsSiNvGUgLHu4ofPzVG/znq21CCHrnf5A0oHDjeg0l/P6YZKQrTjhjLitKe7H3Oyw04NZu1HqdTknAzGh4qhSi6s0sAE/vOLGR92BzROLgk2Rvz4Tc5bnMP28g2ymcgSQR37jPmDcZwkYHYzugYJVWBC5dB8esROfK7C3wPO0DdZJkWoBO8oFfNk/TT28VMLoWmlhqEH/Z3NIDrbdaE6Ta5GOilaDYY2b1pPpjZV9DCR1zF3zqmDCx1nYyjNECzirm5/kBFtQ3/wR6ZynlZ9ElQFeE1wJpQ9QMBSFJOnEwns8bVpsaEbj45ZXZ0ZtYbDbdLsJgRf/fjdZdsjRlE5LM5oR6iykgWA3rUBQdk5f/igK1AwJBFB1VeLcSNWyr6ZUs+pAxIKnFryxPWVY3C+wOAQz54/iwDRAi0VIjKvz/w==",
-//         "t": "MTYyMDIyNDQ5OC41MzMwMDA=",
-//         "m": "ymXameOapMrqo8979dUaa7QA9dwhzi/plw8HzWEQA3s=",
-//         "i1": "mtarAHSPum4ysPqytdtNQQ==",
-//         "i2": "P+9IccwdSsEzRATkaA8j0A==",
-//         "zh": "TQkEHgHhi+xhF/iExe2uh5+tltWmrCx87Khv6iwpjq4=",
-//         "uh": "6ozB8GjLYgPgJw4ufzfhk4tPSnSDxHi/QCLnfCVvdg8=",
-//         "hh": "Wit0evcL1yGYPLJa0cE4cw446Y55PAPeEZUCLWtoWmw="
-//     }
-// };
-// var _cf_chl_ctx = {
-//     'chLog': {'0': {'start': 1620224501825}, 'c': 1},
-//     'chReq': 'non-interactive',
-//     'cNounce': _cf_chl_opt['cNounce'],
-//     'cvId': '2',
-//     'chC': 0,
-//     'chCAS': 0,
-//     'oV': 1,
-//     'cRq': _cf_chl_opt['cRq']
-// }
-
-let rawindexof = String.prototype.indexOf
-String.prototype.indexOf = function (str) {
-    var res = rawindexof.call(this, str)
-    console.log(`[String] "${this}" is indexof "${str}", res is ${res}`)
-    return res
-}
-
 let Image = function() {
     return {
         addEventListener: function (state, callBack, boolValue){callBack()},
@@ -109,15 +77,14 @@ let Image = function() {
     }
 };
 
+let Node = dom.window.Node;
+
+
 let mydocument = {
-    head: {},
-    body: {
-        appendChild: function (ele) {
-            return ele
-        },
-        removeChild: function (ele) {
-        },
+    head: {
+        removeChild: function (ele){},
     },
+    body: dom.window.document.body,
     documentElement: {
         getAttribute: function () {
         }
@@ -135,6 +102,8 @@ let mydocument = {
                 }
             }
             return metaRes
+        }else if (str === 'head'){
+            return dom.window.document.getElementsByTagName(str);
         }
     },
     getElementById: function (ele_id) {
@@ -154,8 +123,14 @@ let mydocument = {
     },
     createElement: function (eleName) {
         if (eleName === "iframe") {
-            console.log(pureWindow.pureWindow.contentWindow.Object)
-            ele = pureWindow.pureWindow
+            ele = dom.window.document.createElement(eleName);
+            Object.defineProperty(ele, 'contentWindow', {
+                value: pureWindow.pureWindow.contentWindow
+            })
+            Object.defineProperty(ele, 'contentDocument', {
+                value: pureWindow.pureWindow.contentDocument
+            })
+            // ele = pureWindow.pureWindow
         } else {
             ele = dom.window.document.createElement(eleName);
         }
@@ -164,50 +139,25 @@ let mydocument = {
     querySelectorAll: function(eleName){
         if (eleName === 'script'){
             return {"length": 6}
+        } else{
+            let elements = dom.window.document.querySelectorAll(eleName)
+            return elements
         }
     }
 }
 
 let plugins = [
     {
-        'description': "Portable Document Format",
-        'filename': "internal-pdf-viewer",
+        'description': "APlayer III ActiveX hosting plugin for Firefox",
+        'filename': "npaplayer.dll",
         'length': 1,
-        'name': "Chrome PDF Plugin",
-        'mimeTypes': [
-            {
-                "type": "application/x-google-chrome-pdf",
-                "suffixes": "pdf"
-            }
-        ]
+        'name': "APlayer ActiveX hosting plugin"
     },
     {
-        'description': "",
-        'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
+        'description': "ASUS Update",
+        'filename': "npAsusUpdate3.dll",
         'length': 1,
-        'name': "Chrome PDF Viewer",
-        "mimeTypes": [
-            {
-                "type": "application/pdf",
-                "suffixes": "pdf"
-            }
-        ]
-    },
-    {
-        'description': "",
-        'filename': "internal-nacl-plugin",
-        'length': 1,
-        'name': "Native Client",
-        "mimeTypes": [
-            {
-                "type": "application/x-nacl",
-                "suffixes": ""
-            },
-            {
-                "type": "application/x-pnacl",
-                "suffixes": ""
-            }
-        ]
+        'name': "ASUS Update"
     }
 ];
 plugins.item = function (x){
@@ -215,6 +165,19 @@ plugins.item = function (x){
         return plugins[0]
     }
     return plugins[x]
+}
+let any_plugins = true;
+if (any_plugins) {
+    for (var i = 0; i < 10; i++) {
+        var p = {
+            'description': randomString(parseInt(Math.random() * 20)),
+            'filename': randomString(parseInt(Math.random() * 20)) + ".dll",
+            'length': 1,
+            'name': randomString(parseInt(Math.random() * 10))
+        };
+
+        plugins.push(p)
+    }
 };
 
 let mynavigator = {
@@ -316,34 +279,9 @@ let myhistory = {
     replaceState: function (){},
 };
 
-let myChrome = {
-    app: {
-        InstallState: {},
-        RunningState: {},
-        getDetails: function(){},
-        getIsInstalled: function(){},
-        installState: function(){},
-        isInstalled: false,
-        runningState: function(){},
 
-    },
-    csi: function () {},
-    loadTimes: function(){},
-    runtime: {
-        OnInstalledReason: {},
-        OnRestartRequiredReason: {},
-        PlatformArch: {},
-        PlatformNaclArch: {},
-        PlatformOs: {},
-        RequestUpdateCheckStatus: {},
-        connect: {},
-        id: undefined,
-        sendMessage: function () {},
-    }
-};
 
 let mywindow = {
-    chrome: myChrome,
     XMLHttpRequest: XMLHttpRequest,
     canvas: canvas,
     sessionStorage: {},
@@ -364,6 +302,7 @@ let mywindow = {
     },
     screen: mysrceen,
     location: mylocation,
+    chrome: {},
     document: mydocument,
     history: myhistory,
     sendRequest: function (s) {
@@ -430,16 +369,32 @@ function checkproxy() {
     Object.isExtensible(window)
 }
 
+function getPrintShow(key){
+    let type = typeof key;
+    if (type === 'object'){
+        try {
+            return `${JSON.stringify(key)}`
+        }catch {
+            return key.toString()
+        }
+    }else if (type === 'symbol'){
+        return key.toString
+    }else {
+        return key
+    }
+
+}
+
 function getMethodHandler(WatchName) {
     let methodhandler = {
         apply(target, thisArg, argArray) {
             let result = Reflect.apply(target, thisArg, argArray)
-            console.log(`[${WatchName}] apply function name is [${target.name}], argArray is [${argArray}], result is [${result}].`)
+            console.log(`[${WatchName}] apply function name is [${target.name}], argArray is [${argArray}], result is [${getPrintShow(result)}].`)
             return result
         },
         construct(target, argArray, newTarget) {
             var result = Reflect.construct(target, argArray, newTarget)
-            console.log(`[${WatchName}] construct function name is [${target.name}], argArray is [${argArray}], result is [${JSON.stringify(result)}].`)
+            console.log(`[${WatchName}] construct function name is [${target.name}], argArray is [${argArray}], result is [${getPrintShow(result)}].`)
             return result;
         }
     }
@@ -449,25 +404,23 @@ function getMethodHandler(WatchName) {
 function getObjhandler(WatchName) {
     let handler = {
         get(target, propKey, receiver) {
-            if (propKey === 'xmlhttprequest'){
-                debugger
-            }
             let result = Reflect.get(target, propKey, receiver)
             if (result instanceof Object) {
                 if (typeof result === "function") {
-                    console.log(`[${WatchName}] getting propKey is [${propKey}] , it is function`)
+                    console.log(`[${WatchName}] getting propKey is [${getPrintShow(propKey)}] , it is function`)
                     return new Proxy(result,getMethodHandler(WatchName))
                 } else {
-                    console.log(`[${WatchName}] getting propKey is [${propKey}], result is [${JSON.stringify(result)}]`);
+                    console.log(`[${WatchName}] getting propKey is [${propKey.toString()}], result is [${getPrintShow(result)}]`);
                 }
-                return new Proxy(result, getObjhandler(`${WatchName}.${propKey}`))
+                // 不注释的话，会遍历对象的所有key
+                // return new Proxy(result, getObjhandler(`${WatchName}.${getPrintShow(result)}`))
             }
-            console.log(`[${WatchName}] getting propKey is [${propKey?.description ?? propKey}], result is [${result}]`);
+            console.log(`[${WatchName}] getting propKey is [${propKey?.description ?? propKey}], result is [${getPrintShow(result)}]`);
             return result;
         },
         set(target, propKey, value, receiver) {
             if (value instanceof Object) {
-                console.log(`[${WatchName}] setting propKey is [${propKey}], value is [${JSON.stringify(value)}]`);
+                console.log(`[${WatchName}] setting propKey is [${propKey}], value is [${getPrintShow(value)}]`);
             } else {
                 console.log(`[${WatchName}] setting propKey is [${propKey}], value is [${value}]`);
             }
@@ -475,31 +428,31 @@ function getObjhandler(WatchName) {
         },
         has(target, propKey) {
             var result = Reflect.has(target, propKey);
-            console.log(`[${WatchName}] has propKey [${propKey}], result is [${result}]`)
+            console.log(`[${WatchName}] has propKey [${propKey}], result is [${getPrintShow(result)}]`)
             return result;
         },
         deleteProperty(target, propKey) {
             var result = Reflect.deleteProperty(target, propKey);
-            console.log(`[${WatchName}] delete propKey [${propKey}], result is [${result}]`)
+            console.log(`[${WatchName}] delete propKey [${propKey}], result is [${getPrintShow(result)}]`)
             return result;
         },
         getOwnPropertyDescriptor(target, propKey) {
             var result = Reflect.getOwnPropertyDescriptor(target, propKey);
-            console.log(`[${WatchName}] getOwnPropertyDescriptor  propKey [${propKey}] result is [${JSON.stringify(result)}]`)
+            console.log(`[${WatchName}] getOwnPropertyDescriptor  propKey [${propKey.toString()}] result is [${getPrintShow(result)}]`)
             return result;
         },
         defineProperty(target, propKey, attributes) {
             var result = Reflect.defineProperty(target, propKey, attributes);
-            console.log(`[${WatchName}] defineProperty propKey [${propKey}] attributes is [${JSON.stringify(attributes)}], result is [${result}]`)
+            console.log(`[${WatchName}] defineProperty propKey [${propKey}] attributes is [${getPrintShow(attributes)}], result is [${getPrintShow(result)}]`)
             return result
         },
         getPrototypeOf(target) {
             var result = Reflect.getPrototypeOf(target)
-            console.log(`[${WatchName}] getPrototypeOf result is [${JSON.stringify(result)}]`)
+            console.log(`[${WatchName}] getPrototypeOf result is [${getPrintShow(result)}]`)
             return result;
         },
         setPrototypeOf(target, proto) {
-            console.log(`[${WatchName}] setPrototypeOf proto is [${JSON.stringify(proto)}]`)
+            console.log(`[${WatchName}] setPrototypeOf proto is [${getPrintShow(proto)}]`)
             return Reflect.setPrototypeOf(target, proto);
         },
         preventExtensions(target) {
@@ -513,17 +466,17 @@ function getObjhandler(WatchName) {
         },
         ownKeys(target) {
             var result = Reflect.ownKeys(target)
-            console.log(`[${WatchName}] invoke ownkeys, result is [${JSON.stringify(result)}]`)
+            console.log(`[${WatchName}] invoke ownkeys, result is [${getPrintShow(result)}]`)
             return result
         },
         apply(target, thisArg, argArray) {
             let result = Reflect.apply(target, thisArg, argArray)
-            console.log(`[${WatchName}] apply function name is [${target.name}], argArray is [${argArray}], result is [${result}].`)
+            console.log(`[${WatchName}] apply function name is [${target.name}], argArray is [${argArray}], result is [${getPrintShow(result)}].`)
             return result
         },
         construct(target, argArray, newTarget) {
             var result = Reflect.construct(target, argArray, newTarget)
-            console.log(`[${WatchName}] construct function name is [${target.name}], argArray is [${argArray}], result is [${JSON.stringify(result)}].`)
+            console.log(`[${WatchName}] construct function name is [${target.name}], argArray is [${argArray}], result is [${getPrintShow(result)}].`)
             return result;
         }
     }
@@ -546,7 +499,8 @@ module.exports = {
     String,
     Image,
     document,
-    history
+    history,
+    Node
 }
 
 
