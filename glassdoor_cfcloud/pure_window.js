@@ -71,7 +71,52 @@ function randomString(len) {
     }
     return pwd;
 };
-let plugins = {};
+let plugins = [
+    {
+        'description': "Portable Document Format",
+        'filename': "internal-pdf-viewer",
+        'length': 1,
+        'name': "Chrome PDF Plugin",
+        '0': {
+            "description": "Portable Document Format",
+            "enabledPlugin": {},
+            "type": "application/x-google-chrome-pdf",
+            "suffixes": "pdf"
+        }
+
+    },
+    {
+        'description': "",
+        'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
+        'length': 1,
+        'name': "Chrome PDF Viewer",
+        "0": {
+            'description': "",
+            "type": "application/pdf",
+            "suffixes": "pdf",
+            "enabledPlugin": {},
+        }
+    },
+    {
+        'description': "",
+        'filename': "internal-nacl-plugin",
+        'length': 1,
+        'name': "Native Client",
+        "0":{
+            "description": "Native Client Executable",
+            "type": "application/x-nacl",
+            "suffixes": "",
+            "enabledPlugin": {},
+        },
+        "1":{
+            "description": "Portable Native Client Executable",
+            "type": "application/x-pnacl",
+            "suffixes": "",
+            "enabledPlugin": {},
+        }
+
+    }
+];
 let mynavigator = function() {};
 mynavigator.prototype = {
     appCodeName: "Mozilla",
