@@ -51,19 +51,6 @@ let cf_chl_ctx = fs.readFileSync('./cf_chl_ctx.json', 'UTF-8').toString();
 let _cf_chl_ctx = JSON.parse(cf_chl_ctx);
 
 
-function randomString(len) {
-    len = len || 32;
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
-    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-    var maxPos = $chars.length;
-    var pwd = '';
-    for (i = 0; i < len; i++) {
-        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-    }
-    return pwd;
-};
-
-
 let Image = function() {
     return {
         addEventListener: function (state, callBack, boolValue){callBack()},
@@ -81,6 +68,7 @@ let Node = dom.window.Node;
 
 
 let mydocument = {
+    $cookie: "",
     head: {
         removeChild: function (ele){},
     },
@@ -145,6 +133,22 @@ let mydocument = {
         }
     }
 }
+Object.defineProperty(mydocument, 'cookie', {
+    get: function() {
+        return this.$cookie;
+    },
+    set: function(value) {
+        if (value.indexOf("expires=") !== -1){
+            let cookieStr = value.split(";")[0]
+            if (new Date(value.split(";")[1].replace("expires=", "")).getTime() >= new Date()){
+                this.$cookie = this.$cookie?this.$cookie + "; " + cookieStr:cookieStr
+            }
+        }else{
+            this.$cookie = this.$cookie?this.$cookie + "; " + value:value
+            return value
+        }
+    }
+})
 
 let plugins = [
     {
@@ -152,40 +156,44 @@ let plugins = [
         'filename': "internal-pdf-viewer",
         'length': 1,
         'name': "Chrome PDF Plugin",
-        'mimeTypes': [
-            {
-                "type": "application/x-google-chrome-pdf",
-                "suffixes": "pdf"
-            }
-        ]
+        '0': {
+            "description": "Portable Document Format",
+            "enabledPlugin": {},
+            "type": "application/x-google-chrome-pdf",
+            "suffixes": "pdf"
+        }
+
     },
     {
         'description': "",
         'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
         'length': 1,
         'name': "Chrome PDF Viewer",
-        "mimeTypes": [
-            {
-                "type": "application/pdf",
-                "suffixes": "pdf"
-            }
-        ]
+        "0": {
+            'description': "",
+            "type": "application/pdf",
+            "suffixes": "pdf",
+            "enabledPlugin": {},
+        }
     },
     {
         'description': "",
         'filename': "internal-nacl-plugin",
         'length': 1,
         'name': "Native Client",
-        "mimeTypes": [
-            {
-                "type": "application/x-nacl",
-                "suffixes": ""
-            },
-            {
-                "type": "application/x-pnacl",
-                "suffixes": ""
-            }
-        ]
+        "0":{
+            "description": "Native Client Executable",
+            "type": "application/x-nacl",
+            "suffixes": "",
+            "enabledPlugin": {},
+        },
+        "1":{
+            "description": "Portable Native Client Executable",
+            "type": "application/x-pnacl",
+            "suffixes": "",
+            "enabledPlugin": {},
+        }
+
     }
 ];
 plugins.item = function (x){
@@ -194,7 +202,6 @@ plugins.item = function (x){
     }
     return plugins[x]
 }
-let any_plugins = true;
 
 let mynavigator = {
     appName: "Netscape",
@@ -295,7 +302,302 @@ let myhistory = {
     replaceState: function (){},
 };
 
+let myperformance = {
+    eventCounts: {size: 36},
+    memory: {jsHeapSizeLimit: 4294705152, totalJSHeapSize: 29604118, usedJSHeapSize: 26031314},
+    navigation: {redirectCount: 0, type: 1},
+    onresourcetimingbufferfull: null,
+    timeOrigin: new Date().getTime(),
+    timing: {
+        connectEnd: new Date().getTime(),
+        connectStart: new Date().getTime(),
+        domComplete: new Date().getTime(),
+        domContentLoadedEventEnd: new Date().getTime(),
+        domContentLoadedEventStart: new Date().getTime(),
+        domInteractive: new Date().getTime(),
+        domLoading: new Date().getTime(),
+        domainLookupEnd: new Date().getTime(),
+        domainLookupStart: new Date().getTime(),
+        fetchStart: new Date().getTime(),
+        loadEventEnd: new Date().getTime(),
+        loadEventStart: new Date().getTime(),
+        navigationStart: new Date().getTime(),
+        redirectEnd: 0,
+        redirectStart: 0,
+        requestStart: new Date().getTime(),
+        responseEnd: new Date().getTime(),
+        responseStart: new Date().getTime(),
+        secureConnectionStart: 0,
+        unloadEventEnd: new Date().getTime(),
+        unloadEventStart: new Date().getTime(),
+    },
+    mark: function (){},
+    getEntries: function (){
+        return [
+            {
+                "name": "https://www.glassdoor.com/",
+                "entryType": "navigation",
+                "startTime": 0,
+                "duration": 9407.099999964237,
+                "initiatorType": "navigation",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 2,
+                "domainLookupStart": 2,
+                "domainLookupEnd": 2,
+                "connectStart": 2,
+                "connectEnd": 2,
+                "secureConnectionStart": 2,
+                "requestStart": 12.099999964237213,
+                "responseStart": 70.19999998807907,
+                "responseEnd": 87,
+                "transferSize": 69749,
+                "encodedBodySize": 69140,
+                "decodedBodySize": 69140,
+                "serverTiming": [],
+                "workerTiming": [],
+                "unloadEventStart": 78,
+                "unloadEventEnd": 78.19999998807907,
+                "domInteractive": 190.79999995231628,
+                "domContentLoadedEventStart": 190.89999997615814,
+                "domContentLoadedEventEnd": 193.19999998807907,
+                "domComplete": 9407,
+                "loadEventStart": 9407.099999964237,
+                "loadEventEnd": 9407.099999964237,
+                "type": "reload",
+                "redirectCount": 0
+            },
+            {
+                "name": "first-paint",
+                "entryType": "paint",
+                "startTime": 170.69999998807907,
+                "duration": 0
+            },
+            {
+                "name": "first-contentful-paint",
+                "entryType": "paint",
+                "startTime": 170.69999998807907,
+                "duration": 0
+            },
+            {
+                "name": "https://www.glassdoor.com/cdn-cgi/challenge-platform/h/g/orchestrate/jsch/v1?ray=" + _cf_chl_opt['cRay'],
+                "entryType": "resource",
+                "startTime": 186,
+                "duration": 75.19999998807907,
+                "initiatorType": "script",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 186,
+                "domainLookupStart": 186,
+                "domainLookupEnd": 186,
+                "connectStart": 186,
+                "connectEnd": 186,
+                "secureConnectionStart": 186,
+                "requestStart": 190.5,
+                "responseStart": 258.5999999642372,
+                "responseEnd": 261.19999998807907,
+                "transferSize": 11339,
+                "encodedBodySize": 11196,
+                "decodedBodySize": 31895,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.glassdoor.com/cdn-cgi/images/trace/jschal/js/transparent.gif?ray="+_cf_chl_opt['cRay'],
+                "entryType": "resource",
+                "startTime": 186.29999995231628,
+                "duration": 52.80000001192093,
+                "initiatorType": "img",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 186.29999995231628,
+                "domainLookupStart": 186.29999995231628,
+                "domainLookupEnd": 186.29999995231628,
+                "connectStart": 186.29999995231628,
+                "connectEnd": 186.29999995231628,
+                "secureConnectionStart": 186.29999995231628,
+                "requestStart": 191.89999997615814,
+                "responseStart": 236.79999995231628,
+                "responseEnd": 239.0999999642372,
+                "transferSize": 147,
+                "encodedBodySize": 42,
+                "decodedBodySize": 42,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.google-analytics.com/analytics.js",
+                "entryType": "resource",
+                "startTime": 190.0999999642372,
+                "duration": 93.80000001192093,
+                "initiatorType": "script",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 190.0999999642372,
+                "domainLookupStart": 0,
+                "domainLookupEnd": 0,
+                "connectStart": 0,
+                "connectEnd": 0,
+                "secureConnectionStart": 0,
+                "requestStart": 0,
+                "responseStart": 0,
+                "responseEnd": 283.89999997615814,
+                "transferSize": 0,
+                "encodedBodySize": 0,
+                "decodedBodySize": 0,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.glassdoor.com/cdn-cgi/images/trace/jschal/nojs/transparent.gif?ray="+_cf_chl_opt['cRay'],
+                "entryType": "resource",
+                "startTime": 221.29999995231628,
+                "duration": 49.700000047683716,
+                "initiatorType": "css",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 221.29999995231628,
+                "domainLookupStart": 221.29999995231628,
+                "domainLookupEnd": 221.29999995231628,
+                "connectStart": 221.29999995231628,
+                "connectEnd": 221.29999995231628,
+                "secureConnectionStart": 221.29999995231628,
+                "requestStart": 225.69999998807907,
+                "responseStart": 269.5,
+                "responseEnd": 271,
+                "transferSize": 101,
+                "encodedBodySize": 42,
+                "decodedBodySize": 42,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.glassdoor.com/cdn-cgi/challenge-platform/h/"+_cf_chl_opt['cFPWv']+"/flow/ov1" + url_params + _cf_chl_opt['cRay'] + "/" + _cf_chl_opt['cHash'],
+                "entryType": "resource",
+                "startTime": 9358.899999976158,
+                "duration": 547.5,
+                "initiatorType": "xmlhttprequest",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 9358.899999976158,
+                "domainLookupStart": 9358.899999976158,
+                "domainLookupEnd": 9358.899999976158,
+                "connectStart": 9358.899999976158,
+                "connectEnd": 9358.899999976158,
+                "secureConnectionStart": 9358.899999976158,
+                "requestStart": 9363.799999952316,
+                "responseStart": 9899.099999964237,
+                "responseEnd": 9906.399999976158,
+                "transferSize": 36383,
+                "encodedBodySize": 36238,
+                "decodedBodySize": 48216,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.google-analytics.com/j/collect?v=1&_v=j91&a=1136406229&t=pageview&_s=1&dl=https%3A%2F%2Fwww.glassdoor.com%2F&ul=zh-cn&de=UTF-8&dt=Security%20%7C%20Glassdoor&sd=24-bit&sr=1920x1080&vp=361x881&je=0&_u=AACAAEABAAAAAC~&jid=&gjid=&cid=142697002.1625553556&tid=UA-2595786-6&_gid=24820331.1625553556&_slc=1&z=1676604190",
+                "entryType": "resource",
+                "startTime": 9393.399999976158,
+                "duration": 85.5,
+                "initiatorType": "xmlhttprequest",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 9393.399999976158,
+                "domainLookupStart": 0,
+                "domainLookupEnd": 0,
+                "connectStart": 0,
+                "connectEnd": 0,
+                "secureConnectionStart": 0,
+                "requestStart": 0,
+                "responseStart": 0,
+                "responseEnd": 9478.899999976158,
+                "transferSize": 0,
+                "encodedBodySize": 0,
+                "decodedBodySize": 0,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "https://www.glassdoor.com/favicon.ico",
+                "entryType": "resource",
+                "startTime": 9421,
+                "duration": 87.29999995231628,
+                "initiatorType": "other",
+                "nextHopProtocol": "h2",
+                "workerStart": 0,
+                "redirectStart": 0,
+                "redirectEnd": 0,
+                "fetchStart": 9421,
+                "domainLookupStart": 9421,
+                "domainLookupEnd": 9421,
+                "connectStart": 9421,
+                "connectEnd": 9421,
+                "secureConnectionStart": 9421,
+                "requestStart": 9434.399999976158,
+                "responseStart": 9492.599999964237,
+                "responseEnd": 9508.299999952316,
+                "transferSize": 69279,
+                "encodedBodySize": 69103,
+                "decodedBodySize": 69103,
+                "serverTiming": [],
+                "workerTiming": []
+            },
+            {
+                "name": "cp-n-71566",
+                "entryType": "mark",
+                "startTime": 10170.799999952316,
+                "duration": 0
+            }
+        ]
+    },
 
+}
+
+let myChrome = {
+    app: {
+        InstallState: {},
+        RunningState: {},
+        getDetails: function(){},
+        getIsInstalled: function(){},
+        installState: function(){},
+        isInstalled: false,
+        runningState: function(){},
+
+    },
+    csi: function () {
+        return {
+            onloadT: new Date().getTime(),
+            pageT: new Date().getTime() - timestamp,
+            startE:  new Date().getTime() - 200
+        }
+    },
+    loadTimes: function(){},
+    runtime: {
+        OnInstalledReason: {},
+        OnRestartRequiredReason: {},
+        PlatformArch: {},
+        PlatformNaclArch: {},
+        PlatformOs: {},
+        RequestUpdateCheckStatus: {},
+        connect: {},
+        id: undefined,
+        sendMessage: function () {},
+    }
+};
 
 let mywindow = {
     XMLHttpRequest: XMLHttpRequest,
@@ -303,6 +605,7 @@ let mywindow = {
     sessionStorage: {},
     localStorage: {},
     _cf_atob: atob,
+    performance: myperformance,
     RTCPeerConnection: function () {
     },
     DeviceOrientationEvent: function () {
@@ -318,7 +621,7 @@ let mywindow = {
     },
     screen: mysrceen,
     location: mylocation,
-    chrome: {},
+    chrome: myChrome,
     document: mydocument,
     history: myhistory,
     sendRequest: function (s) {
@@ -327,11 +630,11 @@ let mywindow = {
             if (fp && fp.length === 0) {
                 window._cf_chl_ctx[String(i)].fp = [
                     {
-                        "i": 8,
+                        "i": 14,
                         "h": 28
                     },
                     {
-                        "i": 20,
+                        "i": 25,
                         "h": 14
                     }
                 ];
@@ -516,7 +819,7 @@ module.exports = {
     Image,
     document,
     history,
-    Node
+    Node,
 }
 
 
