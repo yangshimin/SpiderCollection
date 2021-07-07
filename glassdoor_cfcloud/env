@@ -1,3 +1,5 @@
+let process = undefined
+let global = undefined
 window["sendRequest"] = function (s) {
     for(var i=1; i <=window._cf_chl_ctx.chC; i++){
         var fp = window._cf_chl_ctx[String(i)].fp;
