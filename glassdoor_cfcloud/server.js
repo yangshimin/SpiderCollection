@@ -31,9 +31,35 @@ api.post('/first_decode', function (req, res){
 api.post('/answer_js', function (req, res){
     const _cf_chl_opt = JSON.parse(req.body._cf_chl_opt);
     const _cf_chl_ctx = JSON.parse(req.body._cf_chl_ctx);
-    fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt))
-    fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx))
+    const url_params = req.body.url_params;
+
+    fs.writeFileSync('./url_params.txt', url_params);
+    fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt));
+    fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx));
     const {window, navigator, screen, location, String, Image, document, history, Node} = require('./myProxy');
+    window["sendRequest"] = function (s) {
+        for(var i=1; i <=window._cf_chl_ctx.chC; i++){
+            var fp = window._cf_chl_ctx[String(i)].fp;
+            if (fp && fp.length === 0){
+                window._cf_chl_ctx[String(i)].fp = [
+                    {
+                        "i": 6,
+                        "h": 28
+                    },
+                    {
+                        "i": 19,
+                        "h": 14
+                    }
+                ];
+                break
+            }
+        }
+        var data = {
+            "url": s,
+            "data": window["_cf_chl_ctx"],
+        };
+        res.send(JSON.stringify(data));
+    }
 
     var execute_js_str = req.body.execute_js_str;
     try{
@@ -42,12 +68,6 @@ api.post('/answer_js', function (req, res){
         console.log(e)
     }
 
-    // sleep(20000)
-    // var filePath = "F:\\code\\glassdoor_js\\result.txt"
-    // var json_data = fs.readFileSync(filePath, "utf-8");
-    // var data = JSON.parse(json_data);
-    // fs.unlinkSync(filePath);
-    // res.send(data);
 
 })
 

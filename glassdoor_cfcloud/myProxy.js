@@ -44,6 +44,8 @@ const dom = new JSDOM(`
     userAgent: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
 });
 
+const timestamp = new Date().getTime() - 5287.348
+let url_params = fs.readFileSync('./url_params.txt', 'UTF-8').toString();
 let cf_chl_opt = fs.readFileSync('./cf_chl_opt.json', 'UTF-8').toString();
 let _cf_chl_opt = JSON.parse(cf_chl_opt);
 

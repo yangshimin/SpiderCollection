@@ -97,7 +97,7 @@ if _cf_chl_opt_pattern:
         "content-type": "application/x-www-form-urlencoded",
         "origin": "https://www.glassdoor.com",
         "pragma": "no-cache",
-        "referer": "https://www.glassdoor.com/index.htm",
+        "referer": "https://www.glassdoor.com",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
                       " Chrome/88.0.4324.190 Safari/537.36",
     }
@@ -126,7 +126,7 @@ if _cf_chl_opt_pattern:
     decode_js = decode_js.replace("window._ =", 'var _ =').replace('window._=', 'var _ =')
     js_window__cf_chl_opt = json.dumps(cf_chl_opt)
     js_window__cf_chl_ctx = json.dumps({
-        'chLog': {'0': {'start': first_start_time}, 'c': 1},
+        # 'chLog': {'0': {'start': first_start_time}, 'c': 1},
         'chReq': 'non-interactive',
         'cNounce': cf_chl_opt['cNounce'],
         'cvId': '2',
@@ -140,7 +140,8 @@ if _cf_chl_opt_pattern:
     data = {
         "_cf_chl_opt": js_window__cf_chl_opt,
         "_cf_chl_ctx": js_window__cf_chl_ctx,
-        "execute_js_str": new_decode_js
+        "execute_js_str": new_decode_js,
+        "url_params": url_params
     }
     answer_js = requests.post("http://127.0.0.1:8090/answer_js", data=data)
     if answer_js.status_code == 200:
@@ -150,12 +151,6 @@ if _cf_chl_opt_pattern:
         else:
             url = res_data.get("url")
             data = res_data.get("data")
-
-            # for k in ['chLog', 'cSign', 'chCC']:
-            #     try:
-            #         data.pop(k)
-            #     except Exception as e:
-            #         pass
 
             for key, item in data.items():
                 if isinstance(item, dict) and 'Error:Ninjas' in item.get("a", ''):
@@ -170,11 +165,10 @@ if _cf_chl_opt_pattern:
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
             # 这个new_decrypt_data的值应该有一些地方不对
             cookies = s.cookies.get_dict()
-            cookies.update({'cf_chl_prog': 'a2'})
             new_decrypt_res = requests.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers, cookies=cookies)
             if new_decrypt_res.status_code == 200:
                 decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
                                                    data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})
                 decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent',
                                                decode_js_response.text)
-                print(decode_js)
+                print("input" in decode_js)
