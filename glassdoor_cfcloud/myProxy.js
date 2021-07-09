@@ -5,7 +5,8 @@ var atob = require('atob');
 const jsdom = require("jsdom");
 const fs = require("fs");
 var localStorage = require('./localStorage');
-// sessionStorage页面会话结束时会被清除, 所以在server文件中导入
+// sessionStorage页面会话结束时会被清除
+var sessionStorage = require('./localStorage');
 const {JSDOM} = jsdom;
 
 const js_code = fs.readFileSync("./glassdoor.html", {
@@ -73,6 +74,7 @@ let mydocument = {
     images: ['', '', ''],
     characterSet: "UTF-8",
     charset: "UTF-8",
+    onmouseout: null,
     documentURI: "https://www.glassdoor.com/",
     domain: "www.glassdoor.com",
     lastModified: get_date('MM/dd/yyyy hh:mm:ss'),
@@ -647,7 +649,8 @@ let myChrome = {
         PlatformNaclArch: {},
         PlatformOs: {},
         RequestUpdateCheckStatus: {},
-        connect: function (){},
+        connect: function () {
+        },
         id: undefined,
         sendMessage: function () {
         },
@@ -657,8 +660,8 @@ let myChrome = {
 let mywindow = {
     XMLHttpRequest: XMLHttpRequest,
     canvas: canvas,
-    sessionStorage: {},
-    localStorage: {},
+    sessionStorage: sessionStorage,
+    localStorage: localStorage,
     _cf_atob: atob,
     performance: myperformance,
     RTCPeerConnection: function () {
@@ -876,5 +879,3 @@ module.exports = {
     history,
     Node,
 }
-
-

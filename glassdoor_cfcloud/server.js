@@ -32,12 +32,13 @@ api.post('/answer_js', function (req, res){
     const _cf_chl_opt = JSON.parse(req.body._cf_chl_opt);
     const _cf_chl_ctx = JSON.parse(req.body._cf_chl_ctx);
     const url_params = req.body.url_params;
+    const cookie = req.body.cookie;
 
     fs.writeFileSync('./url_params.txt', url_params);
     fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt));
     fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx));
-    var sessionStorage = require('./localStorage');
     const {window, navigator, screen, location, String, Image, document, history, Node} = require('./myProxy');
+    document.cookie = cookie
     window["sendRequest"] = function (s) {
         for(var i=1; i <=window._cf_chl_ctx.chC; i++){
             var fp = window._cf_chl_ctx[String(i)].fp;
@@ -68,7 +69,6 @@ api.post('/answer_js', function (req, res){
     }catch (e) {
         console.log(e)
     }
-    return
 
 })
 

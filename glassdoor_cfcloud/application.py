@@ -128,7 +128,7 @@ if _cf_chl_opt_pattern:
                                 data={"cRay": cf_chl_opt['cRay'], "decrypt_data": decrypt_res.text})
     decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent', decode_js_response.text)
 
-    # 因为在node端无法重定义module为undefined 所以在这里修改module--->module_
+    # 因为在node端无法重定义module为undefined 所以在这里修改module--->_module
     decode_js = decode_js.replace("window._ =", 'var _ =').replace('window._=', 'var _ =').replace('module', '_module')
     js_window__cf_chl_opt = json.dumps(cf_chl_opt)
     js_window__cf_chl_ctx = json.dumps({
@@ -143,11 +143,17 @@ if _cf_chl_opt_pattern:
     })
     env_js = open('env', 'r', encoding="utf-8").read()
     new_decode_js = env_js + decode_js
+    cookies = s.cookies.get_dict()
+    cookie_str = []
+    for k, v in cookies.items():
+        cookie_str.append(f"{k}={v}")
+    cookie = ";".join(cookie_str)
     data = {
         "_cf_chl_opt": js_window__cf_chl_opt,
         "_cf_chl_ctx": js_window__cf_chl_ctx,
         "execute_js_str": new_decode_js,
-        "url_params": url_params
+        "url_params": url_params,
+        "cookie": cookie
     }
     answer_js = requests.post("http://127.0.0.1:8090/answer_js", data=data)
     if answer_js.status_code == 200:
@@ -170,8 +176,8 @@ if _cf_chl_opt_pattern:
                                                'compressToEncodedURIComponent', json.dumps(data))
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
             # 这个new_decrypt_data的值应该有一些地方不对
-            cookies = s.cookies.get_dict()
-            new_decrypt_res = requests.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers, cookies=cookies)
+            # cookies = s.cookies.get_dict()
+            new_decrypt_res = s.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers)
             if new_decrypt_res.status_code == 200:
                 decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
                                                    data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})
@@ -180,4 +186,4 @@ if _cf_chl_opt_pattern:
                 if "getElementById" in decode_js:
                     print(decode_js)
                 else:
-                    pdb.set_trace()
+                    print(decode_js)

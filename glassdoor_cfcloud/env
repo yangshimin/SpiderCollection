@@ -1,29 +1,7 @@
 let _module = undefined
 let process = undefined
 let global = undefined
-window["sendRequest"] = function (s) {
-    for(var i=1; i <=window._cf_chl_ctx.chC; i++){
-        var fp = window._cf_chl_ctx[String(i)].fp;
-        if (fp && fp.length === 0){
-            window._cf_chl_ctx[String(i)].fp = [
-                {
-                    "i": 6,
-                    "h": 28
-                },
-                {
-                    "i": 19,
-                    "h": 14
-                }
-            ];
-            break
-        }
-    }
-    var data = {
-        "url": s,
-        "data": window["_cf_chl_ctx"],
-    };
-    res.send(JSON.stringify(data));
-};
+
 SHA256 = function (s) {
     var t, v, w, x;
     return t = {}, t["pJrHy"] = function (z, A) {
