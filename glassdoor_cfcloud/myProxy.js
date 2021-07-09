@@ -214,6 +214,7 @@ plugins.item = function (x) {
     }
     return plugins[x]
 }
+plugins.refresh = function (){}
 
 let mynavigator = {
     appName: "Netscape",
