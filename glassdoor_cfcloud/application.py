@@ -129,7 +129,7 @@ if _cf_chl_opt_pattern:
     decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent', decode_js_response.text)
 
     # 因为在node端无法重定义module为undefined 所以在这里修改module--->module_
-    decode_js = decode_js.replace("window._ =", 'var _ =').replace('window._=', 'var _ =').replace('module', 'module_')
+    decode_js = decode_js.replace("window._ =", 'var _ =').replace('window._=', 'var _ =').replace('module', '_module')
     js_window__cf_chl_opt = json.dumps(cf_chl_opt)
     js_window__cf_chl_ctx = json.dumps({
         # 'chLog': {'0': {'start': first_start_time}, 'c': 1},
