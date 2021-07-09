@@ -1,3 +1,4 @@
+let _module = undefined
 let process = undefined
 let global = undefined
 window["sendRequest"] = function (s) {
