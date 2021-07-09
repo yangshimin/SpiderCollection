@@ -52,6 +52,7 @@ let Node = dom.window.Node;
 
 
 let mydocument = {
+    title: "Security | Glassdoor",
     $cookie: "",
     head: {
         removeChild: function (ele) {
@@ -300,7 +301,8 @@ let myhistory = {
     length: 5,
     scrollRestoration: "auto",
     state: null,
-    replaceState: function () {
+    replaceState: function (stateObj, title, url){
+        return dom.window.history.replaceState(stateObj, title, url)
     },
 };
 
@@ -588,7 +590,7 @@ let myChrome = {
     csi: function () {
         return {
             onloadT: new Date().getTime(),
-            pageT: (new Date().getTime() - timestamp) / 1000,
+            pageT: new Date().getTime() - timestamp,
             startE: new Date().getTime() - 356,
             tran: 15
         }
@@ -597,14 +599,14 @@ let myChrome = {
         return {
             commitLoadTime: new Date().getTime() - 356 + 127,
             connectionInfo: "h2",
-            finishDocumentLoadTime: new Date().getTime() / 1000,
-            finishLoadTime: (new Date().getTime() + 124) / 1000,
+            finishDocumentLoadTime: new Date().getTime(),
+            finishLoadTime: new Date().getTime() + 124,
             firstPaintAfterLoadTime: 0,
-            firstPaintTime: (new Date().getTime() - 109) / 1000,
+            firstPaintTime: new Date().getTime() - 109,
             navigationType: "Other",
             npnNegotiatedProtocol: "h2",
-            requestTime: (new Date().getTime() - 356) / 1000,
-            startLoadTime: (new Date().getTime() - 356) / 1000,
+            requestTime: new Date().getTime() - 356,
+            startLoadTime: new Date().getTime() - 356,
             wasAlternateProtocolAvailable: false,
             wasFetchedViaSpdy: true,
             wasNpnNegotiated: true,
