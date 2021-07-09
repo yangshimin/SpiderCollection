@@ -14,6 +14,7 @@ import logging
 import json5
 import requests
 import execjs
+import pdb
 from urllib.parse import urlparse
 
 formatter = '%(asctime)s - %(filename)s[line:%(lineno)d] -%(levelname)s: %(message)s'
@@ -40,6 +41,10 @@ headers = {
 }
 # 第一次返回503
 res = s.get(url, headers=headers)
+with open("glassdoor.html", 'wb') as f:
+    f.write(res.content)
+    logging.info("写入html文件成功")
+
 _cf_chl_opt_pattern = re.search(r"_cf_chl_opt=(.*?)window._cf_chl_enter", res.text, re.DOTALL)
 if _cf_chl_opt_pattern:
     cf_chl_opt = _cf_chl_opt_pattern.group(1)
@@ -155,7 +160,7 @@ if _cf_chl_opt_pattern:
             for key, item in data.items():
                 if isinstance(item, dict) and 'Error:Ninjas' in item.get("a", ''):
                     logging.info("替换Ninjas")
-                    data[key]['a'] = 'Error:Ninjas>piratesatevalevalatA.<computed>https://www.glas'
+                    data[key]['a'] = 'Error:Ninjas>piratesatevalevalat.<computed>https://www.glas'
                     break
 
             new_decrypt_url = "https://www.glassdoor.com" + url
@@ -171,4 +176,7 @@ if _cf_chl_opt_pattern:
                                                    data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})
                 decode_js = signature_ctx.call("res", str_62, str_65, 'decompressFromEncodedURIComponent',
                                                decode_js_response.text)
-                print("input" in decode_js)
+                if "getElementById" in decode_js:
+                    print(decode_js)
+                else:
+                    pdb.set_trace()

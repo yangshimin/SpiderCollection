@@ -36,6 +36,7 @@ api.post('/answer_js', function (req, res){
     fs.writeFileSync('./url_params.txt', url_params);
     fs.writeFileSync('./cf_chl_opt.json', JSON.stringify(_cf_chl_opt));
     fs.writeFileSync('./cf_chl_ctx.json', JSON.stringify(_cf_chl_ctx));
+    var sessionStorage = require('./localStorage');
     const {window, navigator, screen, location, String, Image, document, history, Node} = require('./myProxy');
     window["sendRequest"] = function (s) {
         for(var i=1; i <=window._cf_chl_ctx.chC; i++){
@@ -43,11 +44,11 @@ api.post('/answer_js', function (req, res){
             if (fp && fp.length === 0){
                 window._cf_chl_ctx[String(i)].fp = [
                     {
-                        "i": 6,
+                        "i": 14,
                         "h": 28
                     },
                     {
-                        "i": 19,
+                        "i": 25,
                         "h": 14
                     }
                 ];
@@ -67,7 +68,7 @@ api.post('/answer_js', function (req, res){
     }catch (e) {
         console.log(e)
     }
-
+    return
 
 })
 
