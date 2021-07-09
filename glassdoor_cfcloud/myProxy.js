@@ -29,6 +29,23 @@ let _cf_chl_opt = JSON.parse(cf_chl_opt);
 let cf_chl_ctx = fs.readFileSync('./cf_chl_ctx.json', 'UTF-8').toString();
 let _cf_chl_ctx = JSON.parse(cf_chl_ctx);
 
+function get_date(fmt){
+    let myDate = new Date();
+    var o = {
+        "M+": myDate.getMonth() + 1,
+        "d+": myDate.getDate(),
+        "h+": myDate.getHours(),
+        "m+": myDate.getMinutes(),
+        "s+": myDate.getSeconds(),
+        "q+": Math.floor((myDate.getMonth() + 3) / 3),
+        "S": myDate.getMilliseconds()
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (myDate.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 
 let Image = function () {
     return dom.window.document.createElement('img')
@@ -53,6 +70,14 @@ let Node = dom.window.Node;
 
 let mydocument = {
     title: "Security | Glassdoor",
+    images: ['', '', ''],
+    characterSet: "UTF-8",
+    charset: "UTF-8",
+    documentURI: "https://www.glassdoor.com/",
+    domain: "www.glassdoor.com",
+    lastModified: get_date('MM/dd/yyyy hh:mm:ss'),
+    visibilityState: "visible",
+    webkitVisibilityState: "visible",
     $cookie: "",
     head: {
         removeChild: function (ele) {
