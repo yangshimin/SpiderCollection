@@ -663,7 +663,7 @@ glb = window._$jsvmprt = function (b, e, f) {
         encodeURIComponent, encodeURI, Request, Headers, decodeURIComponent, RegExp]);
 
 
-function secsdk(window, params) {
+function secsdk(window) {
     var e = window.secsdk = {}
 
 
@@ -3826,17 +3826,7 @@ function secsdk(window, params) {
         return send_xhr()
     }
 
-    return get_sign(params)
-
-}
-
-function get_url_params(params){
-    console.log(params)
-    let result = secsdk(window, params)
-    return result
-}
-
-var params = {
+    var params = {
         "url": "/aweme/v1/web/channel/feed/",
         "method": "get",
         "headers": {
@@ -3867,8 +3857,15 @@ var params = {
         "maxContentLength": -1,
         "maxBodyLength": -1
     }
-// get_url_params(params)
+    var result = get_sign(params)
+    return result
 
-module.exports = {
-    get_url_params,
 }
+
+function get_url_params(){
+
+    let url_params = secsdk(window)
+    console.log(url_params)
+}
+
+get_url_params()
