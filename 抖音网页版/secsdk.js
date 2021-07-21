@@ -429,7 +429,7 @@ glb = window._$jsvmprt = function (b, e, f) {
             }
         if (I)
             for (; O < E;) {
-                console.log("S----->" + S +"R----->" + R)
+                console.log("S----->" + S +"R----->" + "O----->" + O + "E----->" + E)
                 j = B[O];
                 O += 2;
                 A = 3 & (x = 13 * j % 241);

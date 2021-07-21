@@ -39,12 +39,16 @@ function get_date(fmt){
     return fmt;
 };
 let Headers = function(){};
+Headers.prototype.toString = function (){return "function Headers() { [native code] }"}
 let Request = function(){};
+Request.prototype.toString = function (){return "function Request() { [native code] }"}
 let WebSocket = function(){};
+WebSocket.prototype.toString = function (){return "function WebSocket() { [native code] }"}
 let DOMException = function(){};
+DOMException.prototype.toString = function (){return "function DOMException() { [native code] }"}
 let indexedDB = {};
-let PluginArray = function (){};
-let plugins = [
+indexedDB.toString = function (){return "[object IDBFactory]"}
+let PluginArray = [
     {
         'description': "Portable Document Format",
         'filename': "internal-pdf-viewer",
@@ -90,14 +94,16 @@ let plugins = [
 
     }
 ];
-plugins.item = function (x) {
+PluginArray.toString = function (){return "[object PluginArray]"}
+PluginArray.item = function (x) {
     if (x === 4294967296) {
-        return plugins[0]
+        return PluginArray[0]
     }
-    return plugins[x]
+    return PluginArray[x]
 };
-plugins.refresh = function (){};
+PluginArray.refresh = function (){};
 let Image = function(){return dom.window.document.createElement('img')};
+Image.prototype.toString = function (){return "function Image() { [native code] }"}
 let myhistory = {
     length: 2,
     pushState: function(){},
@@ -105,6 +111,7 @@ let myhistory = {
     scrollRestoration: "auto",
     state: null
 };
+myhistory.toString = function (){return "[object History]"}
 let mynavigator = {
     appName: "Netscape",
     appCode: "Mozilla",
@@ -131,7 +138,7 @@ let mynavigator = {
     online: true,
     permissions: {},
     platform: "Win32",
-    plugins: plugins,
+    plugins: PluginArray,
     presentation: {},
     product: "Gecko",
     productSub: "20030107",
@@ -184,6 +191,7 @@ let mynavigator = {
     share: function () {
     },
 };
+mynavigator.toString = function (){return "[object Navigator]"}
 let mylocation = {
     protocol: "https:",
     href: "https://www.douyin.com/",
@@ -193,6 +201,7 @@ let mylocation = {
     hostname: "www.douyin.com",
     origin: "https://www.douyin.com"
 };
+mylocation.toString = function (){return "https://www.douyin.com/"}
 let mydocument = {
     title: "【抖音】记录美好生活",
     images: ['', '', ''],
@@ -244,6 +253,7 @@ let mydocument = {
         return dom.window.document.querySelectorAll(eleName)
     }
 };
+mydocument.toString = function (){return "[object HTMLDocument]"}
 Object.defineProperty(mydocument, 'cookie', {
     get: function () {
         return this.$cookie;
@@ -276,6 +286,7 @@ let mysrceen = {
         type: "landscape-primary"
     }
 };
+mydocument.toString = function (){return "[object Screen]"}
 let mywindow = {
     process: undefined,
     postMessage: dom.window.postMessage,
