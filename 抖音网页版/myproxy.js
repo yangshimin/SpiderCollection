@@ -246,6 +246,9 @@ let mydocument = {
     },
     appendChild: dom.window.document.appendChild,
     createElement: function (eleName) {
+        if (eleName === 'canvas'){
+            debugger
+        }
         ele = dom.window.document.createElement(eleName);
         return ele;
     },
@@ -294,6 +297,33 @@ let mywindow = {
     sessionStorage: sessionStorage,
     Object: Object,
     canvas: canvas,
+    CSSRuleList: function(){},
+    CSSStyleDeclaration: function(){},
+    DOMRectList: function(){},
+    DOMStringList: function(){},
+    DOMTokenList: function(){},
+    DataTransferItemList: function(){},
+    FileList: function(){},
+    HTMLCollection: function(){},
+    HTMLFormElement: function(){},
+    HTMLSelectElement: function(){},
+    MediaList: function(){},
+    MimeTypeArray: function(){},
+    NamedNodeMap: function(){},
+    NodeList: function(){},
+    Plugin: function(){},
+    PluginArray: function(){},
+    SVGLengthList: function(){},
+    SVGNumberList: function(){},
+    SVGPointList: function(){},
+    SVGStringList: function(){},
+    SVGTransformList: function(){},
+    SourceBufferList: function(){},
+    StyleSheetList: function(){},
+    TextTrackCueList: function(){},
+    TextTrackList: function(){},
+    TouchList: function(){},
+    HTMLAllCollection: function(){},
     RTCPeerConnection: function () {
     },
     DeviceOrientationEvent: function () {
