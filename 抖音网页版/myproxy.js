@@ -208,7 +208,7 @@ let mydocument = {
     characterSet: "UTF-8",
     charset: "UTF-8",
     onmouseout: null,
-    referrer: "",
+    referrer: "https://www.douyin.com",
     documentURI: "https://www.glassdoor.com/",
     domain: "www.douyin.com",
     lastModified: get_date('MM/dd/yyyy hh:mm:ss'),
@@ -246,9 +246,6 @@ let mydocument = {
     },
     appendChild: dom.window.document.appendChild,
     createElement: function (eleName) {
-        if (eleName === 'canvas'){
-            debugger
-        }
         ele = dom.window.document.createElement(eleName);
         return ele;
     },
