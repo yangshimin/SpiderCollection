@@ -3867,7 +3867,7 @@ var tea_iife_export = function(e) {
         e
 };
 
-function secsdk(window, params) {
+function secsdk(window, render_data) {
     var e = window.secsdk = {}
 
 
@@ -7038,7 +7038,7 @@ function secsdk(window, params) {
             "enable_ab_test": true,
             "ab_channel_domain": "https://www.douyin.com"
         })
-    tea_iife_export_obj.default.call(window, 'config', Object.assign({}, {}, {"ug_source": ""}))
+    tea_iife_export_obj.default.call(window, 'config', Object.assign(s, JSON.parse(render_data), {"ug_source": ""}))
     tea_iife_export_obj.default.call(window, 'start')
 
     // return get_sign(params)
@@ -7049,56 +7049,48 @@ function secsdk(window, params) {
 
 }
 
-function get_url_params(params, localStorageItem, MONITOR_WEB_ID){
-    console.log(params)
-    MONITOR_WEB_ID = "20d2c040-9e16-4778-9bb8-a897b4a9be7a"
+function get_url_params(localStorageItem, MONITOR_WEB_ID, render_data){
+    // MONITOR_WEB_ID = "e0433b2d-9d37-497e-a453-9f56955f8201"
     document.cookie = "MONITOR_WEB_ID=" + MONITOR_WEB_ID + ";max-age=7776000;domain=www.douyin.com;path=/"
-    localStorage.setItem('__tea_cache_tokens_6383', JSON.stringify({
-        "ssid": "3c5ee00b-2c6d-4f3a-a40f-79b74602eaba",
-        "web_id": "6988885679669823009",
-        "e": 0
-    }))
-    let result = secsdk(window, params)
+    localStorage.setItem('__tea_cache_tokens_6383', localStorageItem)
+    let result = secsdk(window, render_data)
     return result
 }
 
-aaaa = ['GET',
-    '/aweme/v1/web/channel/feed/?device_platform=webapp&aid=6383&channel=channel_pc_web&tag_id=&count=10&version_code=160100&version_name=16.1.0&cookie_enabled=true&screen_width=1920&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F91.0.4472.164+Safari%2F537.36&browser_online=true',
-]
-var params = {
-        "url": "/aweme/v1/web/channel/feed/",
-        "method": "get",
-        "headers": {
-            "Accept": "application/json, text/plain, */*",
-            "withCredentials": true
-        },
-        "params": {
-            "device_platform": "webapp",
-            "aid": 6383,
-            "channel": "channel_pc_web",
-            "tag_id": "",
-            "count": 10,
-            "version_code": "160100",
-            "version_name": "16.1.0",
-            "cookie_enabled": true,
-            "screen_width": 1920,
-            "screen_height": 1080,
-            "browser_language": "zh-CN",
-            "browser_platform": "Win32",
-            "browser_name": "Mozilla",
-            "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "browser_online": true
-        },
-        "baseURL": "",
-        "timeout": 0,
-        "xsrfCookieName": "XSRF-TOKEN",
-        "xsrfHeaderName": "X-XSRF-TOKEN",
-        "maxContentLength": -1,
-        "maxBodyLength": -1
-    }
-res = get_url_params(params)
-console.log("res is", res)
+// var params = {
+//         "url": "/aweme/v1/web/channel/feed/",
+//         "method": "get",
+//         "headers": {
+//             "Accept": "application/json, text/plain, */*",
+//             "withCredentials": true
+//         },
+//         "params": {
+//             "device_platform": "webapp",
+//             "aid": 6383,
+//             "channel": "channel_pc_web",
+//             "tag_id": "",
+//             "count": 10,
+//             "version_code": "160100",
+//             "version_name": "16.1.0",
+//             "cookie_enabled": true,
+//             "screen_width": 1920,
+//             "screen_height": 1080,
+//             "browser_language": "zh-CN",
+//             "browser_platform": "Win32",
+//             "browser_name": "Mozilla",
+//             "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+//             "browser_online": true
+//         },
+//         "baseURL": "",
+//         "timeout": 0,
+//         "xsrfCookieName": "XSRF-TOKEN",
+//         "xsrfHeaderName": "X-XSRF-TOKEN",
+//         "maxContentLength": -1,
+//         "maxBodyLength": -1
+//     }
+// res = get_url_params(params)
+// console.log("res is", res)
 
-// module.exports = {
-//     get_url_params,
-// }
+module.exports = {
+    get_url_params,
+}

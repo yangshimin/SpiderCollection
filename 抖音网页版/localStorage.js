@@ -48,6 +48,7 @@
     };
 
     db.prototype.clear = function clear() {
+        debugger
         var self = this;
         Object.keys(self).forEach(function (key) {
             self[key] = undefined;
