@@ -183,7 +183,7 @@ glb = window._$jsvmprt = function (b, e, f) {
             E = O + 2 * f;
         if (!I)
             for (; O < E;) {
-                // console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
+                console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
                 // if (O === 29892  && E === 31962 && R === 1){
                 //     debugger
                 // }
@@ -206,7 +206,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[1]:fromCharCode result:", A)
+                            // console.log("[1]:fromCharCode result:", A)
                             O += 4,
                                 S[R--][A] = C
                         } else
@@ -283,7 +283,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[2]:fromCharCode result:", A)
+                            // console.log("[2]:fromCharCode result:", A)
                             O += 4,
                                 S[R] = S[R][A]
                         } else
@@ -330,7 +330,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      C = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 C += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[3]:fromCharCode result:", C)
+                            // console.log("[3]:fromCharCode result:", C)
                             S[++R] = C,
                                 O += 4
                         } else if (A < 4)
@@ -419,7 +419,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[4]:fromCharCode result:", A)
+                            // console.log("[4]:fromCharCode result:", A)
                             A = +A,
                                 O += 4,
                                 S[++R] = A
@@ -432,7 +432,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                 // if (O === 19656 && E === 43890 && R === 1){
                 //     debugger
                 // }
-                // console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
+                console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
                 j = B[O];
                 O += 2;
                 A = 3 & (x = 13 * j % 241);
@@ -479,7 +479,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[5]:fromCharCode result:", A)
+                            // console.log("[5]:fromCharCode result:", A)
                             O += 4,
                                 S[R--][A] = C
                         } else
@@ -509,7 +509,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[6]:fromCharCode result:", A)
+                            // console.log("[6]:fromCharCode result:", A)
                             O += 4,
                                 S[R] = S[R][A]
                         } else
@@ -566,7 +566,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      C = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 C += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[7]:fromCharCode result:", C)
+                            // console.log("[7]:fromCharCode result:", C)
                             S[++R] = C,
                                 O += 4
                         } else
@@ -628,7 +628,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            console.log("[8]:fromCharCode result:", A)
+                            // console.log("[8]:fromCharCode result:", A)
                             A = +A,
                                 O += 4,
                                 S[++R] = A
@@ -7047,7 +7047,7 @@ function secsdk(window, render_data) {
     //         "enable_ab_test": true,
     //         "ab_channel_domain": "https://www.douyin.com"
     //     })
-    tea_iife_export_obj.default.call(window, 'config', Object.assign(s, JSON.parse(render_data), {"ug_source": ""}))
+    tea_iife_export_obj.default.call(window, 'config', Object.assign({"ug_source": ""}, JSON.parse(render_data)))
     tea_iife_export_obj.default.call(window, 'start')
 
     var params = {
@@ -7071,7 +7071,7 @@ function secsdk(window, render_data) {
             "browser_language": "zh-CN",
             "browser_platform": "Win32",
             "browser_name": "Mozilla",
-            "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
             "browser_online": true
         },
         "baseURL": "",

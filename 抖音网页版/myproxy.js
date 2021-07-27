@@ -12,7 +12,7 @@ const js_code = fs.readFileSync("./douyin.html", {
 });
 const dom = new JSDOM(js_code, {
     url: "https://www.douyin.com/",
-    referrer: "https://www.baidu.com/",
+    referrer: "https://www.douyin.com",
     contentType: "text/html",
     includeNodeLocations: true,
     pretendToBeVisual: true,

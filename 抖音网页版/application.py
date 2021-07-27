@@ -68,6 +68,11 @@ class WebDouYin(object):
                 if verify_data_pattern:
                     self.verify_data = json.loads(verify_data_pattern.group(1))
                     logging.info("解析verify_data成功")
+
+            with open('douyin.html', 'wb') as f:
+                f.write(index_res.content)
+                logging.info("写入index成功")
+
             page_lxml_obj = etree.HTML(index_res.text)
             selector = page_lxml_obj.xpath(".//*/script[@id='RENDER_DATA']/text()")
             if selector:
@@ -268,8 +273,8 @@ class WebDouYin(object):
             "browser_language": "zh-CN",
             "browser_platform": "Win32",
             "browser_name": "Mozilla",
-            "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                               "Chrome/91.0.4472.164 Safari/537.36",
+            "browser_version": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                               "Chrome/92.0.4515.107 Safari/537.36",
             "browser_online": "true",
         }
         all_video_encrypt_params = {
