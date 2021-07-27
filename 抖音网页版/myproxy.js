@@ -2,7 +2,6 @@ var canvas = require('canvas');
 const jsdom = require("jsdom");
 const fs = require("fs");
 const fetch = require('node-fetch');
-var XMLHttpRequest = require("xhr2").XMLHttpRequest;
 const {JSDOM} = jsdom;
 var localStorage = require('./localStorage');
 var sessionStorage = require('./localStorage');
@@ -12,13 +11,13 @@ const js_code = fs.readFileSync("./douyin.html", {
     encoding: "utf-8"
 });
 const dom = new JSDOM(js_code, {
-    url: "https://www.glassdoor.com/",
+    url: "https://www.douyin.com/",
     referrer: "https://www.baidu.com/",
     contentType: "text/html",
     includeNodeLocations: true,
     pretendToBeVisual: true,
     resources: "usable",
-    userAgent: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
 });
 
 function get_date(fmt){
@@ -115,7 +114,7 @@ myhistory.toString = function (){return "[object History]"}
 let mynavigator = {
     appName: "Netscape",
     appCode: "Mozilla",
-    appVersion: "5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+    appVersion: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
     bluetooth: {},
     clipboard: {},
     connnection: {downlink: 10, effectiveType: "4g", onchange: null, rtt: 250, saveData: false},
@@ -147,7 +146,7 @@ let mynavigator = {
     storage: {},
     usb: {},
     userActivation: {},
-    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36",
+    userAgent: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
     userAgentData: {},
     vendor: "Google Inc.",
     vendorSub: "",
@@ -220,6 +219,7 @@ let mydocument = {
         },
     },
     body: dom.window.document.body,
+    createEvent: dom.window.document.createEvent,
     documentElement: {
         getAttribute: function () {
         }
@@ -338,7 +338,7 @@ let mywindow = {
     location: mylocation,
     document: mydocument,
     history: myhistory,
-    XMLHttpRequest: XMLHttpRequest,
+    XMLHttpRequest: dom.window.XMLHttpRequest,
     _$jsvmprt: "",
     "fetch": fetch,
     "Request": Request,
@@ -435,7 +435,7 @@ function getObjhandler(WatchName) {
                     }
                 }
                 // 不注释的话，会遍历对象的所有key
-                // return new Proxy(result, getObjhandler(`${WatchName}.${getPrintShow(result)}`))
+                return new Proxy(result, getObjhandler(`${WatchName}.${getPrintShow(result)}`))
             }
             if (consoleAble){
                 console.log(`[${WatchName}] getting propKey is [${propKey?.description ?? propKey}], result is [${getPrintShow(result)}]`);

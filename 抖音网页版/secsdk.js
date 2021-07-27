@@ -183,10 +183,10 @@ glb = window._$jsvmprt = function (b, e, f) {
             E = O + 2 * f;
         if (!I)
             for (; O < E;) {
-                console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
-                if (O === 29892  && E === 31962 && R === 1){
-                    debugger
-                }
+                // console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
+                // if (O === 29892  && E === 31962 && R === 1){
+                //     debugger
+                // }
                 var j = parseInt("" + b[O] + b[O + 1], 16);
                 O += 2;
                 var A = 3 & (x = 13 * j % 241);
@@ -206,7 +206,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[1]:fromCharCode result:", A)
                             O += 4,
                                 S[R--][A] = C
                         } else
@@ -283,7 +283,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[2]:fromCharCode result:", A)
                             O += 4,
                                 S[R] = S[R][A]
                         } else
@@ -330,7 +330,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      C = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 C += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", C)
+                            console.log("[3]:fromCharCode result:", C)
                             S[++R] = C,
                                 O += 4
                         } else if (A < 4)
@@ -419,7 +419,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[4]:fromCharCode result:", A)
                             A = +A,
                                 O += 4,
                                 S[++R] = A
@@ -432,7 +432,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                 // if (O === 19656 && E === 43890 && R === 1){
                 //     debugger
                 // }
-                console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
+                // console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
                 j = B[O];
                 O += 2;
                 A = 3 & (x = 13 * j % 241);
@@ -479,7 +479,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[5]:fromCharCode result:", A)
                             O += 4,
                                 S[R--][A] = C
                         } else
@@ -509,7 +509,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[6]:fromCharCode result:", A)
                             O += 4,
                                 S[R] = S[R][A]
                         } else
@@ -566,7 +566,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      C = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 C += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", C)
+                            console.log("[7]:fromCharCode result:", C)
                             S[++R] = C,
                                 O += 4
                         } else
@@ -628,7 +628,7 @@ glb = window._$jsvmprt = function (b, e, f) {
                                      A = "",
                                      P = i.q[z][0]; P < i.q[z][1]; P++)
                                 A += String.fromCharCode(r ^ i.p[P]);
-                            // console.log("fromCharCode result:", A)
+                            console.log("[8]:fromCharCode result:", A)
                             A = +A,
                                 O += 4,
                                 S[++R] = A
@@ -3897,7 +3897,7 @@ function secsdk(window, render_data) {
         }
     ))
         , o = function (e) {
-        return e && e.Math == Math && e
+        return e
     }
         , i = o(window)
         , a = function (e) {
@@ -6763,6 +6763,7 @@ function secsdk(window, render_data) {
                             , o = n[0] || "GET"
                             , i = new URL(n[1], window.location.href);
                         if (!e.shouldProtectRequest(i.host, o, i.pathname))
+                            // this._url = this._byted_url
                             return e.nativeXMLHttpRequestSend.apply(this, r);
                             // var url_params = this._byted_url;
                             // return url_params.includes('_signature=') ? url_params : ""
@@ -6832,6 +6833,10 @@ function secsdk(window, render_data) {
     })
 
     function get_sign(e) {
+        function trim(t) {
+            return t.replace(/^\s*/, "").replace(/\s*$/, "")
+        }
+
         function isArray(e) {
             return "[object Array]" === Object.prototype.toString.call(e)
         }
@@ -6935,10 +6940,10 @@ function secsdk(window, render_data) {
 
         function u(e) {
             var t, n, i, a = {};
-            return e ? (r.forEach(e.split("\n"), (function (e) {
+            return e ? (forEach(e.split("\n"), (function (e) {
                     if (i = e.indexOf(":"),
-                        t = r.trim(e.substr(0, i)).toLowerCase(),
-                        n = r.trim(e.substr(i + 1)),
+                        t = trim(e.substr(0, i)).toLowerCase(),
+                        n = trim(e.substr(i + 1)),
                         t) {
                         if (a[t] && o.indexOf(t) >= 0)
                             return;
@@ -6947,6 +6952,10 @@ function secsdk(window, render_data) {
                 }
             )),
                 a) : a
+        }
+        function read(t) {
+            var e = document.cookie.match(new RegExp("(^|;\\s*)(" + t + ")=([^;]*)"));
+            return e ? decodeURIComponent(e[3]) : null
         }
 
         function send_xhr() {
@@ -7000,7 +7009,7 @@ function secsdk(window, render_data) {
                     h = null
                     console.log("ECONNABORTED")
                 }) {
-                var g = (e.withCredentials || isURLSameOrigin(v)) && e.xsrfCookieName ? i.read(e.xsrfCookieName) : void 0;
+                var g = (e.withCredentials || isURLSameOrigin(v)) && e.xsrfCookieName ? read(e.xsrfCookieName) : void 0;
                 g && (d[e.xsrfHeaderName] = g)
             }
             if ("setRequestHeader" in h && forEach(d, (function (e, t) {
@@ -7032,20 +7041,51 @@ function secsdk(window, render_data) {
     }
 
     let tea_iife_export_obj = tea_iife_export({})
-    tea_iife_export_obj.default.call(window, 'init', {
-            "app_id": 6383,
-            "channel": "cn",
-            "enable_ab_test": true,
-            "ab_channel_domain": "https://www.douyin.com"
-        })
+    // tea_iife_export_obj.default.call(window, 'init', {
+    //         "app_id": 6383,
+    //         "channel": "cn",
+    //         "enable_ab_test": true,
+    //         "ab_channel_domain": "https://www.douyin.com"
+    //     })
     tea_iife_export_obj.default.call(window, 'config', Object.assign(s, JSON.parse(render_data), {"ug_source": ""}))
     tea_iife_export_obj.default.call(window, 'start')
 
-    // return get_sign(params)
-    aaaa = ['GET',
-        '/aweme/v1/web/channel/feed/?device_platform=webapp&aid=6383&channel=channel_pc_web&tag_id=&count=10&version_code=160100&version_name=16.1.0&cookie_enabled=true&screen_width=1920&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F91.0.4472.164+Safari%2F537.36&browser_online=true']
-    bbbb =  window.byted_acrawler.sign({"url": aaaa[1]})
-    return bbbb
+    var params = {
+        "url": "/aweme/v1/web/channel/feed/",
+        "method": "get",
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "withCredentials": true
+        },
+        "params": {
+            "device_platform": "webapp",
+            "aid": 6383,
+            "channel": "channel_pc_web",
+            "tag_id": "",
+            "count": 10,
+            "version_code": "160100",
+            "version_name": "16.1.0",
+            "cookie_enabled": true,
+            "screen_width": 1920,
+            "screen_height": 1080,
+            "browser_language": "zh-CN",
+            "browser_platform": "Win32",
+            "browser_name": "Mozilla",
+            "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "browser_online": true
+        },
+        "baseURL": "",
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1
+    }
+    return get_sign(params)
+    // aaaa = ['GET',
+    //     '/aweme/v1/web/channel/feed/?device_platform=webapp&aid=6383&channel=channel_pc_web&tag_id=&count=10&version_code=160100&version_name=16.1.0&cookie_enabled=true&screen_width=1920&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F91.0.4472.164+Safari%2F537.36&browser_online=true']
+    // bbbb =  window.byted_acrawler.sign({"url": aaaa[1]})
+    // return bbbb
 
 }
 
@@ -7057,38 +7097,8 @@ function get_url_params(localStorageItem, MONITOR_WEB_ID, render_data){
     return result
 }
 
-// var params = {
-//         "url": "/aweme/v1/web/channel/feed/",
-//         "method": "get",
-//         "headers": {
-//             "Accept": "application/json, text/plain, */*",
-//             "withCredentials": true
-//         },
-//         "params": {
-//             "device_platform": "webapp",
-//             "aid": 6383,
-//             "channel": "channel_pc_web",
-//             "tag_id": "",
-//             "count": 10,
-//             "version_code": "160100",
-//             "version_name": "16.1.0",
-//             "cookie_enabled": true,
-//             "screen_width": 1920,
-//             "screen_height": 1080,
-//             "browser_language": "zh-CN",
-//             "browser_platform": "Win32",
-//             "browser_name": "Mozilla",
-//             "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-//             "browser_online": true
-//         },
-//         "baseURL": "",
-//         "timeout": 0,
-//         "xsrfCookieName": "XSRF-TOKEN",
-//         "xsrfHeaderName": "X-XSRF-TOKEN",
-//         "maxContentLength": -1,
-//         "maxBodyLength": -1
-//     }
-// res = get_url_params(params)
+
+// res = get_url_params()
 // console.log("res is", res)
 
 module.exports = {

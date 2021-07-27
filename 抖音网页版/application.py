@@ -33,7 +33,7 @@ class WebDouYin(object):
         "pragma": "no-cache",
         "referer": "https://www.douyin.com/",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/91.0.4472.124 Safari/537.36",
+                      "Chrome/92.0.4515.107 Safari/537.36",
         "withcredentials": 'true',
     }
 
@@ -56,7 +56,7 @@ class WebDouYin(object):
             "cache-control": "max-age=0",
             "upgrade-insecure-requests": "1",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/91.0.4472.164 Safari/537.36",
+                          "Chrome/92.0.4515.107 Safari/537.36",
         }
         index_res = self.s.get(index_url, headers=index_headers)
         if index_res.status_code == 200:
@@ -89,8 +89,8 @@ class WebDouYin(object):
             "accept-language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
             "origin": "https://www.douyin.com",
             "referer": "https://www.douyin.com/",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                          "(KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/92.0.4515.107 Safari/537.36",
         }
         res = self.s.get(url, headers=headers)
         if res.status_code == 200:
@@ -134,7 +134,7 @@ class WebDouYin(object):
             "origin": "https://www.douyin.com",
             "referer": "https://www.douyin.com/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/91.0.4472.164 Safari/537.36",
+                          "Chrome/92.0.4515.107 Safari/537.36",
         }
 
         slide_info_res = self.s.get(slide_info_url, params=params, headers=headers)
@@ -170,7 +170,7 @@ class WebDouYin(object):
             "origin": "https://www.douyin.com",
             "referer": "https://www.douyin.com/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/91.0.4472.164 Safari/537.36",
+                          "Chrome/92.0.4515.107 Safari/537.36",
         }
         res = self.s.post(url, json=data, headers=headers)
         if res.status_code == 200:
@@ -187,6 +187,10 @@ class WebDouYin(object):
             "user_unique_id": user_unique_id
         }
         headers = {
+            "authority": "mcs.snssdk.com",
+            "method": "POST",
+            "path": "/v1/user/ssid",
+            "scheme": "https",
             "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate, br",
             "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
@@ -196,7 +200,7 @@ class WebDouYin(object):
             "Origin": "https://www.douyin.com",
             "Referer": "https://www.douyin.com/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/91.0.4472.164 Safari/537.36",
+                          "Chrome/92.0.4515.107 Safari/537.36",
         }
 
         res = self.s.post(url, data=json.dumps(data), headers=headers)
@@ -225,7 +229,7 @@ class WebDouYin(object):
             "origin": "https://www.douyin.com",
             "referer": "https://www.douyin.com/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/91.0.4472.164 Safari/537.36",
+                          "Chrome/92.0.4515.107 Safari/537.36",
             "x-tt-passport-csrf-token": ""
         }
 
@@ -295,10 +299,10 @@ class WebDouYin(object):
         headers = copy.deepcopy(self.DEFAULT_HEADERS)
         headers['path'] = urlparse(url).path
         time.sleep(3)
-        res = self.s.get(url, headers=headers)
-        if res.status_code == 200:
-            print(res.text)
-            print(f"cookie: {self.s.cookies.get_dict()}")
+        # res = self.s.get(url, headers=headers)
+        # if res.status_code == 200:
+        #     print(res.text)
+        #     print(f"cookie: {self.s.cookies.get_dict()}")
 
 
 if __name__ == "__main__":
@@ -310,8 +314,8 @@ if __name__ == "__main__":
     print(f"web id info: {web_id_info}")
     ssid_info = app.post_ssid(json.loads(web_id_info)['web_id'], render_data['user_unique_id'])
     print(f"sdk info: {ssid_info}")
-    qrcode_info = app.get_qrcode()
-    print(f"qrcode info: {qrcode_info}")
+    # qrcode_info = app.get_qrcode()
+    # print(f"qrcode info: {qrcode_info}")
     if app.need_verify and app.verify_data:
         logging.warning("出现了验证码")
         slide_info = app.get_slide_verify_info()
