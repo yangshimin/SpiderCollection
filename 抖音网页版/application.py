@@ -304,10 +304,10 @@ class WebDouYin(object):
         headers = copy.deepcopy(self.DEFAULT_HEADERS)
         headers['path'] = urlparse(url).path
         time.sleep(3)
-        # res = self.s.get(url, headers=headers)
-        # if res.status_code == 200:
-        #     print(res.text)
-        #     print(f"cookie: {self.s.cookies.get_dict()}")
+        res = self.s.get(url, headers=headers)
+        if res.status_code == 200:
+            print(res.text)
+            print(f"cookie: {self.s.cookies.get_dict()}")
 
 
 if __name__ == "__main__":

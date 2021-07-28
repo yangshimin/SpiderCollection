@@ -4,7 +4,7 @@ const fs = require("fs");
 const fetch = require('node-fetch');
 const {JSDOM} = jsdom;
 var localStorage = require('./localStorage');
-var sessionStorage = require('./localStorage');
+var sessionStorage = require('./sessionStorage');
 
 const consoleAble = false
 const js_code = fs.readFileSync("./douyin.html", {
@@ -207,8 +207,8 @@ let mydocument = {
     characterSet: "UTF-8",
     charset: "UTF-8",
     onmouseout: null,
-    referrer: "https://www.douyin.com",
-    documentURI: "https://www.glassdoor.com/",
+    referrer: "",
+    documentURI: "https://www.douyin.com/",
     domain: "www.douyin.com",
     lastModified: get_date('MM/dd/yyyy hh:mm:ss'),
     visibilityState: "visible",
@@ -286,7 +286,7 @@ let mysrceen = {
         type: "landscape-primary"
     }
 };
-mydocument.toString = function (){return "[object Screen]"}
+mysrceen.toString = function (){return "[object Screen]"}
 let mywindow = {
     process: undefined,
     postMessage: dom.window.postMessage,

@@ -184,9 +184,9 @@ glb = window._$jsvmprt = function (b, e, f) {
         if (!I)
             for (; O < E;) {
                 console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
-                // if (O === 29892  && E === 31962 && R === 1){
-                //     debugger
-                // }
+                if (O === 16742  && E === 16744 && R === 0){
+                    debugger
+                }
                 var j = parseInt("" + b[O] + b[O + 1], 16);
                 O += 2;
                 var A = 3 & (x = 13 * j % 241);
@@ -429,7 +429,7 @@ glb = window._$jsvmprt = function (b, e, f) {
             }
         if (I)
             for (; O < E;) {
-                // if (O === 19656 && E === 43890 && R === 1){
+                // if (O === 17842 && E === 17890 && R === 2){
                 //     debugger
                 // }
                 console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
@@ -7093,6 +7093,7 @@ function get_url_params(localStorageItem, MONITOR_WEB_ID, render_data){
     // MONITOR_WEB_ID = "e0433b2d-9d37-497e-a453-9f56955f8201"
     document.cookie = "MONITOR_WEB_ID=" + MONITOR_WEB_ID + ";max-age=7776000;domain=www.douyin.com;path=/"
     localStorage.setItem('__tea_cache_tokens_6383', localStorageItem)
+    localStorage.setItem('SEARCH_HISTORY_guest', "U2FsdGVkX1+H9cnGOJRIwv3XGQiPyczbiCCn+duzJk0=")
     let result = secsdk(window, render_data)
     return result
 }

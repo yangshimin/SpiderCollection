@@ -19,13 +19,13 @@
         return existsLength
     }
 
-    function LocalStorage() {
+    function SessionStorage() {
     }
-    db = LocalStorage;
+    db = SessionStorage;
 
     db.prototype.toString = function(){
         return '[object Storage]'
-    }
+    };
 
     db.prototype.getItem = function getItem(key) {
         if (this.hasOwnProperty(key)) {
@@ -69,9 +69,9 @@
         return Object.keys(this).length;
     });
 
-    if (global.localStorage) {
-        module.exports = localStorage;
+    if (global.sessionStorage) {
+        module.exports = sessionStorage;
     } else {
-        module.exports = new LocalStorage();
+        module.exports = new SessionStorage();
     }
 }());
