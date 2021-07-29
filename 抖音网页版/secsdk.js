@@ -2,6 +2,7 @@ const {window, navigator, screen, location, String, Image, document, history,
     Headers,Request,WebSocket,DOMException,indexedDB,PluginArray} = require('./myProxy')
 // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+global = window
 var glb;
 glb = window._$jsvmprt = function (b, e, f) {
     function a() {
@@ -184,7 +185,7 @@ glb = window._$jsvmprt = function (b, e, f) {
         if (!I)
             for (; O < E;) {
                 console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
-                if (O === 16742  && E === 16744 && R === 0){
+                if (O === 2956 && E === 3068 && R === 2){
                     debugger
                 }
                 var j = parseInt("" + b[O] + b[O + 1], 16);

@@ -28,6 +28,7 @@
     };
 
     db.prototype.getItem = function getItem(key) {
+        debugger
         if (this.hasOwnProperty(key)) {
             return String(this[key]);
         }
@@ -35,6 +36,7 @@
     };
 
     db.prototype.setItem = function setItem(key, val) {
+        debugger
         // window.localStorage 和 window.sessionStorage都有内存限制
         let existsLength = allKeyLength(this, key);
         if (typeof val === 'string' && (existsLength + val.length) >= 5242880){

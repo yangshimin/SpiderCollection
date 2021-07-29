@@ -58,7 +58,7 @@ class WebDouYin(object):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/92.0.4515.107 Safari/537.36",
         }
-        index_res = self.s.get(index_url, headers=index_headers)
+        index_res = self.s.get(index_url, headers=index_headers, verify=False)
         if index_res.status_code == 200:
             index_res.encoding = "utf-8"
             logging.info("请求首页成功")
@@ -97,7 +97,7 @@ class WebDouYin(object):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/92.0.4515.107 Safari/537.36",
         }
-        res = self.s.get(url, headers=headers)
+        res = self.s.get(url, headers=headers, verify=False)
         if res.status_code == 200:
             logging.info("请求sdk setting成功")
             return res.json()['data']['cookieid']
@@ -177,7 +177,7 @@ class WebDouYin(object):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/92.0.4515.107 Safari/537.36",
         }
-        res = self.s.post(url, json=data, headers=headers)
+        res = self.s.post(url, json=data, headers=headers, verify=False)
         if res.status_code == 200:
             logging.info("获取web id 成功")
             return res.text
@@ -208,7 +208,7 @@ class WebDouYin(object):
                           "Chrome/92.0.4515.107 Safari/537.36",
         }
 
-        res = self.s.post(url, data=json.dumps(data), headers=headers)
+        res = self.s.post(url, data=json.dumps(data), headers=headers, verify=False)
         if res.status_code == 200:
             logging.info("post render info 成功")
             return res.json()
@@ -247,7 +247,7 @@ class WebDouYin(object):
 
     def get_signature(self, sdk_setting_info, web_id_info, render_data):
         data = {"sdk_setting_info": sdk_setting_info, 'web_id_info': web_id_info, 'render_data': json.dumps(render_data)}
-        res = self.s.post("http://127.0.0.1:8090/get_sign_params", data=data)
+        res = self.s.post("http://127.0.0.1:8090/get_sign_params", data=data, verify=False)
         if res.status_code == 200:
             return res.text
             # signature_pattern = re.search("_signature=(.*)", res.text)
@@ -304,7 +304,7 @@ class WebDouYin(object):
         headers = copy.deepcopy(self.DEFAULT_HEADERS)
         headers['path'] = urlparse(url).path
         time.sleep(3)
-        res = self.s.get(url, headers=headers)
+        res = self.s.get(url, headers=headers, verify=False)
         if res.status_code == 200:
             print(res.text)
             print(f"cookie: {self.s.cookies.get_dict()}")

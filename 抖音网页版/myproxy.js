@@ -5,6 +5,9 @@ const fetch = require('node-fetch');
 const {JSDOM} = jsdom;
 var localStorage = require('./localStorage');
 var sessionStorage = require('./sessionStorage');
+var plugin = require('./plugin')
+
+console.log(plugin.item(0))
 
 const consoleAble = false
 const js_code = fs.readFileSync("./douyin.html", {
@@ -45,62 +48,10 @@ let WebSocket = function(){};
 WebSocket.prototype.toString = function (){return "function WebSocket() { [native code] }"}
 let DOMException = function(){};
 DOMException.prototype.toString = function (){return "function DOMException() { [native code] }"}
-let indexedDB = {};
-indexedDB.toString = function (){return "[object IDBFactory]"}
-let PluginArray = [
-    {
-        'description': "Portable Document Format",
-        'filename': "internal-pdf-viewer",
-        'length': 1,
-        'name': "Chrome PDF Plugin",
-        '0': {
-            "description": "Portable Document Format",
-            "enabledPlugin": {},
-            "type": "application/x-google-chrome-pdf",
-            "suffixes": "pdf"
-        }
-
-    },
-    {
-        'description': "",
-        'filename': "mhjfbmdgcfjbbpaeojofohoefgiehjai",
-        'length': 1,
-        'name': "Chrome PDF Viewer",
-        "0": {
-            'description': "",
-            "type": "application/pdf",
-            "suffixes": "pdf",
-            "enabledPlugin": {},
-        }
-    },
-    {
-        'description': "",
-        'filename': "internal-nacl-plugin",
-        'length': 1,
-        'name': "Native Client",
-        "0": {
-            "description": "Native Client Executable",
-            "type": "application/x-nacl",
-            "suffixes": "",
-            "enabledPlugin": {},
-        },
-        "1": {
-            "description": "Portable Native Client Executable",
-            "type": "application/x-pnacl",
-            "suffixes": "",
-            "enabledPlugin": {},
-        }
-
-    }
-];
-PluginArray.toString = function (){return "[object PluginArray]"}
-PluginArray.item = function (x) {
-    if (x === 4294967296) {
-        return PluginArray[0]
-    }
-    return PluginArray[x]
+let indexedDB = {
+    custom_name: "IDBFactory",
 };
-PluginArray.refresh = function (){};
+indexedDB.toString = function (){return "[object IDBFactory]"}
 let Image = function(){return dom.window.document.createElement('img')};
 Image.prototype.toString = function (){return "function Image() { [native code] }"}
 let myhistory = {
@@ -108,7 +59,8 @@ let myhistory = {
     pushState: function(){},
     replaceState: function (){},
     scrollRestoration: "auto",
-    state: null
+    state: null,
+    custom_name: "History",
 };
 myhistory.toString = function (){return "[object History]"}
 let mynavigator = {
@@ -137,7 +89,7 @@ let mynavigator = {
     online: true,
     permissions: {},
     platform: "Win32",
-    plugins: PluginArray,
+    plugins: plugin,
     presentation: {},
     product: "Gecko",
     productSub: "20030107",
@@ -155,7 +107,6 @@ let mynavigator = {
     webkitPersistentStorage: {},
     webkitTemporaryStorage: {},
     xr: {},
-
     getBattery: function () {
     },
     getGamepads: function () {
@@ -189,6 +140,7 @@ let mynavigator = {
     },
     share: function () {
     },
+    custom_name: "Navigator",
 };
 mynavigator.toString = function (){return "[object Navigator]"}
 let mylocation = {
@@ -251,7 +203,8 @@ let mydocument = {
     },
     querySelectorAll: function (eleName) {
         return dom.window.document.querySelectorAll(eleName)
-    }
+    },
+    custom_name: "HTMLDocument"
 };
 mydocument.toString = function (){return "[object HTMLDocument]"}
 Object.defineProperty(mydocument, 'cookie', {
@@ -284,7 +237,8 @@ let mysrceen = {
         angle: 0,
         onchange: null,
         type: "landscape-primary"
-    }
+    },
+    custom_name: "Screen"
 };
 mysrceen.toString = function (){return "[object Screen]"}
 let mywindow = {
@@ -339,12 +293,23 @@ let mywindow = {
     document: mydocument,
     history: myhistory,
     XMLHttpRequest: dom.window.XMLHttpRequest,
+    HTMLElement: dom.window.HTMLElement,
     _$jsvmprt: "",
     "fetch": fetch,
     "Request": Request,
     "Headers": Headers,
-
+    custom_name: "Window"
 };
+mywindow.toString = function (){return "[object Window]"}
+let origin_tostring_call = Object.prototype.toString.call.bind(Object.prototype.toString)
+Object.prototype.toString.call = function(obj){
+    if (obj && obj.custom_name){
+        res = "[object " + obj.custom_name + "]"
+    }else{
+        res = origin_tostring_call(obj)
+    }
+    return res
+}
 
 // let rawstringify = JSON.stringify;
 // JSON.stringify = function (Object) {
