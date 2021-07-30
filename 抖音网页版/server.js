@@ -11,12 +11,9 @@ api.use(bodyParser.urlencoded({
 
 api.post('/get_sign_params', function (req, res){
     let signed_params = require('./secsdk.js')
-    var sdk_setting_info = req.body.sdk_setting_info;
-    var web_id_info = req.body.web_id_info;
-    var render_data = req.body.render_data
-    var url = signed_params.get_url_params(web_id_info, sdk_setting_info, render_data);
+    var params = JSON.parse(req.body.params);
+    var url = signed_params.get_url_params(params);
     res.send(url);
-    return
 })
 
 
