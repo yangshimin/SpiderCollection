@@ -168,7 +168,10 @@ if _cf_chl_opt_pattern:
                 if isinstance(item, dict) and 'Error:Ninjas' in item.get("a", ''):
                     logging.info("替换Ninjas")
                     data[key]['a'] = 'Error:Ninjas>piratesatevalevalat.<computed>https://www.glas'
-                    break
+
+                if isinstance(item, dict) and item.get("ls") and item.get("ss"):
+                    data[key]["ls"]["ps"] = 5233664
+                    data[key]["ss"]["ps"] = 5233664
 
             new_decrypt_url = "https://www.glassdoor.com" + url
 
@@ -176,8 +179,11 @@ if _cf_chl_opt_pattern:
                                                'compressToEncodedURIComponent', json.dumps(data))
             new_decrypt_data = f'v_{cf_chl_opt["cRay"]}={new_signature}'
             # 这个new_decrypt_data的值应该有一些地方不对
-            # cookies = s.cookies.get_dict()
-            new_decrypt_res = s.post(decrypt_url, data=new_decrypt_data, headers=decrypt_headers)
+            cookies = s.cookies.get_dict()
+            # cookies.update({"cf_chl_prog": "b"})
+            decrypt_headers['referer'] = 'https://www.glassdoor.com/'
+            new_decrypt_res = requests.post(decrypt_url, data=new_decrypt_data,
+                                            headers=decrypt_headers, cookies=cookies)
             if new_decrypt_res.status_code == 200:
                 decode_js_response = requests.post("http://127.0.0.1:8090/first_decode",
                                                    data={"cRay": cf_chl_opt['cRay'], "decrypt_data": new_decrypt_res.text})

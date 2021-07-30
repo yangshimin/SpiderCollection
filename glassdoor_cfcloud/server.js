@@ -45,11 +45,11 @@ api.post('/answer_js', function (req, res){
             if (fp && fp.length === 0){
                 window._cf_chl_ctx[String(i)].fp = [
                     {
-                        "i": 14,
+                        "i": window._cf_chl_ctx[String(i)][1],
                         "h": 28
                     },
                     {
-                        "i": 25,
+                        "i":  window._cf_chl_ctx[String(i)][1] + window._cf_chl_ctx[String(i)][0],
                         "h": 14
                     }
                 ];
