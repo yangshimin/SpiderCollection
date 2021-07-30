@@ -184,10 +184,10 @@ glb = window._$jsvmprt = function (b, e, f) {
             E = O + 2 * f;
         if (!I)
             for (; O < E;) {
-                console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
-                if (O === 2956 && E === 3068 && R === 2){
-                    debugger
-                }
+                // console.log("[I is false]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E)
+                // if (O === 29802 && E === 43890 && R === 0){
+                //     debugger
+                // }
                 var j = parseInt("" + b[O] + b[O + 1], 16);
                 O += 2;
                 var A = 3 & (x = 13 * j % 241);
@@ -430,10 +430,10 @@ glb = window._$jsvmprt = function (b, e, f) {
             }
         if (I)
             for (; O < E;) {
-                // if (O === 17842 && E === 17890 && R === 2){
+                // if (O === 3682 && E === 3794 && R === 21){
                 //     debugger
                 // }
-                console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
+                // console.log("[I is true]S-----> " + S +" R-----> " + R +" O-----> " + O + " E----->" + E + " C------> " + c)
                 j = B[O];
                 O += 2;
                 A = 3 & (x = 13 * j % 241);
@@ -6764,18 +6764,17 @@ function secsdk(window, render_data) {
                             , o = n[0] || "GET"
                             , i = new URL(n[1], window.location.href);
                         if (!e.shouldProtectRequest(i.host, o, i.pathname))
-                            // this._url = this._byted_url
-                            return e.nativeXMLHttpRequestSend.apply(this, r);
-                            // var url_params = this._byted_url;
-                            // return url_params.includes('_signature=') ? url_params : ""
+                            // return e.nativeXMLHttpRequestSend.apply(this, r);
+                            var url_params = this._byted_url;
+                            return url_params.includes('_signature=') ? url_params : ""
                         if (n.length >= 3 && !n[2]) {
-                            var a = e.fetchTokenFromLocal(i.host);
-                            return this.setRequestHeader(e.tokenHeaderName, a),
-                                e.nativeXMLHttpRequestSend.apply(this, r)
+                            // var a = e.fetchTokenFromLocal(i.host);
+                            // return this.setRequestHeader(e.tokenHeaderName, a),
+                            //     e.nativeXMLHttpRequestSend.apply(this, r)
 
-                            // this.setRequestHeader(e.tokenHeaderName, a)
-                            // var url_params = this._byted_url;
-                            // return url_params.includes('_signature=') ? url_params : ""
+                            this.setRequestHeader(e.tokenHeaderName, a)
+                            var url_params = this._byted_url;
+                            return url_params.includes('_signature=') ? url_params : ""
 
                         }
                         e.fetchToken(i.host, i.pathname).then((function (n) {
@@ -6992,7 +6991,8 @@ function secsdk(window, render_data) {
                             config: e,
                             request: h
                         };
-                        h = null
+                        // h = null
+                        return h.responseText
                     }
                 }
                 ,
@@ -7034,8 +7034,7 @@ function secsdk(window, render_data) {
                 }
             )),
             f || (f = null)
-            var result = h.send(f);
-            return result
+            return h.send(f);
         }
 
         return send_xhr()
@@ -7048,8 +7047,8 @@ function secsdk(window, render_data) {
     //         "enable_ab_test": true,
     //         "ab_channel_domain": "https://www.douyin.com"
     //     })
-    tea_iife_export_obj.default.call(window, 'config', Object.assign({"ug_source": ""}, JSON.parse(render_data)))
-    tea_iife_export_obj.default.call(window, 'start')
+    // tea_iife_export_obj.default.call(window, 'config', Object.assign({"ug_source": ""}, JSON.parse(render_data)))
+    // tea_iife_export_obj.default.call(window, 'start')
 
     var params = {
         "url": "/aweme/v1/web/channel/feed/",
@@ -7083,25 +7082,19 @@ function secsdk(window, render_data) {
         "maxBodyLength": -1
     }
     return get_sign(params)
-    // aaaa = ['GET',
-    //     '/aweme/v1/web/channel/feed/?device_platform=webapp&aid=6383&channel=channel_pc_web&tag_id=&count=10&version_code=160100&version_name=16.1.0&cookie_enabled=true&screen_width=1920&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&browser_name=Mozilla&browser_version=5.0+(Windows+NT+10.0%3B+Win64%3B+x64)+AppleWebKit%2F537.36+(KHTML,+like+Gecko)+Chrome%2F91.0.4472.164+Safari%2F537.36&browser_online=true']
-    // bbbb =  window.byted_acrawler.sign({"url": aaaa[1]})
-    // return bbbb
 
 }
 
 function get_url_params(localStorageItem, MONITOR_WEB_ID, render_data){
     // MONITOR_WEB_ID = "e0433b2d-9d37-497e-a453-9f56955f8201"
-    document.cookie = "MONITOR_WEB_ID=" + MONITOR_WEB_ID + ";max-age=7776000;domain=www.douyin.com;path=/"
-    localStorage.setItem('__tea_cache_tokens_6383', localStorageItem)
-    localStorage.setItem('SEARCH_HISTORY_guest', "U2FsdGVkX1+H9cnGOJRIwv3XGQiPyczbiCCn+duzJk0=")
+    // document.cookie = "MONITOR_WEB_ID=" + MONITOR_WEB_ID + ";max-age=7776000;domain=www.douyin.com;path=/"
+    // localStorage.setItem('__tea_cache_tokens_6383', localStorageItem)
+    // localStorage.setItem('SEARCH_HISTORY_guest', "U2FsdGVkX1+H9cnGOJRIwv3XGQiPyczbiCCn+duzJk0=")
     let result = secsdk(window, render_data)
+    console.log("生成_signature:", result)
     return result
 }
 
-
-// res = get_url_params()
-// console.log("res is", res)
 
 module.exports = {
     get_url_params,

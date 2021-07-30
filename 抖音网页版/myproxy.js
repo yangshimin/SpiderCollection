@@ -1,13 +1,16 @@
-var canvas = require('canvas');
+const { createCanvas, CanvasRenderingContext2D } = require('canvas')
 const jsdom = require("jsdom");
 const fs = require("fs");
 const fetch = require('node-fetch');
 const {JSDOM} = jsdom;
 var localStorage = require('./localStorage');
 var sessionStorage = require('./sessionStorage');
-var plugin = require('./plugin')
+var pluginRequire = require('./plugin')
 
-console.log(plugin.item(0))
+var plugins = pluginRequire.plugins
+var PluginArray = pluginRequire.PluginArray
+
+const canvas = createCanvas(300, 150)
 
 const consoleAble = false
 const js_code = fs.readFileSync("./douyin.html", {
@@ -89,7 +92,7 @@ let mynavigator = {
     online: true,
     permissions: {},
     platform: "Win32",
-    plugins: plugin,
+    plugins: plugins,
     presentation: {},
     product: "Gecko",
     productSub: "20030107",
@@ -98,7 +101,7 @@ let mynavigator = {
     storage: {},
     usb: {},
     userActivation: {},
-    userAgent: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36",
     userAgentData: {},
     vendor: "Google Inc.",
     vendorSub: "",
@@ -142,7 +145,7 @@ let mynavigator = {
     },
     custom_name: "Navigator",
 };
-mynavigator.toString = function (){return "[object Navigator]"}
+mynavigator.toString = function toString(){return "[object Navigator]"}
 let mylocation = {
     protocol: "https:",
     href: "https://www.douyin.com/",
@@ -153,6 +156,7 @@ let mylocation = {
     origin: "https://www.douyin.com"
 };
 mylocation.toString = function (){return "https://www.douyin.com/"}
+
 let mydocument = {
     title: "【抖音】记录美好生活",
     images: ['', '', ''],
@@ -198,13 +202,17 @@ let mydocument = {
     },
     appendChild: dom.window.document.appendChild,
     createElement: function (eleName) {
+        if (eleName === 'canvas'){
+            canvas.toDataURL.toString = function(){return "function toDataURL() { [native code] }"}
+            return canvas
+        }
         ele = dom.window.document.createElement(eleName);
         return ele;
     },
     querySelectorAll: function (eleName) {
         return dom.window.document.querySelectorAll(eleName)
     },
-    custom_name: "HTMLDocument"
+    custom_name: "HTMLDocument",
 };
 mydocument.toString = function (){return "[object HTMLDocument]"}
 Object.defineProperty(mydocument, 'cookie', {
@@ -223,6 +231,10 @@ Object.defineProperty(mydocument, 'cookie', {
         }
     }
 });
+mydocument = Object.create(mydocument);
+mydocument.location = mylocation;
+mydocument.__reactEvents$o5euvjezgm = new Set(["selectionchange__bubble", "selectionchange__capture"]);
+
 let mysrceen = {
     availHeight: 1040,
     availLeft: 2560,
@@ -241,13 +253,75 @@ let mysrceen = {
     custom_name: "Screen"
 };
 mysrceen.toString = function (){return "[object Screen]"}
+let myChrome = {
+    app: {
+        InstallState: {},
+        RunningState: {},
+        getDetails: function () {
+        },
+        getIsInstalled: function () {
+        },
+        installState: function () {
+        },
+        isInstalled: false,
+        runningState: function () {
+        },
+
+    },
+    csi: function () {
+        return {
+            onloadT: new Date().getTime(),
+            pageT: new Date().getTime() - timestamp,
+            startE: new Date().getTime() - 356,
+            tran: 15
+        }
+    },
+    loadTimes: function () {
+        return {
+            commitLoadTime: new Date().getTime() - 356 + 127,
+            connectionInfo: "h2",
+            finishDocumentLoadTime: new Date().getTime(),
+            finishLoadTime: new Date().getTime() + 124,
+            firstPaintAfterLoadTime: 0,
+            firstPaintTime: new Date().getTime() - 109,
+            navigationType: "Other",
+            npnNegotiatedProtocol: "h2",
+            requestTime: new Date().getTime() - 356,
+            startLoadTime: new Date().getTime() - 356,
+            wasAlternateProtocolAvailable: false,
+            wasFetchedViaSpdy: true,
+            wasNpnNegotiated: true,
+
+
+        }
+    },
+    runtime: {
+        OnInstalledReason: {},
+        OnRestartRequiredReason: {},
+        PlatformArch: {},
+        PlatformNaclArch: {},
+        PlatformOs: {},
+        RequestUpdateCheckStatus: {},
+        connect: function (extensionId, connectInfo) {
+            if (typeof extensionId !== 'number'){
+                throw TypeError("Error in invocation of runtime.connect(optional string extensionId, optional object connectInfo): chrome.runtime.connect() called from a webpage must specify an Extension ID (string) for its first argument.")
+            }
+        },
+        id: undefined,
+        sendMessage: function () {
+        },
+    }
+};
 let mywindow = {
+    chrome: myChrome,
     process: undefined,
     postMessage: dom.window.postMessage,
     localStorage: localStorage,
     sessionStorage: sessionStorage,
     Object: Object,
     canvas: canvas,
+    Audio: dom.window.Audio,
+    CanvasRenderingContext2D: CanvasRenderingContext2D,
     CSSRuleList: function(){},
     CSSStyleDeclaration: function(){},
     DOMRectList: function(){},
@@ -301,6 +375,9 @@ let mywindow = {
     custom_name: "Window"
 };
 mywindow.toString = function (){return "[object Window]"}
+
+// Object.defineProperty(document, Symbol.toStringTag,{value: 'HTMLDocument'}) 也能实现同样的效果 但是需要每个对象都这么设置一哈
+// 所以这里直接这么hook
 let origin_tostring_call = Object.prototype.toString.call.bind(Object.prototype.toString)
 Object.prototype.toString.call = function(obj){
     if (obj && obj.custom_name){
@@ -502,7 +579,7 @@ const screen = new Proxy(Object.create(mysrceen), getObjhandler("screen"));
 const history = new Proxy(myhistory, getObjhandler("history"));
 const location = new Proxy(mylocation, getObjhandler("location"));
 const document = new Proxy(mydocument, getObjhandler("document"));
-const navigator = new Proxy(mynavigator, getObjhandler("navigator"));
+const navigator = new Proxy(Object.create(mynavigator), getObjhandler("navigator"));
 const window = new Proxy(Object.assign(global, mywindow), getObjhandler("window"));
 
 //checkproxy()

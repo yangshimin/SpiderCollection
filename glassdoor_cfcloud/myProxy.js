@@ -649,8 +649,7 @@ let myChrome = {
         PlatformNaclArch: {},
         PlatformOs: {},
         RequestUpdateCheckStatus: {},
-        connect: function () {
-        },
+        connect: function () {},
         id: undefined,
         sendMessage: function () {
         },
