@@ -1288,14 +1288,14 @@ function _0x54be(_0x3b5983, _0x20d916) {
             _0x12c6ed = function () {
                 var _0x1f7c12 = !![];
                 return function (_0x1bec18, _0x128e67) {
-                    var _0x217f68 = _0x1f7c12 ? function () {
+                    var _0x217f68 = function () {
                         var _0x3301ab = _0x54be;
                         if (_0x128e67) {
                             var _0x4922b0 = _0x128e67[_0x3301ab(0x483)](_0x1bec18, arguments);
                             return _0x128e67 = null,
                                 _0x4922b0;
                         }
-                    } : function () {};
+                    }
                     return _0x1f7c12 = ![],
                         _0x217f68;
                 };

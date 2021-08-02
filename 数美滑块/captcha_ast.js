@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha.js", {
+const js_code = fs.readFileSync("./captcha.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -26,9 +26,71 @@ function generate_js(astObjList){
 }
 
 // 获取解密相关的JS代码
+let decrypt_func_name = ast.program.body[1].declarations[0].init.name;
+let decrypt_func_name_copy = decrypt_func_name;
 let decrypt_list = ast.program.body.slice(0,4)
 let decrypt_code = generate_js(decrypt_list)
 
 // 将解密的相关代码加载到内存中
 eval(decrypt_code)
 
+let new_ast = parser.parse(generate_js(ast.program.body.slice(4, ast.program.body.length)))
+
+function decryptReplace(path, decrypt_func_name){
+    let varInit = path.node.init;
+    if (varInit && varInit.name !== decrypt_func_name) return;
+    let name = path.node.id.name;
+    let varBind = path.parentPath.scope.getBinding(name);
+    if (varBind && varBind.referencePaths.length >= 0){
+        varBind.referencePaths.map(function (p){
+            let referenceParentType = p.parentPath.type;
+            if (referenceParentType === 'CallExpression'){
+                let arguments = p.parentPath.node.arguments;
+                if (arguments.length !== 1 || p.parentPath.node.callee.type !== 'Identifier') return
+                try{
+                    p.parentPath.node.arguments[0].extra.raw
+                }catch (e){
+                    console.log(e)
+                }
+                let argu = p.parentPath.node.arguments[0].extra.raw;
+                let realValue = eval(decrypt_func_name_copy + "(" + argu + ")");
+                p.parentPath.replaceWith(t.valueToNode(realValue))
+            }else if (referenceParentType === 'VariableDeclarator'){
+                let temp = p.parentPath.node.init.name;
+                if (!temp) return;
+                decryptReplace(p.parentPath, temp)
+            }else{
+                console.log("reference parent type is", referenceParentType)
+            }
+        })
+    }
+}
+
+traverse(new_ast, {
+    VariableDeclarator(path){
+        decryptReplace(path, decrypt_func_name);
+    }
+})
+
+
+// traverse(new_ast, {
+//     CallExpression(path){
+//         let callee = path.node.callee;
+//         if (!callee || callee.name !== '_0x1cdd89') return;
+//         let arg = path.node.arguments;
+//         if (!arg) return;
+//         let rawValue = arg[0].extra.rawValue
+//         let realValue = _0x54be(rawValue);
+//         if (typeof(realValue) === "number"){
+//             path.replaceWith(t.NumericLiteral(realValue));
+//         }else if(typeof(realValue) === "string"){
+//             path.replaceWith(t.StringLiteral(realValue));
+//         }else{
+//             throw Error("存在其他数据类型的结果")
+//         }
+//     }
+// })
+
+code = generator(new_ast).code
+new_ast = parser.parse(code);
+console.log(new_ast)
