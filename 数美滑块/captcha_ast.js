@@ -36,6 +36,7 @@ eval(decrypt_code)
 
 let new_ast = parser.parse(generate_js(ast.program.body.slice(4, ast.program.body.length)))
 
+// 字符串解密
 function decryptReplace(path, decrypt_func_name){
     let varInit = path.node.init;
     if (varInit && varInit.name !== decrypt_func_name) return;
@@ -47,11 +48,6 @@ function decryptReplace(path, decrypt_func_name){
             if (referenceParentType === 'CallExpression'){
                 let arguments = p.parentPath.node.arguments;
                 if (arguments.length !== 1 || p.parentPath.node.callee.type !== 'Identifier') return
-                try{
-                    p.parentPath.node.arguments[0].extra.raw
-                }catch (e){
-                    console.log(e)
-                }
                 let argu = p.parentPath.node.arguments[0].extra.raw;
                 let realValue = eval(decrypt_func_name_copy + "(" + argu + ")");
                 p.parentPath.replaceWith(t.valueToNode(realValue))
@@ -71,6 +67,36 @@ traverse(new_ast, {
         decryptReplace(path, decrypt_func_name);
     }
 })
+
+// 花指令解密
+// 生成totalObj
+let totalObj = {}
+function generateTotalObj(ast){
+    traverse(new_ast, {
+        AssignmentExpression(path){
+            if (path.node.left && t.isMemberExpression(path.node.left)){
+                let objName = path.node.left.object.name;
+                let objKeyName = path.node.left.property.value;
+                if (!totalObj[objName]){
+                    totalObj[objName] = {};
+                }
+                if (objName && objKeyName && totalObj[objName] && totalObj[objName][objKeyName]) return;
+                if (t.isStringLiteral(path.node.right)){
+                    // 字符串花指令
+                    totalObj[objName][objKeyName] = path.node.right.value;
+
+                }else if (t.isFunctionExpression(path.node.right)){
+                    // 函数花指令
+                    totalObj[objName][objKeyName] = path.node.right
+                }
+            }
+        }
+    })
+
+}
+
+new_ast = parser.parse(generator(new_ast).code);
+generateTotalObj(new_ast)
 
 
 // traverse(new_ast, {
@@ -92,5 +118,5 @@ traverse(new_ast, {
 // })
 
 code = generator(new_ast).code
-new_ast = parser.parse(code);
-console.log(new_ast)
+// new_ast = parser.parse(code);
+console.log(code)
