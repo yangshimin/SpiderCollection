@@ -68,27 +68,89 @@ traverse(new_ast, {
     }
 })
 
+// 函数的参数替换
+
+// 函数的形参列表
+let argumentsList = new_ast.program.body[0].expression.argument.callee.params;
+// 函数的实参列表
+let realArgumentList = new_ast.program.body[0].expression.argument.arguments;
+
+// 替换过后发现字符串好像都是倒序了，检查原始代码发现有两个for循环对传入的参数做处理的过程
+// 这里直接把相关代码拿出来提前做好计算 然后删除代码中的操作
+let temp = []
+realArgumentList.map(function (n){
+    if(n.type === 'StringLiteral'){
+        value = n.value;
+    }else{
+        value = eval(generate_js([n]));
+    }
+    temp.push(value);
+})
+var _0x450a3e = temp, _0x3ff3d5;
+
+// 如果某个值类型是字符串 就把字符串的字符顺序倒序
+for (_0x3ff3d5 = 0; _0x3ff3d5 < 1283; _0x3ff3d5++) {
+    typeof _0x450a3e[_0x3ff3d5] === "string" && (_0x450a3e[_0x3ff3d5] = _0x450a3e[_0x3ff3d5]["split"]("")["reverse"]()["join"](""));
+}
+
+// 把除最后10个之外的参数全部倒序
+for (_0x3ff3d5 = 0; _0x3ff3d5 < (1283 / 2); _0x3ff3d5++) {
+    var _0xf4cda9 = _0x450a3e[_0x3ff3d5];
+    _0x450a3e[_0x3ff3d5] = _0x450a3e[1283 - _0x3ff3d5 - 1], _0x450a3e[1283 - _0x3ff3d5 - 1] = _0xf4cda9;
+}
+
+// 把正确的参数顺序重新赋值给realArgumentList
+realArgumentList = temp;
+// 删除原始代码中的两个for循环及相关代码
+new_ast.program.body[0].expression.argument.callee.body.body.splice(4, 3)
+
+// 把形参和实参一一对应
+let argumentsMap = {};
+for (var i=0; i < argumentsList.length; i++){
+    var value = "";
+    var key = argumentsList[i].name;
+    if (key === '_0x39ffed'){
+        debugger
+    }
+    argumentsMap[key] = realArgumentList[i];
+}
+// 删除函数的形参和实参
+new_ast.program.body[0].expression.argument.callee.params = [];
+new_ast.program.body[0].expression.argument.arguments = [];
+
+// 遍历所有的identifier, 如果存在于argumentsMap中就替换调
+new_ast = parser.parse(generator(new_ast).code);
+traverse(new_ast, {
+    Identifier(path){
+        let name = path.node.name;
+        let realValue = argumentsMap[name];
+        if (realValue !== undefined){
+            path.replaceWith(t.valueToNode(realValue))
+        }
+    }
+})
+
+
+let new_code = generator(new_ast, opts = {jsescOption:{"minimal":true}}).code
+
 // 花指令解密
 // 生成totalObj
+new_ast = parser.parse(generator(new_ast).code)
 let totalObj = {}
 function generateTotalObj(ast){
     traverse(new_ast, {
         AssignmentExpression(path){
-            if (path.node.left && t.isMemberExpression(path.node.left)){
+            if (path.node.operator && path.node.operator === '=' && path.node.left && t.isMemberExpression(path.node.left)){
                 let objName = path.node.left.object.name;
+                if (objName === '_0x450a3e'){
+                    debugger
+                }
                 let objKeyName = path.node.left.property.value;
+                if (!objName || !objKeyName) return;
                 if (!totalObj[objName]){
                     totalObj[objName] = {};
                 }
-                if (objName && objKeyName && totalObj[objName] && totalObj[objName][objKeyName]) return;
-                if (t.isStringLiteral(path.node.right)){
-                    // 字符串花指令
-                    totalObj[objName][objKeyName] = path.node.right.value;
-
-                }else if (t.isFunctionExpression(path.node.right)){
-                    // 函数花指令
-                    totalObj[objName][objKeyName] = path.node.right
-                }
+                totalObj[objName][objKeyName] = path.node.right
             }
         }
     })
@@ -97,7 +159,7 @@ function generateTotalObj(ast){
 
 new_ast = parser.parse(generator(new_ast).code);
 generateTotalObj(new_ast)
-
+console.log(totalObj)
 
 // traverse(new_ast, {
 //     CallExpression(path){
