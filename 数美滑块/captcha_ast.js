@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("./captcha.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -70,6 +70,7 @@ traverse(new_ast, {
 
 // 函数的参数替换
 
+new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
 // 函数的形参列表
 let argumentsList = new_ast.program.body[0].expression.argument.callee.params;
 // 函数的实参列表
@@ -116,7 +117,7 @@ new_ast.program.body[0].expression.argument.callee.params = [];
 new_ast.program.body[0].expression.argument.arguments = [];
 
 // 遍历所有的identifier, 如果存在于argumentsMap中就替换调
-new_ast = parser.parse(generator(new_ast).code);
+new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
 traverse(new_ast, {
     Identifier(path){
         let name = path.node.name;
@@ -128,25 +129,25 @@ traverse(new_ast, {
 })
 
 
-// 删除一些垃圾代码
-new_ast = parser.parse(generator(new_ast).code);
-traverse(new_ast, {
-    Identifier(path){
-        let name = path.node.name;
-        let binding = path.scope.getBinding(name);
-        // 没有被引用且没有对这个变量进行修改的地方且父级path不是一个function, 如此则删除这个垃圾代码
-        if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
-            !t.isFunctionExpression(path.parentPath)){
-            try{
+// 删除一些垃圾代码 但存在这么一种情况 a = b; c = a; 但c在代码中没有其他地方引用 所以用for循环多删几次 总能删干净
+for (var i =0; i <=3; i++){
+    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+    traverse(new_ast, {
+        Identifier(path){
+            let name = path.node.name;
+            if (name === '_0x11e9d9'){
+                debugger;
+            }
+            let binding = path.scope.getBinding(name);
+            // 没有被引用且没有对这个变量进行修改的地方且父级path不是指定特殊情况, 如此则删除这个垃圾代码
+            if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
+                !(t.isFunctionExpression(path.parentPath) || t.isCatchClause(path.parentPath))){
                 path.parentPath.remove();
-            }catch(e){
-                debugger
+
             }
         }
-    }
-})
-
-let new_code = generator(new_ast, opts = {jsescOption:{"minimal":true}}).code
+    })
+}
 
 // 花指令解密
 // 生成totalObj
@@ -213,23 +214,6 @@ new_ast = parser.parse(generator(new_ast).code);
 generateTotalObj(new_ast)
 console.log(totalObj)
 
-// traverse(new_ast, {
-//     CallExpression(path){
-//         let callee = path.node.callee;
-//         if (!callee || callee.name !== '_0x1cdd89') return;
-//         let arg = path.node.arguments;
-//         if (!arg) return;
-//         let rawValue = arg[0].extra.rawValue
-//         let realValue = _0x54be(rawValue);
-//         if (typeof(realValue) === "number"){
-//             path.replaceWith(t.NumericLiteral(realValue));
-//         }else if(typeof(realValue) === "string"){
-//             path.replaceWith(t.StringLiteral(realValue));
-//         }else{
-//             throw Error("存在其他数据类型的结果")
-//         }
-//     }
-// })
 
 code = generator(new_ast).code
 // new_ast = parser.parse(code);
