@@ -109,9 +109,6 @@ let argumentsMap = {};
 for (var i=0; i < argumentsList.length; i++){
     var value = "";
     var key = argumentsList[i].name;
-    if (key === '_0x39ffed'){
-        debugger
-    }
     argumentsMap[key] = realArgumentList[i];
 }
 // 删除函数的形参和实参
@@ -131,27 +128,82 @@ traverse(new_ast, {
 })
 
 
+// 删除一些垃圾代码
+new_ast = parser.parse(generator(new_ast).code);
+traverse(new_ast, {
+    Identifier(path){
+        let name = path.node.name;
+        let binding = path.scope.getBinding(name);
+        // 没有被引用且没有对这个变量进行修改的地方且父级path不是一个function, 如此则删除这个垃圾代码
+        if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
+            !t.isFunctionExpression(path.parentPath)){
+            try{
+                path.parentPath.remove();
+            }catch(e){
+                debugger
+            }
+        }
+    }
+})
+
 let new_code = generator(new_ast, opts = {jsescOption:{"minimal":true}}).code
 
 // 花指令解密
 // 生成totalObj
-new_ast = parser.parse(generator(new_ast).code)
+new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code)
 let totalObj = {}
 function generateTotalObj(ast){
-    traverse(new_ast, {
-        AssignmentExpression(path){
-            if (path.node.operator && path.node.operator === '=' && path.node.left && t.isMemberExpression(path.node.left)){
-                let objName = path.node.left.object.name;
-                if (objName === '_0x450a3e'){
-                    debugger
-                }
-                let objKeyName = path.node.left.property.value;
-                if (!objName || !objKeyName) return;
-                if (!totalObj[objName]){
-                    totalObj[objName] = {};
-                }
-                totalObj[objName][objKeyName] = path.node.right
+    traverse(ast, {
+        // AssignmentExpression(path){
+        //     if (path.node.operator && path.node.operator === '=' && path.node.left && t.isMemberExpression(path.node.left)){
+        //         let objName = path.node.left.object.name;
+        //         if (objName === '_0x450a3e'){
+        //             debugger
+        //         }
+        //         let objKeyName = path.node.left.property.value;
+        //         if (!objName || !objKeyName) return;
+        //         if (!totalObj[objName]){
+        //             totalObj[objName] = {};
+        //         }
+        //         totalObj[objName][objKeyName] = path.node.right
+        //     }
+        // },
+        VariableDeclarator(path){
+            let name = path.node.id.name;
+            let init = path.node.init;
+            if (!t.isObjectExpression(init)) return;
+            let binding = path.scope.getBinding(name);
+            if (!binding) return;
+            if (!totalObj[name]){
+                totalObj[name] = {}
             }
+
+            binding.referencePaths.map(function (p){
+                if (t.isAssignmentExpression(p.parentPath.parent)){
+                    let propertiesKey = p.parentPath.parent.left.property.value;
+                    let right = p.parentPath.parent.right;
+
+                    if (t.isStringLiteral(right)){
+                        // 当键值为字符串时
+                        value = right;
+                    }else if(t.isFunctionExpression(right)){
+                        // 当键值为函数时
+                        value = right.body.body[0].argument
+                    }
+                    totalObj[name][propertiesKey] = value;
+                    console.log("add ", propertiesKey)
+                }else{
+                    let parentNode = p.parentPath.node;
+                    if (t.isVariableDeclarator(parentNode)){
+                        // 当存在key值复制时
+                        let name = parentNode.id.name;
+                        let init = parentNode.init.name;
+                        if (totalObj[init]){
+                            totalObj[name] = totalObj[init];
+                        }
+                    }
+                }
+            })
         }
     })
 
