@@ -70,7 +70,7 @@ traverse(new_ast, {
 
 // 函数的参数替换
 
-new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+new_ast = parser.parse(generator(new_ast).code);
 // 函数的形参列表
 let argumentsList = new_ast.program.body[0].expression.argument.callee.params;
 // 函数的实参列表
@@ -117,27 +117,25 @@ new_ast.program.body[0].expression.argument.callee.params = [];
 new_ast.program.body[0].expression.argument.arguments = [];
 
 // 遍历所有的identifier, 如果存在于argumentsMap中就替换调
-new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+new_ast = parser.parse(generator(new_ast).code);
 traverse(new_ast, {
     Identifier(path){
         let name = path.node.name;
         let realValue = argumentsMap[name];
         if (realValue !== undefined){
+            console.log("[替换]:", realValue)
             path.replaceWith(t.valueToNode(realValue))
         }
     }
 })
 
-
+code = generator(new_ast).code
 // 删除一些垃圾代码 但存在这么一种情况 a = b; c = a; 但c在代码中没有其他地方引用 所以用for循环多删几次 总能删干净
 for (var i =0; i <=3; i++){
     new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
     traverse(new_ast, {
         Identifier(path){
             let name = path.node.name;
-            if (name === '_0x11e9d9'){
-                debugger;
-            }
             let binding = path.scope.getBinding(name);
             // 没有被引用且没有对这个变量进行修改的地方且父级path不是指定特殊情况, 如此则删除这个垃圾代码
             if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
@@ -155,20 +153,6 @@ new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}})
 let totalObj = {}
 function generateTotalObj(ast){
     traverse(ast, {
-        // AssignmentExpression(path){
-        //     if (path.node.operator && path.node.operator === '=' && path.node.left && t.isMemberExpression(path.node.left)){
-        //         let objName = path.node.left.object.name;
-        //         if (objName === '_0x450a3e'){
-        //             debugger
-        //         }
-        //         let objKeyName = path.node.left.property.value;
-        //         if (!objName || !objKeyName) return;
-        //         if (!totalObj[objName]){
-        //             totalObj[objName] = {};
-        //         }
-        //         totalObj[objName][objKeyName] = path.node.right
-        //     }
-        // },
         VariableDeclarator(path){
             let name = path.node.id.name;
             let init = path.node.init;
@@ -186,13 +170,19 @@ function generateTotalObj(ast){
 
                     if (t.isStringLiteral(right)){
                         // 当键值为字符串时
-                        value = right;
+                        totalObj[name][propertiesKey] = right;
                     }else if(t.isFunctionExpression(right)){
                         // 当键值为函数时
                         value = right.body.body[0].argument
+                        totalObj[name][propertiesKey] = value;
+                    }else if(t.isMemberExpression(right)){
+                        let objectName = right.object.name;
+                        let propertyName = right.property.value;
+                        value = totalObj[objectName]?totalObj[objectName][propertyName]?totalObj[objectName][propertyName]:"":"";
+                        if (value){
+                            totalObj[name][propertiesKey] = value
+                        }
                     }
-                    totalObj[name][propertiesKey] = value;
-                    console.log("add ", propertiesKey)
                 }else{
                     let parentNode = p.parentPath.node;
                     if (t.isVariableDeclarator(parentNode)){
@@ -205,6 +195,9 @@ function generateTotalObj(ast){
                     }
                 }
             })
+            if (JSON.stringify(totalObj[name])  === '{}'){
+                delete totalObj[name]
+            }
         }
     })
 
@@ -212,7 +205,80 @@ function generateTotalObj(ast){
 
 new_ast = parser.parse(generator(new_ast).code);
 generateTotalObj(new_ast)
-console.log(totalObj)
+
+// 函数花指令替换
+code = generator(new_ast, opts = {jsescOption:{"minimal":true}}).code
+new_ast = parser.parse(code)
+
+function findRealValue(node){
+    let objectName = "";
+    let properties = "";
+    try{
+        objectName = node.object.name;
+        properties = node.property.value;
+    }catch (e) {
+        return false
+    }
+
+    if (totalObj[objectName] && totalObj[objectName][properties]){
+        console.log("[READY]要进行函数花指令替换的节点类型为:", totalObj[objectName][properties].type);
+        if (t.isCallExpression(totalObj[objectName][properties])){
+            let arguments = totalObj[objectName][properties].arguments;
+            if (!arguments) return;
+            let callee = totalObj[objectName][properties].callee;
+            if (!callee) return;
+            if (t.isMemberExpression(callee)){
+                return findRealValue(callee);
+            }
+            return totalObj[objectName][properties];
+        }else if (t.isBinaryExpression(totalObj[objectName][properties]) || t.isLogicalExpression(totalObj[objectName][properties])){
+            let left = totalObj[objectName][properties].left;
+            let right = totalObj[objectName][properties].right;
+            if (t.isIdentifier(left) && t.isIdentifier(right)){
+                return totalObj[objectName][properties];
+            }
+        }else{
+            console.log(totalObj[objectName][properties])
+        }
+    }else{
+        return node;
+    }
+}
+
+traverse(new_ast, {
+    CallExpression(path){
+        let arguments = path.node.arguments;
+        if (!arguments) return;
+        let callee = path.node.callee;
+        if (!callee) return;
+        console.log("[READY]准备进行函数花指令替换:", path.toString());
+        let returnExpr = findRealValue(callee)
+        if (returnExpr && (t.isBinaryExpression(returnExpr) || t.isLogicalExpression(returnExpr))){
+            let returnExprType = returnExpr.type;
+            let binExpr = t[returnExprType](returnExpr.operator, arguments[0], arguments[1]);
+            path.replaceWith(binExpr);
+            console.log("[SUCCESS]函数花指令替换:", path.toString())
+        }else if(t.isCallExpression(returnExpr)){
+            if (arguments.length > returnExpr.arguments.length){
+                let newArr = path.node.arguments.slice(1);
+                let callExpr = t.callExpression(arguments[0], newArr);
+                path.replaceWith(callExpr);
+                console.log("[SUCCESS]函数花指令替换:", path.toString())
+            }else{
+                console.log(returnExpr)
+            }
+        }
+    },
+    MemberExpression(path){
+        console.log("[READY]准备进行函数花指令替换:", path.toString());
+        let ObjectName = path.node.object.name;
+        let propertyValue = path.node.property.value;
+        if (!t.isAssignmentExpression(path.parentPath) && totalObj[ObjectName] && totalObj[ObjectName][propertyValue]){
+            path.replaceWith(totalObj[ObjectName][propertyValue]);
+            console.log("[SUCCESS]函数花指令替换:", path.toString())
+        }
+    }
+})
 
 
 code = generator(new_ast).code
