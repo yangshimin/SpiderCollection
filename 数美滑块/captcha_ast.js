@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha.js", {
+const js_code = fs.readFileSync("./captcha.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -141,7 +141,7 @@ for (var i =0; i <=3; i++){
             if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
                 !(t.isFunctionExpression(path.parentPath) || t.isCatchClause(path.parentPath))){
                 path.parentPath.remove();
-
+                console.log("[1]: 删除没有引用过的变量:", name);
             }
         }
     })
@@ -273,13 +273,132 @@ traverse(new_ast, {
         console.log("[READY]准备进行函数花指令替换:", path.toString());
         let ObjectName = path.node.object.name;
         let propertyValue = path.node.property.value;
-        if (!t.isAssignmentExpression(path.parentPath) && totalObj[ObjectName] && totalObj[ObjectName][propertyValue]){
-            path.replaceWith(totalObj[ObjectName][propertyValue]);
-            console.log("[SUCCESS]函数花指令替换:", path.toString())
+
+        // 函数花指令调用的时候, 例如: _0x27b6cb["bODlD"](_0xcf94da, _0x48317d)
+        if (!t.isAssignmentExpression(path.parentPath)){
+            if (totalObj[ObjectName] && totalObj[ObjectName][propertyValue]){
+                path.replaceWith(totalObj[ObjectName][propertyValue]);
+                console.log("[SUCCESS]函数花指令替换:", path.toString())
+            }
+        }else{
+            // 函数花指令 赋值给其他对象的时候, 例如: _0x46c8b5['yDZMP'] = _0x27b6cb["hcnca"]
+            if (path.node === path.parentPath.node.right && totalObj[ObjectName] && totalObj[ObjectName][propertyValue]){
+                path.replaceWith(totalObj[ObjectName][propertyValue]);
+                console.log("[SUCCESS]函数花指令替换:", path.toString())
+            }
         }
     }
 })
 
+// 函数花指令替换之后, 会生成一些没有引用的变量 和 没有调用的一些对象, 这些都需要删除
+for (var i =0; i <=3; i++){
+    // 删除一些没有引用的变量
+    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+    traverse(new_ast, {
+        Identifier(path){
+            let name = path.node.name;
+            let binding = path.scope.getBinding(name);
+            // 没有被引用且没有对这个变量进行修改的地方且父级path不是指定特殊情况, 如此则删除这个垃圾代码
+            if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
+                !(t.isFunctionExpression(path.parentPath) || t.isCatchClause(path.parentPath))){
+                console.log("[2]: 删除没有引用过的变量:", name);
+                path.parentPath.remove();
+            }
+        }
+    })
+}
+
+for (var i =0; i <=3; i++){
+    // 不知道为何执行一次删除不干净 所以用for循环多执行几次
+    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+    traverse(new_ast, {
+        Identifier(path){
+            let name = path.node.name;
+            if (!t.isObjectExpression(path.parentPath.node.init) || path.parentPath.node.init.properties.length !== 0) return;
+            // 父级是赋值表达式 且这个节点的每个引用的objectName和property是存在于totalObj
+            let binding = path.scope.getBinding(name);
+            if (binding && binding.referencePaths.length > 0){
+                let array = [];
+                binding.referencePaths.map(function(p){
+                    if (t.isAssignmentExpression(p.parentPath.parentPath) &&
+                        totalObj[name] &&
+                        totalObj[name][p.parentPath.node.property.value]){
+                        array.push(1);
+                    }else{
+                        array.push(0)
+                    }
+                })
+
+                let sum = array.reduce(function(a, b){
+                    return a + b;
+
+                }, 0);
+                if (sum === (array.length * 1)){
+                    binding.referencePaths.map(function(p){
+                        console.log("[2]: 删除没有调用过的对象:", p.parentPath.parentPath.toString());
+                        p.parentPath.parentPath.remove();
+                    })
+                }
+            }
+        }
+    })
+
+    // 删除一些没有引用的变量
+    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+    traverse(new_ast, {
+        Identifier(path){
+            let name = path.node.name;
+            let binding = path.scope.getBinding(name);
+            // 没有被引用且没有对这个变量进行修改的地方且父级path不是指定特殊情况, 如此则删除这个垃圾代码
+            if (binding && !binding.referenced && binding.constantViolations.length === 0 &&
+                !(t.isFunctionExpression(path.parentPath) || t.isCatchClause(path.parentPath))){
+                path.parentPath.remove();
+                console.log("[2]: 删除没有引用过的变量:", name);
+            }
+        }
+    })
+}
+
+// switch还原
+// 因为可能存在Switch嵌套 所以这里循环多次
+for (let i = 0; i < 20; i++){
+    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
+    traverse(new_ast, {
+        // 因为代码中switch 混淆的分发器是"0|1|4|2|3"["split"]("|") 所以通过遍历MemberExpression和条件判断来找到分发器内容
+        MemberExpression(path){
+            try{
+                if(t.isStringLiteral(path.node.object) && t.isStringLiteral(path.node.property, {value:  'split'})){
+                    // 找到最近的父节点 当前path是分发器 父节点就是分发器的定义语句 因为代码中下一句就是switch混淆
+                    // 所以通过找父节点的兄弟节点来定位while循环
+                    let varPath = path.findParent(function (p){return t.isVariableDeclaration(p);});
+                    if (!varPath) return;
+                    //varPath.key 就是var语句在body数组中索引
+                    let whilePath = varPath.getSibling(varPath.key + 1);
+
+                    // 解析整个Switch 把case语句的条件值和要执行内容做个映射 一一对应起来
+                    let myArr = [];
+                    whilePath.node.body.body[0].cases.map(function(p){
+                        myArr[p.test.value] = p.consequent[0];
+                    });
+
+                    // 做好映射后 把原先代码中的var定义语句和while循环语句删除掉 准备还原
+                    let blockStatement = whilePath.parent;
+                    varPath.remove();
+                    whilePath.remove();
+                    // 还原顺序
+                    // 分发器中有正确的代码执行顺序 所以通过分发器的内容还原代码的执行顺序
+                    let shuffleArr = path.node.object.value.split("|");
+                    shuffleArr.map(function (v){
+                        blockStatement.body.push(myArr[v]);
+                    });
+                    path.stop();
+                }
+            }catch (e){
+                console.log(e)
+            }
+        }
+    })
+}
 
 code = generator(new_ast).code
 // new_ast = parser.parse(code);

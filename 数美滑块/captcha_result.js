@@ -8791,7 +8791,16 @@
                                 _0x33c1e8 = _0x2c2c88["startRequestTime"],
                                 _0x4c5b11 = _0x2058a7["host"],
                                 _0x572ff6 = {};
-                            _0x572ff6['os'] = "web", _0x572ff6["sdktype"] = "captcha", _0x572ff6["rversion"] = _0x1c55c9, _0x572ff6["sdkver"] = _0x2e789b, _0x572ff6['host'] = _0x4c5b11, _0x572ff6['org'] = _0x125661, _0x572ff6["mode"] = _0x348a83, _0x572ff6['product'] = _0x3b5b40, _0x572ff6["message"] = _0x17afd8, _0x572ff6['path'] = _0x3a4e01;
+                            _0x572ff6['os'] = "web",
+                                _0x572ff6["sdktype"] = "captcha",
+                                _0x572ff6["rversion"] = _0x1c55c9,
+                                _0x572ff6["sdkver"] = _0x2e789b,
+                                _0x572ff6['host'] = _0x4c5b11,
+                                _0x572ff6['org'] = _0x125661,
+                                _0x572ff6["mode"] = _0x348a83,
+                                _0x572ff6['product'] = _0x3b5b40,
+                                _0x572ff6["message"] = _0x17afd8,
+                                _0x572ff6['path'] = _0x3a4e01;
                             var _0x2b94cc = _0x572ff6,
                                 _0x131e88 = "";
                             _0x27b6cb["FLgZh"](_0x307c0a["indexOf"](_0x3a4e01), -1) && (_0x2b94cc["startRequestTime"] = _0x33c1e8), _0x131e88 = _0x3cd123["makeURL"]("https://", _0x5747cf, _0x7d5abd, _0x2b94cc), _0x2dc7d5["loadImage"](_0x131e88, null);
