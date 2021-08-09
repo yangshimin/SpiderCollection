@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("./captcha.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -360,9 +360,8 @@ for (var i =0; i <=3; i++){
 }
 
 // switch还原
-// 因为可能存在Switch嵌套 所以这里循环多次
+new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
 for (let i = 0; i < 20; i++){
-    new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
     traverse(new_ast, {
         // 因为代码中switch 混淆的分发器是"0|1|4|2|3"["split"]("|") 所以通过遍历MemberExpression和条件判断来找到分发器内容
         MemberExpression(path){
@@ -372,13 +371,20 @@ for (let i = 0; i < 20; i++){
                     // 所以通过找父节点的兄弟节点来定位while循环
                     let varPath = path.findParent(function (p){return t.isVariableDeclaration(p);});
                     if (!varPath) return;
+                    console.log(varPath.toString())
                     //varPath.key 就是var语句在body数组中索引
                     let whilePath = varPath.getSibling(varPath.key + 1);
 
                     // 解析整个Switch 把case语句的条件值和要执行内容做个映射 一一对应起来
                     let myArr = [];
                     whilePath.node.body.body[0].cases.map(function(p){
-                        myArr[p.test.value] = p.consequent[0];
+                        let consequentArray = [];
+                        p.consequent.map(function(v){
+                            if (!t.isContinueStatement(v) || !t.isReturnStatement(v)){
+                                consequentArray.push(v);
+                            }
+                        })
+                        myArr[p.test.value] = consequentArray;
                     });
 
                     // 做好映射后 把原先代码中的var定义语句和while循环语句删除掉 准备还原
@@ -394,11 +400,12 @@ for (let i = 0; i < 20; i++){
                     path.stop();
                 }
             }catch (e){
-                console.log(e)
+                console.trace(e)
             }
         }
     })
 }
+
 
 code = generator(new_ast).code
 // new_ast = parser.parse(code);
