@@ -382,7 +382,7 @@ for (let i = 0; i < 10; i++){
                     whileNode.body.body[0].cases.map(function(p){
                         let consequentArray = [];
                         p.consequent.map(function(v){
-                            if (!t.isContinueStatement(v) && !t.isReturnStatement(v)){
+                            if (!t.isContinueStatement(v)){
                                 consequentArray.push(v);
                             }
                         })

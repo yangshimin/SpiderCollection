@@ -612,6 +612,8 @@
                         if (!(_0x3fc141 in _0x33746e)) _0x2a2cd1(_0x33746e, _0x3fc141, _0x233cd7[_0x3fc141]);
                     } else _0x3ae7db(_0x3ae7db["P"] + _0x3ae7db["F"] * (_0x372782 || _0x3bdb86), _0x496253, _0x233cd7);
                 }
+
+                return _0x233cd7;
             };
         }, _0x23f15d],
         0x25: [function (_0x1f32e0, _0xf77340, _0x7c1246) {
@@ -724,6 +726,8 @@
                     _0x50393a = _0x3b5ac1["F"];
 
                     while (_0x152e50--) delete _0x50393a[_0x4aee82][_0x537e46[_0x152e50]];
+
+                    return _0x50393a();
                 };
 
             _0x54269c["exports"] = Object["create"] || function _0x3e90fa(_0x2e05d8, _0x3784c4) {
@@ -751,6 +755,7 @@
                 } catch (_0x9141c4) {}
                 if ("get" in _0x3c038b || "set" in _0x3c038b) throw TypeError("Accessors not supported!");
                 if ("value" in _0x3c038b) _0x4f88b1[_0xa7abb4] = _0x3c038b["value"];
+                return _0x4f88b1;
             };
         }, _0x39f4fd],
         0x2b: [function (_0x153a74, _0x52a92c, _0x40829e) {
@@ -1126,6 +1131,7 @@
                 if (!_0x23f5f6 || _0x56a277 >= _0x23f5f6["length"]) return this["_t"] = undefined, _0x4c28cc(1);
                 if (_0x3f1ef8 == "keys") return _0x4c28cc(0, _0x56a277);
                 if (_0x3f1ef8 == "values") return _0x4c28cc(0, _0x23f5f6[_0x56a277]);
+                return _0x4c28cc(0, [_0x56a277, _0x23f5f6[_0x56a277]]);
             }, "values");
             _0x10e46["Arguments"] = _0x10e46["Array"];
 
@@ -1173,6 +1179,7 @@
                 this["_i"] += _0x493419["length"];
                 var _0x1cb441 = {};
                 _0x1cb441["value"] = _0x493419, _0x1cb441['done'] = false;
+                return _0x1cb441;
             });
         }, {
             './_iter-define': 36,
@@ -1347,6 +1354,7 @@
                 var _0x4084c3 = _0x10e425(_0x1b859a, _0x330b79);
 
                 if (_0x4084c3 && _0x2e28cf(_0xef4547, _0x330b79) && !(_0x2e28cf(_0x1b859a, _0x4fd044) && _0x1b859a[_0x4fd044][_0x330b79])) _0x4084c3["enumerable"] = true;
+                return _0x4084c3;
             };
 
             var _0x16a504 = function _0x2882f9(_0x203590) {
@@ -1360,6 +1368,8 @@
                 while (_0x2c4554["length"] > _0x48dd9d) {
                     if (!_0x2e28cf(_0xef4547, _0xcb884b = _0x2c4554[_0x48dd9d++]) && _0xcb884b != _0x4fd044 && _0xcb884b != _0x564723) _0x325f5e["push"](_0xcb884b);
                 }
+
+                return _0x325f5e;
             };
 
             var _0x16ef1c = function _0x15c426(_0xf56e64) {
@@ -1392,6 +1402,7 @@
                     var _0x501070 = {};
                     _0x501070["configurable"] = true, _0x501070["set"] = _0x28083b;
                     if (_0x54b2ec && _0x538165) _0x5581f2(_0x12ef56, _0x5a6ac2, _0x501070);
+                    return _0x2e4f59(_0x5a6ac2);
                 };
 
                 _0x20ba6e(_0x3d64b9[_0x47cf8a], "toString", function _0x2024f5() {
@@ -1816,6 +1827,7 @@
 
                         var _0x58a050 = {};
                         _0x58a050["maskEl"] = _0x5d5685, _0x58a050["panelEl"] = _0x485869, _0x58a050['closeBtnEl'] = _0x2e3e22, _0x58a050["footFreshBtnEl"] = _0x52e40a, _0x58a050["captchaEl"] = _0x5495f4, _0x58a050["imageFreshBtnEl"] = _0x606733, _0x58a050["networkFreshBtnEl"] = _0x2ce96b, _0x58a050["imageEl"] = _0x85bd85, _0x58a050["imageLoadingEl"] = _0x5e48da, _0x58a050["imageLoadErrorEl"] = _0x55c7af, _0x58a050['imageLoadedEl'] = _0x1e109d, _0x58a050["imageLoadedBgWrapperEl"] = _0x1449f2, _0x58a050['imageLoadedBgEl'] = _0x3b4e35, _0x58a050["imageLoadedFgEl"] = _0x543b17, _0x58a050["fgEl"] = _0x303ea9, _0x58a050["slideEl"] = _0x5d45a3, _0x58a050["slideProcessEl"] = _0x5e1ce3, _0x58a050['slideTipsEl'] = _0x398fe4, _0x58a050["slideTipsTextEl"] = _0x433ae9, _0x58a050["slideBtnEl"] = _0x21c972, _0x58a050["insensitiveEl"] = _0x5bc02e, _0x58a050['insensitiveTipsTextEl'] = _0x350471, _0x58a050['inputEls'] = _0x23729, _0x58a050["networkFailEl"] = _0x22cfd5;
+                        return _0x58a050;
                     }, _0x46a3c4["prototype"]["fixProduct"] = function _0x4cb54e() {
                         var _0x54d583 = this["_config"],
                             _0x1fe45e = _0x54d583["product"],
@@ -1984,7 +1996,12 @@
                                 break;
 
                             case "slide":
-                                _0x4f3e89["sy"] = this["getEncryptContent"](_0x22a660 / _0x8fb2df, "37599a2f"), _0x4f3e89["tt"] = this["getEncryptContent"](_0x35041f, "2d78962b"), _0x4f3e89["dv"] = this["getEncryptContent"](_0x407a7 - _0x4c4eb6, "8a5030f6"), _0x4f3e89["ll"] = this["getEncryptContent"](_0x8fb2df, "6e675add"), _0x4f3e89["fk"] = this["getEncryptContent"](_0x4165cd, "e412e3af"), _0x4f3e89["act.os"] = _0x3cef46;
+                                _0x4f3e89["sy"] = this["getEncryptContent"](_0x22a660 / _0x8fb2df, "37599a2f"),
+                                    _0x4f3e89["tt"] = this["getEncryptContent"](_0x35041f, "2d78962b"),
+                                    _0x4f3e89["dv"] = this["getEncryptContent"](_0x407a7 - _0x4c4eb6, "8a5030f6"),
+                                    _0x4f3e89["ll"] = this["getEncryptContent"](_0x8fb2df, "6e675add"),
+                                    _0x4f3e89["fk"] = this["getEncryptContent"](_0x4165cd, "e412e3af"),
+                                    _0x4f3e89["act.os"] = _0x3cef46;
                                 _0x8fb2df == 0 && (_0x4f3e89["sy"] = this["getEncryptContent"](0, "37599a2f"));
                                 break;
 
@@ -1993,7 +2010,10 @@
                                 break;
                         }
 
-                        return _0x4f3e89["cf"] = this["getEncryptContent"](_0x2b3f71["default"]["__userConf"]["console"], "948aece6"), _0x4f3e89["qe"] = this["getEncryptContent"](_0x2b3f71["default"]["runBotDetection"](), "0a42382e"), _0x4f3e89["ou"] = this["getEncryptContent"](-1, "2448a264"), this["_data"]["__key"] = _0x392906, _0x4f3e89;
+                        return _0x4f3e89["cf"] = this["getEncryptContent"](_0x2b3f71["default"]["__userConf"]["console"], "948aece6"),
+                            _0x4f3e89["qe"] = this["getEncryptContent"](_0x2b3f71["default"]["runBotDetection"](), "0a42382e"),
+                            _0x4f3e89["ou"] = this["getEncryptContent"](-1, "2448a264"),
+                            this["_data"]["__key"] = _0x392906, _0x4f3e89;
                     }, _0x46a3c4["prototype"]["getEncryptContent"] = function _0x3b58da(_0x4bac4f, _0x424239) {
                         var _0x5d198e = this["_data"]["__key"];
 
@@ -2006,6 +2026,7 @@
                         var _0x56db43 = "";
                         _0x56db43 = _0x3b93c8["default"]["DES"](_0x38c530, _0x15ecbd, 1, 0);
                         _0x56db43 = _0x3b93c8["default"]["base64Encode"](_0x56db43);
+                        return _0x56db43;
                     }, _0x46a3c4["prototype"]["checkApi"] = function _0x36226d() {
                         var _0x20c392,
                             _0x15e964 = this["_config"],
@@ -2031,7 +2052,15 @@
 
                         _0x38d3b1["organization"] = _0x100769;
 
-                        var _0x16242f = _0x2b3f71["default"]["extend"]((_0x20c392 = _0x38d3b1, (0, _0x58c2ed["default"])(_0x20c392, "fx", this["getEncryptContent"](_0x2457dd, "14d95644")), (0, _0x58c2ed["default"])(_0x20c392, "jc", this["getEncryptContent"](_0x1d0237, "ecea52f3")), (0, _0x58c2ed["default"])(_0x20c392, "ab", this["getEncryptContent"](_0x51ee12, "6360ff7a")), (0, _0x58c2ed["default"])(_0x20c392, "rid", _0x39c5f9), (0, _0x58c2ed["default"])(_0x20c392, "rversion", _0x55c888), (0, _0x58c2ed["default"])(_0x20c392, "sdkver", _0x299fef), (0, _0x58c2ed["default"])(_0x20c392, "protocol", "144"), (0, _0x58c2ed["default"])(_0x20c392, "ostype", _0x4f76f5), _0x20c392), _0x58140e);
+                        var _0x16242f = _0x2b3f71["default"]["extend"]((_0x20c392 = _0x38d3b1,
+                            (0, _0x58c2ed["default"])(_0x20c392, "fx", this["getEncryptContent"](_0x2457dd, "14d95644")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "jc", this["getEncryptContent"](_0x1d0237, "ecea52f3")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "ab", this["getEncryptContent"](_0x51ee12, "6360ff7a")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "rid", _0x39c5f9),
+                            (0, _0x58c2ed["default"])(_0x20c392, "rversion", _0x55c888),
+                            (0, _0x58c2ed["default"])(_0x20c392, "sdkver", _0x299fef),
+                            (0, _0x58c2ed["default"])(_0x20c392, "protocol", "144"),
+                            (0, _0x58c2ed["default"])(_0x20c392, "ostype", _0x4f76f5), _0x20c392), _0x58140e);
 
                         this["sendRequest"](_0xef4010, _0x147256, _0x585ffa, _0x16242f, _0x2fcb81, _0x3c36d0);
 
@@ -2104,6 +2133,8 @@
                         var _0x214e38 = _0x2b3f71["default"]["isPc"]();
 
                         var _0x51be9f = _0x16afe1 ? _0x16afe1["toLocaleLowerCase"]() : _0x214e38 ? "web_pc" : "web_mobile";
+
+                        return _0x51be9f;
                     }, _0x46a3c4["prototype"]["getFullPageData"] = function _0x4ed0d2() {
                         var _0x3cc777 = this["getRegisterData"](),
                             _0x296cb2 = _0x3cc777["k"],
@@ -2131,6 +2162,7 @@
                         _0x1669ba["wd"] = _0x2b3f71["default"]["runBotDetection"]();
                         _0x1669ba["sm"] = 1;
                         _0x113a9d = _0x3b93c8["default"]["DES"](_0x5d6bd5, _0x2b3f71["default"]["smStringify"](_0x1669ba), 1, 0);
+                        return _0x3b93c8["default"]["base64Encode"](_0x113a9d);
                     }, _0x46a3c4["prototype"]["getInsensitiveCaTypeApi"] = function _0x5f5b62(_0x3b58e5) {
                         var _0x23b711 = this["_config"],
                             _0x4984e5 = _0x23b711["captchaTypeDomains"],
@@ -3044,6 +3076,7 @@
                             _0x1b0a71["splice"](_0x287c43, _0x1b0a71["length"] - _0x287c43);
 
                             this["updateAnswerHtml"]();
+                            return;
                         }
 
                         if (_0x3c0bc4["className"]["indexOf"]("shumei_captcha_img_refresh_btn") > -1) return;
@@ -3058,6 +3091,7 @@
                                     this["_data"]["endTime"] = +new Date();
                                     this["checkApi"]();
                                     this["clearEvent"]();
+                                    return;
                                 }
 
                                 break;
@@ -3423,6 +3457,8 @@
                         _0x5983c2[_0x1d57db++] = _0x483ae3 ^ _0x18f862 << 16;
                     }
                 }
+
+                return _0x5983c2;
             }
 
             function _0x2554d3(_0x315410) {
@@ -3468,6 +3504,8 @@
                     if (_0x457100 == -1) break;
                     _0x542d7e += String["fromCharCode"]((_0x58e1a7 & 3) << 6 | _0x457100);
                 }
+
+                return _0x542d7e;
             }
 
             function _0x306778(_0x47c311) {
@@ -3498,6 +3536,8 @@
 
                     _0x10b017 = _0x47c311["charCodeAt"](_0x377cf6++), _0x3f5756 += _0x51a4d7["charAt"](_0x2e4c49 >> 2), _0x3f5756 += _0x51a4d7["charAt"]((_0x2e4c49 & 3) << 4 | (_0x1c8ef5 & 240) >> 4), _0x3f5756 += _0x51a4d7["charAt"]((_0x1c8ef5 & 15) << 2 | (_0x10b017 & 192) >> 6), _0x3f5756 += _0x51a4d7["charAt"](_0x10b017 & 63);
                 }
+
+                return _0x3f5756;
             }
 
             function _0x554512(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
@@ -3616,10 +3656,15 @@
                     _0x2d945c += 8;
                     _0x2d945c == 512 && (_0x3c9490 += _0x1bed6f, _0x1bed6f = "", _0x2d945c = 0);
                 }
+
+                return _0x3c9490 + _0x1bed6f;
             }
 
             var _0x44adfc = {};
-            _0x44adfc["DES"] = _0x554512, _0x44adfc['base64Decode'] = _0x2554d3, _0x44adfc["base64Encode"] = _0x306778, _0x5217dd["default"] = _0x44adfc;
+            _0x44adfc["DES"] = _0x554512,
+                _0x44adfc['base64Decode'] = _0x2554d3,
+                _0x44adfc["base64Encode"] = _0x306778,
+                _0x5217dd["default"] = _0x44adfc;
         }, {}],
         0x51: [function (_0x49c5f4, _0x567085, _0x581a32) {
             'use strict';
@@ -3886,6 +3931,7 @@
                 if (_0xc7b558 == "string" || _0xc7b558 == "function") return "\"" + _0x584f6a["toString"]()["replace"]("\"", "\\\"") + "\"";
                 if (_0xc7b558 == "number" || _0xc7b558 == "boolean") return _0x584f6a["toString"]();
                 if (_0xc7b558 == "undefined") return "undefined";
+                return "\"" + _0x584f6a["toString"]()["replace"]("\"", "\\\"") + "\"";
             }
 
             function _0x2a86e9(_0x197766, _0x8c7ca1) {
@@ -4015,6 +4061,7 @@
                         });
 
                         _0x390488 === "?" && (_0x390488 = "");
+                        return _0x390488["replace"](/&$/, "");
                     },
                     'random': function _0x425d13() {
                         return parseInt(_0x36a900["random"]() * 10000) + new Date()["valueOf"]();
@@ -4153,6 +4200,7 @@
                             };
 
                             _0x4b4cf9["prototype"] = new _0x1a4824();
+                            return _0x4b4cf9;
                         });
                     },
                     'smStringify': _0x3f6744["default"],
@@ -4203,6 +4251,7 @@
                         }
 
                         _0x158f8c["compatMode"] == "BackCompat" ? _0x4a24d3 = _0x158f8c["body"]["scrollTop"] || 0 : _0x4a24d3 = _0x158f8c["documentElement"]["scrollTop"] || _0x58b3cb["pageYOffset"] || 0;
+                        return _0xc3bca3 - _0x4a24d3;
                     },
                     '_buildErrorHtml': function _0x2cf626() {
                         var _0x3710fc = arguments["length"] > 0 && arguments[0] !== undefined ? arguments[0] : "zh-cn";
@@ -4212,6 +4261,7 @@
                         var _0x11aba3 = _0x5c924d["htmlNetwork"] ? _0x5c924d["htmlNetwork"]["split"]("|") : [];
 
                         var _0x5a9df4 = ["<div class=\"shumei_captcha\">", "<span class=\"shumei_captcha_network_timeout\">", "<font>" + _0x11aba3[0] + ", </font>", "<a href=\"###\" class=\"shumei_captcha_reload_btn\">" + _0x11aba3[1] + "</a>", "</span>", "</div>"];
+                        return _0x5a9df4["join"]("");
                     },
                     '_bindNetworkEvent': function _0x48d93d() {
                         var _0x36cdb6 = _0x3cd123["getElementByClassName"]("shumei_captcha_reload_btn")[0],
@@ -4329,6 +4379,7 @@
                             if (window["document"]["documentElement"]["getAttribute"]("webdriver")) return 1;
                             if (window["document"]["documentElement"]["getAttribute"]("driver")) return 1;
                             if (window["navigator"]["webdriver"]) return 1;
+                            return 0;
                         } catch (_0xc76078) {
                             return 0;
                         }
@@ -4496,6 +4547,7 @@
                         this["_captcha"]["_data"]["selectData"] = [];
                         this["_captcha"]["_data"]["selectPosData"] = [];
                         this["_captcha"]["updateAnswerHtml"]();
+                        return this;
                     } catch (_0x2f16c3) {
                         _0x527399["default"]["logError"](_0x4ea32a, "重置失败");
                     }
@@ -4508,6 +4560,7 @@
                         this["_captcha"]["clearEvent"]();
                         this["_captcha"]["initFreshEvent"]();
                         this["_captcha"]["_config"]["disabled"] = true;
+                        return this;
                     } catch (_0x4bd962) {
                         _0x527399["default"]["logError"](_0x4ea32a, "禁用验证码失败");
                     }
@@ -4520,6 +4573,7 @@
                         this["_captcha"]["clearEvent"]();
                         this["_captcha"]["initEvent"]();
                         this["_captcha"]["_config"]["disabled"] = false;
+                        return this;
                     } catch (_0x28c37d) {
                         _0x527399["default"]["logError"](_0x4ea32a, "启用验证码失败");
                     }

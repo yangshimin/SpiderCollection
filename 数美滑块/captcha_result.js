@@ -4714,7 +4714,15 @@
 
                         _0x38d3b1["organization"] = _0x100769;
 
-                        var _0x16242f = _0x2b3f71["default"]["extend"]((_0x20c392 = _0x38d3b1, (0, _0x58c2ed["default"])(_0x20c392, "fx", this["getEncryptContent"](_0x2457dd, "14d95644")), (0, _0x58c2ed["default"])(_0x20c392, "jc", this["getEncryptContent"](_0x1d0237, "ecea52f3")), (0, _0x58c2ed["default"])(_0x20c392, "ab", this["getEncryptContent"](_0x51ee12, "6360ff7a")), (0, _0x58c2ed["default"])(_0x20c392, "rid", _0x39c5f9), (0, _0x58c2ed["default"])(_0x20c392, "rversion", _0x55c888), (0, _0x58c2ed["default"])(_0x20c392, "sdkver", _0x299fef), (0, _0x58c2ed["default"])(_0x20c392, "protocol", "144"), (0, _0x58c2ed["default"])(_0x20c392, "ostype", _0x4f76f5), _0x20c392), _0x58140e);
+                        var _0x16242f = _0x2b3f71["default"]["extend"]((_0x20c392 = _0x38d3b1, (0, _0x58c2ed["default"])(_0x20c392, "fx", this["getEncryptContent"](_0x2457dd, "14d95644")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "jc", this["getEncryptContent"](_0x1d0237, "ecea52f3")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "ab", this["getEncryptContent"](_0x51ee12, "6360ff7a")),
+                            (0, _0x58c2ed["default"])(_0x20c392, "rid", _0x39c5f9),
+                            (0, _0x58c2ed["default"])(_0x20c392, "rversion", _0x55c888),
+                            (0, _0x58c2ed["default"])(_0x20c392, "sdkver", _0x299fef),
+                            (0, _0x58c2ed["default"])(_0x20c392, "protocol", "144"),
+                            (0, _0x58c2ed["default"])(_0x20c392, "ostype", _0x4f76f5),
+                            _0x20c392), _0x58140e);
 
                         this["sendRequest"](_0xef4010, _0x147256, _0x585ffa, _0x16242f, _0x2fcb81, _0x3c36d0);
 
