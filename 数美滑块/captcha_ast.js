@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha.js", {
+const js_code = fs.readFileSync("./captcha.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -361,7 +361,7 @@ for (var i =0; i <=3; i++){
 
 // switch还原
 new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
-for (let i = 0; i < 20; i++){
+for (let i = 0; i < 10; i++){
     traverse(new_ast, {
         // 因为代码中switch 混淆的分发器是"0|1|4|2|3"["split"]("|") 所以通过遍历MemberExpression和条件判断来找到分发器内容
         MemberExpression(path){
@@ -377,14 +377,17 @@ for (let i = 0; i < 20; i++){
 
                     // 解析整个Switch 把case语句的条件值和要执行内容做个映射 一一对应起来
                     let myArr = [];
-                    whilePath.node.body.body[0].cases.map(function(p){
+                    let whileNode = whilePath.node;
+                    if (!whileNode || !whileNode.body.body)return
+                    whileNode.body.body[0].cases.map(function(p){
                         let consequentArray = [];
                         p.consequent.map(function(v){
-                            if (!t.isContinueStatement(v) || !t.isReturnStatement(v)){
+                            if (!t.isContinueStatement(v) && !t.isReturnStatement(v)){
                                 consequentArray.push(v);
                             }
                         })
                         myArr[p.test.value] = consequentArray;
+                        // myArr[p.test.value] = p.consequent[0];
                     });
 
                     // 做好映射后 把原先代码中的var定义语句和while循环语句删除掉 准备还原
@@ -395,7 +398,9 @@ for (let i = 0; i < 20; i++){
                     // 分发器中有正确的代码执行顺序 所以通过分发器的内容还原代码的执行顺序
                     let shuffleArr = path.node.object.value.split("|");
                     shuffleArr.map(function (v){
-                        blockStatement.body.push(myArr[v]);
+                        for (var i =0; i<myArr[v].length; i++){
+                            blockStatement.body.push(myArr[v][i]);
+                        }
                     });
                     path.stop();
                 }
