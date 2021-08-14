@@ -11,7 +11,7 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("./captcha.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha_1.js", {
     encoding: "utf-8"
 });
 let ast = parser.parse(js_code);
@@ -48,7 +48,14 @@ function decryptReplace(path, decrypt_func_name){
             if (referenceParentType === 'CallExpression'){
                 let arguments = p.parentPath.node.arguments;
                 if (arguments.length !== 1 || p.parentPath.node.callee.type !== 'Identifier') return
-                let argu = p.parentPath.node.arguments[0].extra.raw;
+                let extraValue = p.parentPath.node.arguments[0].extra;
+                if (!extraValue) return;
+                try{
+                    var argu = extraValue.raw;
+                }catch (e) {
+                    debugger
+                }
+                // let argu = p.parentPath.node.arguments[0].extra.raw;
                 let realValue = eval(decrypt_func_name_copy + "(" + argu + ")");
                 p.parentPath.replaceWith(t.valueToNode(realValue))
             }else if (referenceParentType === 'VariableDeclarator'){
