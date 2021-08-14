@@ -1992,7 +1992,12 @@
                             case "icon_select":
                             case "seq_select":
                             case "spatial_select":
-                                _0x4f3e89["qw"] = this["getEncryptContent"](_0x24ae8e, "c3c390d8"), _0x4f3e89["tt"] = this["getEncryptContent"](_0x35041f, "2d78962b"), _0x4f3e89["dv"] = this["getEncryptContent"](_0x407a7 - _0x4c4eb6, "8a5030f6"), _0x4f3e89["ll"] = this["getEncryptContent"](_0x8fb2df, "6e675add"), _0x4f3e89["fk"] = this["getEncryptContent"](_0x4165cd, "e412e3af"), _0x4f3e89["act.os"] = _0x3cef46;
+                                _0x4f3e89["qw"] = this["getEncryptContent"](_0x24ae8e, "c3c390d8"),
+                                    _0x4f3e89["tt"] = this["getEncryptContent"](_0x35041f, "2d78962b"),
+                                    _0x4f3e89["dv"] = this["getEncryptContent"](_0x407a7 - _0x4c4eb6, "8a5030f6"),
+                                    _0x4f3e89["ll"] = this["getEncryptContent"](_0x8fb2df, "6e675add"),
+                                    _0x4f3e89["fk"] = this["getEncryptContent"](_0x4165cd, "e412e3af"),
+                                    _0x4f3e89["act.os"] = _0x3cef46;
                                 break;
 
                             case "slide":
@@ -2440,7 +2445,15 @@
                             _0x25c46f = _0x408d48["lang"],
                             _0x406d7c = _0x408d48["SDKVER"],
                             _0x12f5b5 = {};
-                        _0x12f5b5['organization'] = _0x1363d8, _0x12f5b5['appId'] = _0x3b3dd7, _0x12f5b5["channel"] = _0x5da262, _0x12f5b5["lang"] = _0x25c46f, _0x12f5b5["model"] = _0x2e304c, _0x12f5b5["rversion"] = _0x597790, _0x12f5b5["sdkver"] = _0x406d7c, _0x12f5b5["data"] = _0x2b3f71["default"]["smStringify"](_0x2f585a), this["sendRequest"](_0xef4010, _0x363891, _0x125445, _0x12f5b5, _0x16e01c, _0x4ccf29);
+                        _0x12f5b5['organization'] = _0x1363d8,
+                            _0x12f5b5['appId'] = _0x3b3dd7,
+                            _0x12f5b5["channel"] = _0x5da262,
+                            _0x12f5b5["lang"] = _0x25c46f,
+                            _0x12f5b5["model"] = _0x2e304c,
+                            _0x12f5b5["rversion"] = _0x597790,
+                            _0x12f5b5["sdkver"] = _0x406d7c,
+                            _0x12f5b5["data"] = _0x2b3f71["default"]["smStringify"](_0x2f585a),
+                            this["sendRequest"](_0xef4010, _0x363891, _0x125445, _0x12f5b5, _0x16e01c, _0x4ccf29);
 
                         function _0x16e01c(_0x475be5) {
                             _0x33b82a["setRegisterData"](_0x475be5), _0x33b82a["setImgUrl"]();
@@ -4082,7 +4095,16 @@
                                 _0x33c1e8 = _0x2c2c88["startRequestTime"],
                                 _0x4c5b11 = _0x2058a7["host"],
                                 _0x572ff6 = {};
-                            _0x572ff6['os'] = "web", _0x572ff6["sdktype"] = "captcha", _0x572ff6["rversion"] = _0x1c55c9, _0x572ff6["sdkver"] = _0x2e789b, _0x572ff6['host'] = _0x4c5b11, _0x572ff6['org'] = _0x125661, _0x572ff6["mode"] = _0x348a83, _0x572ff6['product'] = _0x3b5b40, _0x572ff6["message"] = _0x17afd8, _0x572ff6['path'] = _0x3a4e01;
+                            _0x572ff6['os'] = "web",
+                                _0x572ff6["sdktype"] = "captcha",
+                                _0x572ff6["rversion"] = _0x1c55c9,
+                                _0x572ff6["sdkver"] = _0x2e789b,
+                                _0x572ff6['host'] = _0x4c5b11,
+                                _0x572ff6['org'] = _0x125661,
+                                _0x572ff6["mode"] = _0x348a83
+                            _0x572ff6['product'] = _0x3b5b40,
+                                _0x572ff6["message"] = _0x17afd8,
+                                _0x572ff6['path'] = _0x3a4e01;
                             var _0x2b94cc = _0x572ff6,
                                 _0x131e88 = "";
                             _0x307c0a["indexOf"](_0x3a4e01) != -1 && (_0x2b94cc["startRequestTime"] = _0x33c1e8), _0x131e88 = _0x3cd123["makeURL"]("https://", _0x5747cf, _0x7d5abd, _0x2b94cc), _0x2dc7d5["loadImage"](_0x131e88, null);
