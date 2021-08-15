@@ -96,21 +96,24 @@ realArgumentList.map(function (n){
 })
 var _0x450a3e = temp, _0x3ff3d5;
 
+// 观察发现实参的最后10个数是不会参与后序倒序的 并且倒数第9个数就是用来判断参数倒序的临界值
+let indexValue = temp[temp.length - 9];
+
 // 如果某个值类型是字符串 就把字符串的字符顺序倒序
-for (_0x3ff3d5 = 0; _0x3ff3d5 < 1283; _0x3ff3d5++) {
+for (_0x3ff3d5 = 0; _0x3ff3d5 < indexValue; _0x3ff3d5++) {
     typeof _0x450a3e[_0x3ff3d5] === "string" && (_0x450a3e[_0x3ff3d5] = _0x450a3e[_0x3ff3d5]["split"]("")["reverse"]()["join"](""));
 }
 
 // 把除最后10个之外的参数全部倒序
-for (_0x3ff3d5 = 0; _0x3ff3d5 < (1283 / 2); _0x3ff3d5++) {
+for (_0x3ff3d5 = 0; _0x3ff3d5 < (indexValue / 2); _0x3ff3d5++) {
     var _0xf4cda9 = _0x450a3e[_0x3ff3d5];
-    _0x450a3e[_0x3ff3d5] = _0x450a3e[1283 - _0x3ff3d5 - 1], _0x450a3e[1283 - _0x3ff3d5 - 1] = _0xf4cda9;
+    _0x450a3e[_0x3ff3d5] = _0x450a3e[indexValue - _0x3ff3d5 - 1], _0x450a3e[indexValue - _0x3ff3d5 - 1] = _0xf4cda9;
 }
 
 // 把正确的参数顺序重新赋值给realArgumentList
 realArgumentList = temp;
 // 删除原始代码中的两个for循环及相关代码
-new_ast.program.body[0].expression.argument.callee.body.body.splice(4, 3)
+// new_ast.program.body[0].expression.argument.callee.body.body.splice(4, 3)
 
 // 把形参和实参一一对应
 let argumentsMap = {};
@@ -136,7 +139,6 @@ traverse(new_ast, {
     }
 })
 
-code = generator(new_ast).code
 // 删除一些垃圾代码 但存在这么一种情况 a = b; c = a; 但c在代码中没有其他地方引用 所以用for循环多删几次 总能删干净
 for (var i =0; i <=3; i++){
     new_ast = parser.parse(generator(new_ast, opts = {jsescOption:{"minimal":true}}).code);
