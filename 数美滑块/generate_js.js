@@ -1,3 +1,67 @@
+const fs = require('fs');
+// 解析js,将js代码转换为AST
+// parser的parse方法有第二个参数sourceType, 当js代码中含有import、export (es6的代码)等关键字时
+// 需要指定sourceType为module
+const parser = require("@babel/parser");
+// 用来遍历AST中的节点
+const traverse = require("@babel/traverse").default;
+// 用来判断节点类型和生成新的节点等
+const t = require("@babel/types");
+// 用来把AST代码转换成JS代码
+// generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
+const generator = require("@babel/generator").default;
+
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha_sdk.js", {
+    encoding: "utf-8"
+});
+
+let ast = parser.parse(js_code);
+
+function generate_js(astObjList){
+    // 初始话一个空的AST对象
+    let newAst = parser.parse("");
+    // 放入到空的AST对象中 再转为js eval加载到内存中
+    astObjList.map(function(p){newAst.program.body.push(p);})
+    let code = generator(newAst, {compact: true}).code;
+    return code;
+}
+
+// 获取解密相关的JS代码
+let decrypt_func_name = ast.program.body[1].declarations[0].init.name;
+let decrypt_func_name_copy = decrypt_func_name;
+let decrypt_list = ast.program.body.slice(0,3)
+
+let encryptSequenceExpression = ast.program.body[3].expression;
+let callExpressionList = encryptSequenceExpression.expressions;
+let lastCallExpression = callExpressionList.pop();
+let decrypt_code = generator(ast, {compact: true}).code
+
+// 解密函数加载到内存中
+eval(decrypt_code)
+
+// 获取函数实参
+let realArguments = lastCallExpression.arguments;
+let realArgumentsValue = [];
+realArguments.map(function(p){
+    realArgumentsValue.push(eval(generate_js([p])))
+})
+
+var _0x450a3e = realArgumentsValue, _0x3ff3d5;
+
+// 观察发现实参的最后10个数是不会参与后序倒序的 并且倒数第9个数就是用来判断参数倒序的临界值
+let indexValue = realArgumentsValue[realArgumentsValue.length - 9];
+
+// 如果某个值类型是字符串 就把字符串的字符顺序倒序
+for (_0x3ff3d5 = 0; _0x3ff3d5 < indexValue; _0x3ff3d5++) {
+    typeof _0x450a3e[_0x3ff3d5] === "string" && (_0x450a3e[_0x3ff3d5] = _0x450a3e[_0x3ff3d5]["split"]("")["reverse"]()["join"](""));
+}
+
+// 把除最后10个之外的参数全部倒序
+for (_0x3ff3d5 = 0; _0x3ff3d5 < (indexValue / 2); _0x3ff3d5++) {
+    var _0xf4cda9 = _0x450a3e[_0x3ff3d5];
+    _0x450a3e[_0x3ff3d5] = _0x450a3e[indexValue - _0x3ff3d5 - 1], _0x450a3e[indexValue - _0x3ff3d5 - 1] = _0xf4cda9;
+}
+
 RegisterData = {
     "bg": "/crb/set-000006/v2/8f62601c8cb230835d36ee6bd575f2ab_bg.jpg",
     "bg_height": 300,
@@ -641,37 +705,78 @@ getMouseAction = function () {
         case "icon_select":
         case "seq_select":
         case "spatial_select":
-            _0x4f3e89["qw"] = getEncryptContent(_0x24ae8e, "c2af468b"),
-                _0x4f3e89["tt"] = getEncryptContent(_0x35041f, "c372a70d"),
-                _0x4f3e89["dv"] = getEncryptContent(_0x407a7 - _0x4c4eb6, "0c19c14a"),
-                _0x4f3e89["ll"] = getEncryptContent(_0x8fb2df, "b8b24b35"),
-                _0x4f3e89["fk"] = getEncryptContent(_0x4165cd, "b59a492a"),
-                _0x4f3e89["act.os"] = _0x3cef46;
+            // ol c2af468b
+            _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 527]] = getEncryptContent(_0x24ae8e,
+                realArgumentsValue[realArgumentsValue.length - 529]),
+                // yf c372a70d
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 530]] = getEncryptContent(_0x35041f,
+                    realArgumentsValue[realArgumentsValue.length - 531]),
+                // od 0c19c14a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 532]] = getEncryptContent(_0x407a7 - _0x4c4eb6,
+                    realArgumentsValue[realArgumentsValue.length - 533]),
+                // el b8b24b35
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 534]] = getEncryptContent(_0x8fb2df,
+                    realArgumentsValue[realArgumentsValue.length - 535]),
+                // sc b59a492a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 536]] = getEncryptContent(_0x4165cd,
+                    realArgumentsValue[realArgumentsValue.length - 537]),
+                // act.os
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 538]] = _0x3cef46;
             break;
 
         case "slide":
-            _0x4f3e89["sy"] = getEncryptContent(_0x22a660 / _0x8fb2df, "402d3ee0"),
-                _0x4f3e89["tt"] = getEncryptContent(_0x35041f, "c372a70d"),
-                _0x4f3e89["dv"] = getEncryptContent(_0x407a7 - _0x4c4eb6, "0c19c14a"),
-                _0x4f3e89["ll"] = getEncryptContent(_0x8fb2df, "b8b24b35"),
-                _0x4f3e89["fk"] = getEncryptContent(_0x4165cd, "b59a492a"),
-                _0x4f3e89["act.os"] = _0x3cef46;
-            _0x8fb2df == 0 && (_0x4f3e89["sy"] = getEncryptContent(0, "402d3ee0"));
+            // vq 402d3ee0
+            _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 539]] = getEncryptContent(_0x22a660 / _0x8fb2df,
+                realArgumentsValue[realArgumentsValue.length - 540]),
+                // yf c372a70d
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 530]] = getEncryptContent(_0x35041f,
+                    realArgumentsValue[realArgumentsValue.length - 531]),
+                // od 0c19c14a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 532]] = getEncryptContent(_0x407a7 - _0x4c4eb6,
+                    realArgumentsValue[realArgumentsValue.length - 533]),
+                // el b8b24b35
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 534]] = getEncryptContent(_0x8fb2df,
+                    realArgumentsValue[realArgumentsValue.length - 535]),
+                // sc b59a492a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 536]] = getEncryptContent(_0x4165cd,
+                    realArgumentsValue[realArgumentsValue.length - 537]),
+                // act.os
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 538]] = _0x3cef46;
+            // vq 402d3ee0
+            _0x8fb2df == 0 && (_0x4f3e89[realArgumentsValue[realArgumentsValue.length - 539]] = getEncryptContent(0,
+                realArgumentList[realArgumentList.length - 540]));
             break;
 
         case "auto_slide":
-            _0x4f3e89["sy"] = getEncryptContent(_0x22a660 / (_0x8fb2df - _0x356a00), "402d3ee0"),
-                _0x4f3e89["tt"] = getEncryptContent(_0x35041f, "c372a70d"),
-                _0x4f3e89["dv"] = getEncryptContent(_0x407a7 - _0x4c4eb6, "0c19c14a"),
-                _0x4f3e89["ll"] = getEncryptContent(_0x8fb2df, "b8b24b35"),
-                _0x4f3e89["fk"] = getEncryptContent(_0x4165cd, "b59a492a"),
-                _0x4f3e89["act.os"] = _0x3cef46;
+            // vq 402d3ee0
+            _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 539]] = getEncryptContent(_0x22a660 / _0x8fb2df,
+                realArgumentsValue[realArgumentsValue.length - 540]),
+                // yf c372a70d
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 530]] = getEncryptContent(_0x35041f,
+                    realArgumentsValue[realArgumentsValue.length - 531]),
+                // od 0c19c14a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 532]] = getEncryptContent(_0x407a7 - _0x4c4eb6,
+                    realArgumentsValue[realArgumentsValue.length - 533]),
+                // el b8b24b35
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 534]] = getEncryptContent(_0x8fb2df,
+                    realArgumentsValue[realArgumentsValue.length - 535]),
+                // sc b59a492a
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 536]] = getEncryptContent(_0x4165cd,
+                    realArgumentsValue[realArgumentsValue.length - 537]),
+                // act.os
+                _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 538]] = _0x3cef46;
             break;
     }
 
-    return _0x4f3e89["cf"] = getEncryptContent(1, "27166be6"),
-        _0x4f3e89["qe"] = getEncryptContent(0, "b62295c4"),
-        _0x4f3e89["ou"] = getEncryptContent(-1, "ff570d22"),
+    // ag 27166be6
+    return _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 541]] = getEncryptContent(1,
+        realArgumentsValue[realArgumentsValue.length - 544]),
+        // rv b62295c4
+        _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 545]] = getEncryptContent(0,
+            realArgumentsValue[realArgumentsValue.length - 547]),
+        // yq ff570d22
+        _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 548]] = getEncryptContent(-1,
+            realArgumentsValue[realArgumentsValue.length - 549]),
         this["_data"]["__key"] = _0x392906, _0x4f3e89;
 }
 
@@ -689,7 +794,24 @@ ostype = "web"       // 通过js文件生成的配置
 organization = "RlokQwRlVjUrTUlkIqOg" // 在源码中
 
 let result = {};
-result[''] = ''
+// hw 5d653e60
+result[realArgumentsValue[realArgumentsValue.length - 564]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 31],
+    realArgumentsValue[realArgumentsValue.length - 565])
+// cq 505f4c87
+result[realArgumentsValue[realArgumentsValue.length - 566]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 828],
+    realArgumentsValue[realArgumentsValue.length - 567])
+// hi dad77b6c
+result[realArgumentsValue[realArgumentsValue.length - 568]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 353],
+    realArgumentsValue[realArgumentsValue.length - 569])
+
+// ‌rversion "1.0.3"
+result[realArgumentsValue[realArgumentsValue.length - 570]] = realArgumentsValue[realArgumentsValue.length - 829]
+// ‌sdkver
+result[realArgumentsValue[realArgumentsValue.length - 571]] = realArgumentsValue[realArgumentsValue.length - 830]
+// protocol 145
+result[realArgumentsValue[realArgumentsValue.length - 572]] = realArgumentsValue[realArgumentsValue.length - 573]
+// ‌ostype
+result[realArgumentsValue[realArgumentsValue.length - 574]] = realArgumentsValue[realArgumentsValue.length - 562]
 
 
 console.log(getMouseAction())
