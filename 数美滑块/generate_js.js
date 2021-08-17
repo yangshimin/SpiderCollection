@@ -11,76 +11,59 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\数美滑块\\captcha_sdk.js", {
-    encoding: "utf-8"
-});
 
-let ast = parser.parse(js_code);
+function generateRealBigArgumentValue(js_path){
+    const js_code = fs.readFileSync(js_path, {
+        encoding: "utf-8"
+    });
+    let ast = parser.parse(js_code);
 
-function generate_js(astObjList){
-    // 初始话一个空的AST对象
-    let newAst = parser.parse("");
-    // 放入到空的AST对象中 再转为js eval加载到内存中
-    astObjList.map(function(p){newAst.program.body.push(p);})
-    let code = generator(newAst, {compact: true}).code;
-    return code;
-}
+    function generate_js(astObjList){
+        // 初始话一个空的AST对象
+        let newAst = parser.parse("");
+        // 放入到空的AST对象中 再转为js eval加载到内存中
+        astObjList.map(function(p){newAst.program.body.push(p);})
+        let code = generator(newAst, {compact: true}).code;
+        return code;
+    }
 
 // 获取解密相关的JS代码
-let decrypt_func_name = ast.program.body[1].declarations[0].init.name;
-let decrypt_func_name_copy = decrypt_func_name;
-let decrypt_list = ast.program.body.slice(0,3)
+    let decrypt_func_name = ast.program.body[1].declarations[0].init.name;
+    let decrypt_func_name_copy = decrypt_func_name;
+    let decrypt_list = ast.program.body.slice(0,3)
 
-let encryptSequenceExpression = ast.program.body[3].expression;
-let callExpressionList = encryptSequenceExpression.expressions;
-let lastCallExpression = callExpressionList.pop();
-let decrypt_code = generator(ast, {compact: true}).code
+    let encryptSequenceExpression = ast.program.body[3].expression;
+    let callExpressionList = encryptSequenceExpression.expressions;
+    let lastCallExpression = callExpressionList.pop();
+    let decrypt_code = generator(ast, {compact: true}).code
 
 // 解密函数加载到内存中
-eval(decrypt_code)
+    eval(decrypt_code)
 
 // 获取函数实参
-let realArguments = lastCallExpression.arguments;
-let realArgumentsValue = [];
-realArguments.map(function(p){
-    realArgumentsValue.push(eval(generate_js([p])))
-})
+    let realArguments = lastCallExpression.arguments;
+    let realArgumentsValue = [];
+    realArguments.map(function(p){
+        realArgumentsValue.push(eval(generate_js([p])))
+    })
 
-var _0x450a3e = realArgumentsValue, _0x3ff3d5;
+    var _0x450a3e = realArgumentsValue, _0x3ff3d5;
 
 // 观察发现实参的最后10个数是不会参与后序倒序的 并且倒数第9个数就是用来判断参数倒序的临界值
-let indexValue = realArgumentsValue[realArgumentsValue.length - 9];
+    let indexValue = realArgumentsValue[realArgumentsValue.length - 9];
 
 // 如果某个值类型是字符串 就把字符串的字符顺序倒序
-for (_0x3ff3d5 = 0; _0x3ff3d5 < indexValue; _0x3ff3d5++) {
-    typeof _0x450a3e[_0x3ff3d5] === "string" && (_0x450a3e[_0x3ff3d5] = _0x450a3e[_0x3ff3d5]["split"]("")["reverse"]()["join"](""));
-}
+    for (_0x3ff3d5 = 0; _0x3ff3d5 < indexValue; _0x3ff3d5++) {
+        typeof _0x450a3e[_0x3ff3d5] === "string" && (_0x450a3e[_0x3ff3d5] = _0x450a3e[_0x3ff3d5]["split"]("")["reverse"]()["join"](""));
+    }
 
 // 把除最后10个之外的参数全部倒序
-for (_0x3ff3d5 = 0; _0x3ff3d5 < (indexValue / 2); _0x3ff3d5++) {
-    var _0xf4cda9 = _0x450a3e[_0x3ff3d5];
-    _0x450a3e[_0x3ff3d5] = _0x450a3e[indexValue - _0x3ff3d5 - 1], _0x450a3e[indexValue - _0x3ff3d5 - 1] = _0xf4cda9;
+    for (_0x3ff3d5 = 0; _0x3ff3d5 < (indexValue / 2); _0x3ff3d5++) {
+        var _0xf4cda9 = _0x450a3e[_0x3ff3d5];
+        _0x450a3e[_0x3ff3d5] = _0x450a3e[indexValue - _0x3ff3d5 - 1], _0x450a3e[indexValue - _0x3ff3d5 - 1] = _0xf4cda9;
+    }
+    return realArgumentsValue;
 }
-
-RegisterData = {
-    "bg": "/crb/set-000006/v2/8f62601c8cb230835d36ee6bd575f2ab_bg.jpg",
-    "bg_height": 300,
-    "bg_width": 600,
-    "domains": [
-        "castatic.fengkongcloud.cn",
-        "castatic.fengkongcloud.com",
-        "castatic-a.fengkongcloud.com",
-        "castatic2.fengkongcloud.com"
-    ],
-    "fg": "/crb/set-000006/v2/8f62601c8cb230835d36ee6bd575f2ab_fg.png",
-    "k": "yRF9AagskQY=",  // 每次动态更新
-    "l": 8,
-    "rid": "2021081016330108c33838ed0d614e11", // 每次动态更新
-    "retryCount": 0
-}
-_0x4c3773 = RegisterData
-_0x22e28c = _0x4c3773["k"]
-_0x661bb = _0x4c3773["l"]
 function base64Encode(_0x47c311) {
     var _0x51a4d7 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -362,8 +345,6 @@ function DES(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
 
     return _0x3c9490 + _0x1bed6f;
 }
-__key = DES("sshummei", base64Decode(_0x22e28c), 0, 0)["substr"](0, _0x661bb)
-var _0x4c15e2 = ["number", "boolean", "undefined", "string", "function"];
 function _0x29acd2_default (_0x54e97b) {
     return typeof _0x54e97b === "undefined" ? "undefined" : typeof _0x54e97b;
 }
@@ -383,6 +364,7 @@ function _0x2a86e9(_0x197766, _0x8c7ca1) {
     return -1;
 }
 function _0x2638ec(_0x5d0d94) {
+    var _0x4c15e2 = ["number", "boolean", "undefined", "string", "function"];
     var _0x20d6b9 = typeof _0x5d0d94 === "undefined" ? "undefined" : (0, _0x29acd2_default)(_0x5d0d94);
 
     if (_0x2a86e9(_0x4c15e2, _0x20d6b9) > -1) return _0x5f47f1(_0x5d0d94);
@@ -443,252 +425,15 @@ getEncryptContent = function (_0x4bac4f, _0x424239) {
     return _0x56db43;
 }
 
-getMouseAction = function () {
+getMouseAction = function (slideMouseData, realArgumentsValue, RegisterData) {
     // let timestamp = new Date().getTime();
-    _data = {
-        mouseData: [
-            [
-                0,
-                -16,
-                0
-            ],
-            [
-                0,
-                -16,
-                113
-            ],
-            [
-                0,
-                -16,
-                205
-            ],
-            [
-                0,
-                -16,
-                315
-            ],
-            [
-                0,
-                -16,
-                408
-            ],
-            [
-                0,
-                -16,
-                502
-            ],
-            [
-                0,
-                -16,
-                612
-            ],
-            [
-                0,
-                -16,
-                704
-            ],
-            [
-                0,
-                -16,
-                814
-            ],
-            [
-                0,
-                -16,
-                907
-            ],
-            [
-                0,
-                -16,
-                1015
-            ],
-            [
-                0,
-                -16,
-                1109
-            ],
-            [
-                0,
-                -16,
-                1203
-            ],
-            [
-                0,
-                -16,
-                1314
-            ],
-            [
-                0,
-                -16,
-                1407
-            ],
-            [
-                0,
-                -16,
-                1502
-            ],
-            [
-                0,
-                -16,
-                1610
-            ],
-            [
-                0,
-                -16,
-                1704
-            ],
-            [
-                0,
-                -16,
-                1814
-            ],
-            [
-                0,
-                -16,
-                1907
-            ],
-            [
-                0,
-                -16,
-                2016
-            ],
-            [
-                0,
-                -16,
-                2110
-            ],
-            [
-                0,
-                -16,
-                2203
-            ],
-            [
-                0,
-                -16,
-                2312
-            ],
-            [
-                0,
-                -16,
-                2406
-            ],
-            [
-                0,
-                -16,
-                2516
-            ],
-            [
-                0,
-                -16,
-                2609
-            ],
-            [
-                0,
-                -16,
-                2702
-            ],
-            [
-                8,
-                0,
-                2802
-            ],
-            [
-                11,
-                0,
-                2901
-            ],
-            [
-                15,
-                -1,
-                3002
-            ],
-            [
-                28,
-                -2,
-                3101
-            ],
-            [
-                39,
-                -3,
-                3201
-            ],
-            [
-                49,
-                -3,
-                3300
-            ],
-            [
-                58,
-                -3,
-                3401
-            ],
-            [
-                70,
-                -3,
-                3501
-            ],
-            [
-                83,
-                -3,
-                3601
-            ],
-            [
-                90,
-                -1,
-                3701
-            ],
-            [
-                103,
-                -1,
-                3801
-            ],
-            [
-                126,
-                -1,
-                3901
-            ],
-            [
-                139,
-                -1,
-                4001
-            ],
-            [
-                144,
-                0,
-                4102
-            ],
-            [
-                154,
-                2,
-                4202
-            ],
-            [
-                154,
-                2,
-                4308
-            ],
-            [
-                154,
-                2,
-                4403
-            ]
-        ],
-        startTime: 1628584396794,
-        endTime: 1628584401245 ,
-        mouseEndX: 154,   // 暂时不知道怎么得到的
-        trueWidth: 300,   // 滑块在页面上展示的宽度
-        trueHeight: 150,  // 滑块在页面上展示的高度
-        selectData: [],
-        blockWidth: 40, // 可能是滑块宽度的一半
-
-    }
     var _0x561681 = "slide",
         _0x4c3773 = RegisterData,
         _0x22e28c = _0x4c3773["k"],
         _0x661bb = _0x4c3773["l"],
         _0x18f6c6 = base64Decode(_0x22e28c),
         _0x392906 = DES("sshummei", _0x18f6c6, 0, 0)["substr"](0, _0x661bb),
-        _0x342936 = _data,
+        _0x342936 = slideMouseData,
         _0x35041f = _0x342936["mouseData"],
         _0x4c4eb6 = _0x342936["startTime"],
         _0x407a7 = _0x342936["endTime"],
@@ -777,41 +522,294 @@ getMouseAction = function () {
         // yq ff570d22
         _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 548]] = getEncryptContent(-1,
             realArgumentsValue[realArgumentsValue.length - 549]),
-        this["_data"]["__key"] = _0x392906, _0x4f3e89;
+        // this["_data"]["__key"] = _0x392906,
+        _0x4f3e89;
 }
 
-_0x59399e = "5d653e60"   // 定义在js中
-_0x4104c3 = "505f4c87"   // 定义在js 中
-_0xc3f56b = "dad77b6c"   // 定义在js中
-hw = getEncryptContent("default", _0x59399e)
-cq = getEncryptContent("DEFAULT", _0x4104c3)
-hi = getEncryptContent("zh-cn", _0xc3f56b)
-rid = RegisterData['rid']
-rversion = "1.0.3"   // 通过js文件生成的配置
-sdkver = "1.1.3"     // 通过js文件生成的配置
-protocol = "145"     // 通过js文件生成的配置
-ostype = "web"       // 通过js文件生成的配置
-organization = "RlokQwRlVjUrTUlkIqOg" // 在源码中
+getResult = function(slideMouseData, realArgumentsValue, RegisterData){
+    let result = {};
+    // hw 5d653e60
+    result[realArgumentsValue[realArgumentsValue.length - 564]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 31],
+        realArgumentsValue[realArgumentsValue.length - 565]);
+    // cq 505f4c87
+    result[realArgumentsValue[realArgumentsValue.length - 566]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 828],
+        realArgumentsValue[realArgumentsValue.length - 567]);
+    // hi dad77b6c
+    result[realArgumentsValue[realArgumentsValue.length - 568]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 353],
+        realArgumentsValue[realArgumentsValue.length - 569]);
 
-let result = {};
-// hw 5d653e60
-result[realArgumentsValue[realArgumentsValue.length - 564]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 31],
-    realArgumentsValue[realArgumentsValue.length - 565])
-// cq 505f4c87
-result[realArgumentsValue[realArgumentsValue.length - 566]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 828],
-    realArgumentsValue[realArgumentsValue.length - 567])
-// hi dad77b6c
-result[realArgumentsValue[realArgumentsValue.length - 568]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 353],
-    realArgumentsValue[realArgumentsValue.length - 569])
+    // ‌rversion "1.0.3"
+    result[realArgumentsValue[realArgumentsValue.length - 570]] = realArgumentsValue[realArgumentsValue.length - 829];
+    // ‌sdkver
+    result[realArgumentsValue[realArgumentsValue.length - 571]] = realArgumentsValue[realArgumentsValue.length - 830];
+    // protocol 145
+    result[realArgumentsValue[realArgumentsValue.length - 572]] = realArgumentsValue[realArgumentsValue.length - 573];
+    // ‌ostype
+    result[realArgumentsValue[realArgumentsValue.length - 574]] = realArgumentsValue[realArgumentsValue.length - 562];
 
-// ‌rversion "1.0.3"
-result[realArgumentsValue[realArgumentsValue.length - 570]] = realArgumentsValue[realArgumentsValue.length - 829]
-// ‌sdkver
-result[realArgumentsValue[realArgumentsValue.length - 571]] = realArgumentsValue[realArgumentsValue.length - 830]
-// protocol 145
-result[realArgumentsValue[realArgumentsValue.length - 572]] = realArgumentsValue[realArgumentsValue.length - 573]
-// ‌ostype
-result[realArgumentsValue[realArgumentsValue.length - 574]] = realArgumentsValue[realArgumentsValue.length - 562]
+    let mouseActionData = getMouseAction(slideMouseData, realArgumentsValue, RegisterData)
+    Object.keys(mouseActionData).map(function(p){
+        result[p] = mouseActionData[p];
+    });
+    return result;
+}
 
+let RegisterData = {
+    "bg": "/crb/set-000006/v2/8f62601c8cb230835d36ee6bd575f2ab_bg.jpg",
+    "bg_height": 300,
+    "bg_width": 600,
+    "domains": [
+        "castatic.fengkongcloud.cn",
+        "castatic.fengkongcloud.com",
+        "castatic-a.fengkongcloud.com",
+        "castatic2.fengkongcloud.com"
+    ],
+    "fg": "/crb/set-000006/v2/8f62601c8cb230835d36ee6bd575f2ab_fg.png",
+    "k": "yRF9AagskQY=",  // 每次动态更新
+    "l": 8,
+    "rid": "2021081016330108c33838ed0d614e11", // 每次动态更新
+    "retryCount": 0
+}
 
-console.log(getMouseAction())
+let realBigArgumentValue = generateRealBigArgumentValue('F:\\code\\SpiderCollection\\数美滑块\\captcha_sdk.js')
+let _data = {
+    mouseData: [
+        [
+            0,
+            -16,
+            0
+        ],
+        [
+            0,
+            -16,
+            113
+        ],
+        [
+            0,
+            -16,
+            205
+        ],
+        [
+            0,
+            -16,
+            315
+        ],
+        [
+            0,
+            -16,
+            408
+        ],
+        [
+            0,
+            -16,
+            502
+        ],
+        [
+            0,
+            -16,
+            612
+        ],
+        [
+            0,
+            -16,
+            704
+        ],
+        [
+            0,
+            -16,
+            814
+        ],
+        [
+            0,
+            -16,
+            907
+        ],
+        [
+            0,
+            -16,
+            1015
+        ],
+        [
+            0,
+            -16,
+            1109
+        ],
+        [
+            0,
+            -16,
+            1203
+        ],
+        [
+            0,
+            -16,
+            1314
+        ],
+        [
+            0,
+            -16,
+            1407
+        ],
+        [
+            0,
+            -16,
+            1502
+        ],
+        [
+            0,
+            -16,
+            1610
+        ],
+        [
+            0,
+            -16,
+            1704
+        ],
+        [
+            0,
+            -16,
+            1814
+        ],
+        [
+            0,
+            -16,
+            1907
+        ],
+        [
+            0,
+            -16,
+            2016
+        ],
+        [
+            0,
+            -16,
+            2110
+        ],
+        [
+            0,
+            -16,
+            2203
+        ],
+        [
+            0,
+            -16,
+            2312
+        ],
+        [
+            0,
+            -16,
+            2406
+        ],
+        [
+            0,
+            -16,
+            2516
+        ],
+        [
+            0,
+            -16,
+            2609
+        ],
+        [
+            0,
+            -16,
+            2702
+        ],
+        [
+            8,
+            0,
+            2802
+        ],
+        [
+            11,
+            0,
+            2901
+        ],
+        [
+            15,
+            -1,
+            3002
+        ],
+        [
+            28,
+            -2,
+            3101
+        ],
+        [
+            39,
+            -3,
+            3201
+        ],
+        [
+            49,
+            -3,
+            3300
+        ],
+        [
+            58,
+            -3,
+            3401
+        ],
+        [
+            70,
+            -3,
+            3501
+        ],
+        [
+            83,
+            -3,
+            3601
+        ],
+        [
+            90,
+            -1,
+            3701
+        ],
+        [
+            103,
+            -1,
+            3801
+        ],
+        [
+            126,
+            -1,
+            3901
+        ],
+        [
+            139,
+            -1,
+            4001
+        ],
+        [
+            144,
+            0,
+            4102
+        ],
+        [
+            154,
+            2,
+            4202
+        ],
+        [
+            154,
+            2,
+            4308
+        ],
+        [
+            154,
+            2,
+            4403
+        ]
+    ],
+    startTime: 1628584396794,
+    endTime: 1628584401245 ,
+    mouseEndX: 154,   // 暂时不知道怎么得到的
+    trueWidth: 300,   // 滑块在页面上展示的宽度
+    trueHeight: 150,  // 滑块在页面上展示的高度
+    selectData: [],
+    blockWidth: 40, // 可能是滑块宽度的一半
+
+}
+let result = getResult(_data, realBigArgumentValue, RegisterData);
+// result 中还需要补齐rid 和 organization这两个字段
+// 暂时还不清楚getEncryptContent中的_0x5d198e是怎么来的
+console.log(result);

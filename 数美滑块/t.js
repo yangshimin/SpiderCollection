@@ -298,7 +298,7 @@ function DES(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
 
     return _0x3c9490 + _0x1bed6f;
 }
-__key = DES("sshummei", base64Decode(_0x22e28c), 0, 0)["substr"](0, _0x661bb)
+// __key = DES("sshummei", base64Decode(_0x22e28c), 0, 0)["substr"](0, _0x661bb)
 var _0x4c15e2 = ["number", "boolean", "undefined", "string", "function"];
 function _0x29acd2_default (_0x54e97b) {
     return typeof _0x54e97b === "undefined" ? "undefined" : typeof _0x54e97b;
@@ -687,9 +687,6 @@ sdkver = "1.1.3"     // 通过js文件生成的配置
 protocol = "145"     // 通过js文件生成的配置
 ostype = "web"       // 通过js文件生成的配置
 organization = "RlokQwRlVjUrTUlkIqOg" // 在源码中
-
-let result = {};
-result[''] = ''
 
 
 console.log(getMouseAction())
