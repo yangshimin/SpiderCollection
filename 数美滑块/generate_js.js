@@ -11,18 +11,22 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
+let key = "";
 
-function generateRealBigArgumentValue(js_path){
+
+function generateRealBigArgumentValue(js_path) {
     const js_code = fs.readFileSync(js_path, {
         encoding: "utf-8"
     });
     let ast = parser.parse(js_code);
 
-    function generate_js(astObjList){
+    function generate_js(astObjList) {
         // 初始话一个空的AST对象
         let newAst = parser.parse("");
         // 放入到空的AST对象中 再转为js eval加载到内存中
-        astObjList.map(function(p){newAst.program.body.push(p);})
+        astObjList.map(function (p) {
+            newAst.program.body.push(p);
+        })
         let code = generator(newAst, {compact: true}).code;
         return code;
     }
@@ -30,7 +34,7 @@ function generateRealBigArgumentValue(js_path){
 // 获取解密相关的JS代码
     let decrypt_func_name = ast.program.body[1].declarations[0].init.name;
     let decrypt_func_name_copy = decrypt_func_name;
-    let decrypt_list = ast.program.body.slice(0,3)
+    let decrypt_list = ast.program.body.slice(0, 3)
 
     let encryptSequenceExpression = ast.program.body[3].expression;
     let callExpressionList = encryptSequenceExpression.expressions;
@@ -43,7 +47,7 @@ function generateRealBigArgumentValue(js_path){
 // 获取函数实参
     let realArguments = lastCallExpression.arguments;
     let realArgumentsValue = [];
-    realArguments.map(function(p){
+    realArguments.map(function (p) {
         realArgumentsValue.push(eval(generate_js([p])))
     })
 
@@ -64,6 +68,7 @@ function generateRealBigArgumentValue(js_path){
     }
     return realArgumentsValue;
 }
+
 function base64Encode(_0x47c311) {
     var _0x51a4d7 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -95,6 +100,7 @@ function base64Encode(_0x47c311) {
 
     return _0x3f5756;
 }
+
 function base64Decode(_0x315410) {
     var _0x14599c = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
 
@@ -141,6 +147,7 @@ function base64Decode(_0x315410) {
 
     return _0x542d7e;
 }
+
 function _0x2fc1eb(_0x298b2b) {
     var _0xd64f0 = new Array(0, 4, 536870912, 536870916, 65536, 65540, 536936448, 536936452, 512, 516, 536871424, 536871428, 66048, 66052, 536936960, 536936964);
 
@@ -226,6 +233,7 @@ function _0x2fc1eb(_0x298b2b) {
 
     return _0x5983c2;
 }
+
 function DES(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
     var _0x262998 = new Array(16843776, 0, 65536, 16843780, 16842756, 66564, 4, 65536, 1024, 16843776, 16843780, 1024, 16778244, 16842756, 16777216, 4, 1028, 16778240, 16778240, 66560, 66560, 16842752, 16842752, 16778244, 65540, 16777220, 16777220, 65540, 0, 1028, 66564, 16777216, 65536, 16843780, 4, 16842752, 16843776, 16777216, 16777216, 1024, 16842756, 65536, 66560, 16777220, 1024, 4, 16778244, 66564, 16843780, 65540, 16842752, 16778244, 16777220, 1028, 66564, 16843776, 1028, 16778240, 16778240, 0, 65540, 66560, 0, 16842756);
 
@@ -269,7 +277,7 @@ function DES(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
     var _0x422bfb = _0x286d26["length"] == 32 ? 3 : 9;
 
     _0x422bfb == 3 ? _0x15dee9 = _0x4bcc22 ? new Array(0, 32, 2) : new Array(30, -2, -2) : _0x15dee9 = _0x4bcc22 ? new Array(0, 32, 2, 62, 30, -2, 64, 96, 2) : new Array(94, 62, -2, 32, 64, 2, 30, -2, -2);
-    if (_0x46d821 == 2) _0x183ed7 += "        ";else {
+    if (_0x46d821 == 2) _0x183ed7 += "        "; else {
         if (_0x46d821 == 1) {
             _0x256930 = 8 - _0x17aa95 % 8, _0x183ed7 += String["fromCharCode"](_0x256930, _0x256930, _0x256930, _0x256930, _0x256930, _0x256930, _0x256930, _0x256930);
             if (_0x256930 == 8) _0x17aa95 += 8;
@@ -345,9 +353,11 @@ function DES(_0x10d318, _0x183ed7, _0x4bcc22, _0x37080a, _0x2ab2c2, _0x46d821) {
 
     return _0x3c9490 + _0x1bed6f;
 }
-function _0x29acd2_default (_0x54e97b) {
+
+function _0x29acd2_default(_0x54e97b) {
     return typeof _0x54e97b === "undefined" ? "undefined" : typeof _0x54e97b;
 }
+
 function _0x5f47f1(_0x584f6a) {
     var _0xc7b558 = typeof _0x584f6a === "undefined" ? "undefined" : (0, _0x29acd2_default)(_0x584f6a);
 
@@ -356,6 +366,7 @@ function _0x5f47f1(_0x584f6a) {
     if (_0xc7b558 == "undefined") return "undefined";
     return "\"" + _0x584f6a["toString"]()["replace"]("\"", "\\\"") + "\"";
 }
+
 function _0x2a86e9(_0x197766, _0x8c7ca1) {
     for (var _0x2df0f2 = 0; _0x2df0f2 < _0x197766["length"]; _0x2df0f2++) {
         if (_0x197766[_0x2df0f2] === _0x8c7ca1) return _0x2df0f2;
@@ -363,6 +374,7 @@ function _0x2a86e9(_0x197766, _0x8c7ca1) {
 
     return -1;
 }
+
 function _0x2638ec(_0x5d0d94) {
     var _0x4c15e2 = ["number", "boolean", "undefined", "string", "function"];
     var _0x20d6b9 = typeof _0x5d0d94 === "undefined" ? "undefined" : (0, _0x29acd2_default)(_0x5d0d94);
@@ -395,6 +407,7 @@ function _0x2638ec(_0x5d0d94) {
         return "{" + _0x363ac1["join"](",") + "}";
     }
 }
+
 function smStringify(_0x472439, _0x5f456e) {
     var _0x395c94 = _0x2638ec(_0x472439);
 
@@ -410,10 +423,9 @@ function smStringify(_0x472439, _0x5f456e) {
 
     return _0x395c94;
 }
-getEncryptContent = function (_0x4bac4f, _0x424239) {
-    var _0x5d198e = "6fa105b8";
 
-    var _0x38c530 = _0x424239 || _0x5d198e;
+getEncryptContent = function (_0x4bac4f, _0x424239) {
+    var _0x38c530 = _0x424239 || key;
 
     var _0x358f06 = typeof _0x4bac4f === "string" ? true : false;
 
@@ -431,9 +443,9 @@ getMouseAction = function (slideMouseData, realArgumentsValue, RegisterData) {
         _0x4c3773 = RegisterData,
         _0x22e28c = _0x4c3773["k"],
         _0x661bb = _0x4c3773["l"],
-        _0x18f6c6 = base64Decode(_0x22e28c),
-        _0x392906 = DES("sshummei", _0x18f6c6, 0, 0)["substr"](0, _0x661bb),
-        _0x342936 = slideMouseData,
+        _0x18f6c6 = base64Decode(_0x22e28c);
+    key = DES("sshummei", _0x18f6c6, 0, 0)["substr"](0, _0x661bb);
+    var _0x342936 = slideMouseData,
         _0x35041f = _0x342936["mouseData"],
         _0x4c4eb6 = _0x342936["startTime"],
         _0x407a7 = _0x342936["endTime"],
@@ -494,7 +506,7 @@ getMouseAction = function (slideMouseData, realArgumentsValue, RegisterData) {
 
         case "auto_slide":
             // vq 402d3ee0
-            _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 539]] = getEncryptContent(_0x22a660 / _0x8fb2df,
+            _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 539]] = getEncryptContent(_0x22a660 / (_0x8fb2df - _0x356a00),
                 realArgumentsValue[realArgumentsValue.length - 540]),
                 // yf c372a70d
                 _0x4f3e89[realArgumentsValue[realArgumentsValue.length - 530]] = getEncryptContent(_0x35041f,
@@ -526,7 +538,7 @@ getMouseAction = function (slideMouseData, realArgumentsValue, RegisterData) {
         _0x4f3e89;
 }
 
-getResult = function(slideMouseData, realArgumentsValue, RegisterData){
+getResult = function (slideMouseData, realArgumentsValue, RegisterData) {
     let result = {};
     // hw 5d653e60
     result[realArgumentsValue[realArgumentsValue.length - 564]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 31],
@@ -548,7 +560,7 @@ getResult = function(slideMouseData, realArgumentsValue, RegisterData){
     result[realArgumentsValue[realArgumentsValue.length - 574]] = realArgumentsValue[realArgumentsValue.length - 562];
 
     let mouseActionData = getMouseAction(slideMouseData, realArgumentsValue, RegisterData)
-    Object.keys(mouseActionData).map(function(p){
+    Object.keys(mouseActionData).map(function (p) {
         result[p] = mouseActionData[p];
     });
     return result;
@@ -801,7 +813,7 @@ let _data = {
         ]
     ],
     startTime: 1628584396794,
-    endTime: 1628584401245 ,
+    endTime: 1628584401245,
     mouseEndX: 154,   // 暂时不知道怎么得到的
     trueWidth: 300,   // 滑块在页面上展示的宽度
     trueHeight: 150,  // 滑块在页面上展示的高度
@@ -811,5 +823,5 @@ let _data = {
 }
 let result = getResult(_data, realBigArgumentValue, RegisterData);
 // result 中还需要补齐rid 和 organization这两个字段
-// 暂时还不清楚getEncryptContent中的_0x5d198e是怎么来的
+// mouseData: 由[mouseMoveX, mouseMoveY, 时间间隔组成的]数组 不超过100个
 console.log(result);
