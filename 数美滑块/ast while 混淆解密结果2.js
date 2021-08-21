@@ -17,18 +17,6 @@
 
     if ('‮' !== "‮") return;
 
-    var _0x3d941e = arguments,
-        _0x50b68c;
-
-    for (_0x50b68c = 0; _0x50b68c < 1284; _0x50b68c++) {
-        typeof _0x3d941e[_0x50b68c] === "string" && (_0x3d941e[_0x50b68c] = _0x3d941e[_0x50b68c]["split"]("")["reverse"]()["join"](""));
-    }
-
-    for (_0x50b68c = 0; _0x50b68c < 1284 / 2; _0x50b68c++) {
-        var _0x56be29 = _0x3d941e[_0x50b68c];
-        _0x3d941e[_0x50b68c] = _0x3d941e[1284 - _0x50b68c - 1], _0x3d941e[1284 - _0x50b68c - 1] = _0x56be29;
-    }
-
     var _0x114be7 = {};
     _0x114be7["core-js/library/fn/get-iterator"] = 8;
     var _0x10773b = {};

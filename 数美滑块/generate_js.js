@@ -550,13 +550,13 @@ getResult = function (slideMouseData, realArgumentsValue, RegisterData) {
     result[realArgumentsValue[realArgumentsValue.length - 568]] = getEncryptContent(realArgumentsValue[realArgumentsValue.length - 353],
         realArgumentsValue[realArgumentsValue.length - 569]);
 
-    // ‌rversion "1.0.3"
+    // rversion "1.0.3"
     result[realArgumentsValue[realArgumentsValue.length - 570]] = realArgumentsValue[realArgumentsValue.length - 829];
-    // ‌sdkver
+    // sdkver
     result[realArgumentsValue[realArgumentsValue.length - 571]] = realArgumentsValue[realArgumentsValue.length - 830];
     // protocol 145
     result[realArgumentsValue[realArgumentsValue.length - 572]] = realArgumentsValue[realArgumentsValue.length - 573];
-    // ‌ostype
+    // ostype
     result[realArgumentsValue[realArgumentsValue.length - 574]] = realArgumentsValue[realArgumentsValue.length - 562];
 
     let mouseActionData = getMouseAction(slideMouseData, realArgumentsValue, RegisterData)
@@ -582,6 +582,8 @@ let RegisterData = {
     "rid": "2021081016330108c33838ed0d614e11", // 每次动态更新
     "retryCount": 0
 }
+
+
 
 let realBigArgumentValue = generateRealBigArgumentValue('F:\\code\\SpiderCollection\\数美滑块\\captcha_sdk.js')
 let _data = {
@@ -819,7 +821,6 @@ let _data = {
     trueHeight: 150,  // 滑块在页面上展示的高度
     selectData: [],
     blockWidth: 40, // 可能是滑块宽度的一半
-
 }
 let result = getResult(_data, realBigArgumentValue, RegisterData);
 // result 中还需要补齐rid 和 organization这两个字段

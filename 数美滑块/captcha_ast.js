@@ -113,7 +113,7 @@ for (_0x3ff3d5 = 0; _0x3ff3d5 < (indexValue / 2); _0x3ff3d5++) {
 // 把正确的参数顺序重新赋值给realArgumentList
 realArgumentList = temp;
 // 删除原始代码中的两个for循环及相关代码
-// new_ast.program.body[0].expression.argument.callee.body.body.splice(4, 3)
+new_ast.program.body[0].expression.argument.callee.body.body.splice(4, 3)
 
 // 把形参和实参一一对应
 let argumentsMap = {};
