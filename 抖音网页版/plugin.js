@@ -9,6 +9,37 @@ function isNumber(val) {
     }
 }
 
+const makeFnsNative = (fns = []) => {
+    const oldCall = Function.prototype.call
+    function call () {
+        return oldCall.apply(this, arguments)
+    }
+    // eslint-disable-next-line
+    Function.prototype.call = call
+
+    const nativeToStringFunctionString = Error.toString().replace(
+        /Error/g,
+        'toString'
+    )
+    const oldToString = Function.prototype.toString
+
+    function functionToString () {
+        for (const fn of fns) {
+            if (this === fn) {
+                return `function ${fn.name}() { [native code] }`
+            }
+        }
+
+        if (this === functionToString) {
+            return nativeToStringFunctionString
+        }
+        return oldCall.call(oldToString, this)
+    }
+    // eslint-disable-next-line
+    Function.prototype.toString = functionToString
+}
+
+
 class PluginArray{
     constructor() {
         this.p = null
@@ -89,10 +120,6 @@ class PluginArray{
         return this.p
     }
 
-    toString = function (){
-        return "[object PluginArray]"
-    }
-
     refresh = function (){}
 
 }
@@ -103,7 +130,7 @@ PluginArray.prototype.__defineGetter__('length', function () {
 proxy = function (object_) {
     return new Proxy(object_, {
         get(target, property, receiver) {
-            if (typeof property !== "‌symbol" && isNumber(property)){
+            if (typeof property !== "symbol" && isNumber(property)){
                 return target.plugins[property]
             }
             return target[property];
@@ -113,7 +140,9 @@ proxy = function (object_) {
 
 plugins = new PluginArray()
 plugins = proxy(plugins)
+makeFnsNative([plugins.item, plugins.refresh])
 
+console.log(plugins.item.toString())   // 期望返回的是 'function item() { [native code] }'
 // console.log(plugins instanceof PluginArray)
 // console.log(Object.prototype.toString.call(plugins))
 // console.log(plugins.length)

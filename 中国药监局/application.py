@@ -7,7 +7,9 @@
 # @Software: PyCharm
 import logging
 import sys
+from urllib.parse import urljoin
 
+from lxml.html import etree
 import requests
 
 
@@ -19,6 +21,11 @@ class Application(object):
 
     def __init__(self):
         self.s = requests.Session()
+
+    @staticmethod
+    def get_lxml_obj(html):
+        lxml_obj = etree.HTML(html)
+        return lxml_obj
 
     def get_index(self):
         """公告通告"""
@@ -40,10 +47,45 @@ class Application(object):
         res = self.s.get(url, headers=headers)
         if res.status_code in [200, 202]:
             logging.info("请求公告通告首页成功")
+            with open("first_index.html", 'wb') as f:
+                f.write(res.content)
+                logging.info("保存第一次请求的html成功")
+
+            page_lxml = self.get_lxml_obj(res.text)
+            first_script_src_selector = page_lxml.xpath(".//*/script[1]/@src")
+            if not first_script_src_selector:
+                raise Exception("解析第一次请求的第一个script标签的src链接失败")
+            return first_script_src_selector[0]
         else:
             logging.error("请求公告通告首页失败")
+
+    def save_first_script(self, url):
+        headers = {
+            "Accept": "*/*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Host": "www.nmpa.gov.cn",
+            "Pragma": "no-cache",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/93.0.4577.63 Safari/537.36",
+        }
+
+        script_res = self.s.get(url, headers=headers)
+        if script_res.status_code == 200:
+            with open("first_script.js", 'w', encoding='utf-8') as f:
+                f.write(script_res.text)
+                logging.info("保存script文件成功")
+        else:
+            logging.error("请求script文件失败")
+
+    def scheduler(self):
+        script_src = self.get_index()
+        script_url = urljoin("https://www.nmpa.gov.cn", script_src)
+        self.save_first_script(script_url)
 
 
 if __name__ == "__main__":
     app = Application()
-    app.get_index()
+    app.scheduler()
