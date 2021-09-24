@@ -33,7 +33,8 @@ const makeFnsNative = (fns = []) => {
         if (this === functionToString) {
             return nativeToStringFunctionString
         }
-        return oldCall.call(oldToString, this)
+        // return oldCall.call(oldToString, this)
+        return this.toString.name.indexOf(this.name) !== -1 ? `function ${this.name}() { [native code] }`:oldCall.call(oldToString, this)
     }
     // eslint-disable-next-line
     Function.prototype.toString = functionToString
