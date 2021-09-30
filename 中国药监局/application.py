@@ -42,8 +42,7 @@ class Application(object):
             "Host": "www.nmpa.gov.cn",
             "Pragma": "no-cache",
             "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/93.0.4577.63 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
         }
 
         res = self.s.get(url, headers=headers)
@@ -78,8 +77,7 @@ class Application(object):
             "Connection": "keep-alive",
             "Host": "www.nmpa.gov.cn",
             "Pragma": "no-cache",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/93.0.4577.63 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
         }
 
         script_res = self.s.get(url, headers=headers)
@@ -104,8 +102,8 @@ class Application(object):
         }
         res = requests.post(url, data=data)
         if res.status_code == 200:
-            cookie_info = res.text.split("=", 1)
-            return {cookie_info[0]: cookie_info[1].split(";", 1)[0]}
+            cookie_info = res.text.split(";", 1)[0].strip().split("=")
+            return {cookie_info[0]: cookie_info[1]}
 
     @staticmethod
     def check(cookie):
@@ -122,13 +120,12 @@ class Application(object):
             "Pragma": "no-cache",
             "Referer": "https://www.nmpa.gov.cn/xxgk/ggtg/index.html",
             "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/93.0.4577.63 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
         }
         res = requests.get(url, headers=headers, cookies=cookie)
         if res.status_code == 200:
+            res.encoding = "utf-8"
             print(res.text)
-
 
     def scheduler(self):
         script_src, execute_script = self.get_index()
