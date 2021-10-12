@@ -23,7 +23,7 @@ api.post('/cookie', function (req, res){
         var gmpCookie = eval("document.cookie")
         console.log(gmpCookie)
         res.send(gmpCookie);
-    }, 1000);
+    }, 10000);
 
 
 

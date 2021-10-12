@@ -107,8 +107,10 @@ class Application(object):
         }
         res = requests.post(url, data=data)
         if res.status_code == 200:
-            cookie_info = res.text.split(";", 1)[0].strip().split("=")
-            return {cookie_info[0]: cookie_info[1]}
+            cookie_value_pattern = re.search("neCYtZEjo8GmP=(.*?);", res.text)
+            if not cookie_value_pattern:
+                raise Exception("正則匹配cookie失敗")
+            return {"neCYtZEjo8GmP": cookie_value_pattern.group(1)}
 
     def generate_cookie(self, page_url_or_response_text, cookie_str=None):
         if page_url_or_response_text.startswith("https://www.nmpa.gov.cn"):
