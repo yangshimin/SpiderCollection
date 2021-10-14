@@ -32,6 +32,21 @@ makeFnsNative = (obj) => {
     Function.prototype.toString = functionToString
 }
 
+var p = Object.create({});
+Object.defineProperty(p,'level',{enumerable: true, configurable: true, get: ()=> 1});
+Object.defineProperty(p,'charging',{get: ()=> true});
+Object.defineProperty(p,'chargingTime',{get: ()=> 0});
+Object.defineProperty(p,'dischargingTime',{get: ()=> Infinity});
+
+Object.defineProperty(p,'onchargingchange',{get: ()=> null});
+Object.defineProperty(p,'onchargingtimechange',{get: ()=> null});
+Object.defineProperty(p,'ondischargingtimechange',{get: ()=> null});
+Object.defineProperty(p,'onlevelchange',{get: ()=> null});
+// Object.defineProperty(navigator, "getBattery", {
+//     value: () => { return Promise.resolve(p)
+//     }
+// });
+
 let navigatorProperties = {
     appCodeName: "Mozilla",
     appName: "Netscape",
@@ -78,6 +93,7 @@ let navigatorProperties = {
     webkitTemporaryStorage: {},
     xr: {},
     managed: {},
+    // getBattery: function (){return Promise.resolve(p)},
     getBattery: function (){},
     getGamepads: function(){},
     javaEnabled: function (){},
@@ -126,6 +142,9 @@ makeFnsNative(navigator)
 // console.log(navigator.toString())
 // console.log(navigator.getBattery)
 // console.log(navigator.getBattery.toString())
+// navigator.getBattery().then(function(battery) {
+//     console.log(battery.level)
+// });
 
 module.exports = {
     navigator

@@ -15,7 +15,7 @@ const js_code = fs.readFileSync("E:\\个人\\SpiderCollection\\中国药监局\\
     encoding: "utf-8"
 });
 
-var _$wy = []
+var _$em = []
 function _$$0(_$9o) {
         var _$KV = _$9o.length;
         var _$q5, _$sh = new Array(_$KV - 1), _$uE = _$9o.charCodeAt(0) - 97;
@@ -34,9 +34,9 @@ function _$$0(_$9o) {
     }
 
 
-function _$40(_$9o) {
+function _$zM(_$9o) {
         var _$KV = String.fromCharCode(96);
-        _$wy = _$$0(_$9o).split(_$KV);
+        _$em = _$$0(_$9o).split(_$KV);
     }
 
 let ast = parser.parse(js_code);
@@ -48,7 +48,7 @@ traverse(ast, {
         let callEe = path.node.callee;
         if (!callEe) return ;
         let callEeName = callEe.name;
-        if (callEeName === '_$40'){
+        if (callEeName === '_$zM'){
             let argumentsNode = path.node.arguments;
             if (argumentsNode.length === 0 || !t.isStringLiteral(argumentsNode[0])) return;
             let argument = argumentsNode[0].value;
@@ -62,11 +62,11 @@ traverse(ast, {
     MemberExpression(path){
         let memberExpressionNode = path.node.object;
         let memberExpressionName = memberExpressionNode.name;
-        if (memberExpressionName && memberExpressionName === '_$wy'){
+        if (memberExpressionName && memberExpressionName === '_$em'){
             let property = path.node.property;
             if (t.isNumericLiteral(property)){
                 let propertyValue = property.value;
-                let realValue = eval("_$wy[" + propertyValue + "]");
+                let realValue = eval("_$em[" + propertyValue + "]");
                 path.replaceWith(t.valueToNode(realValue))
             }
         }

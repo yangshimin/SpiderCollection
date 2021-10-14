@@ -66,6 +66,17 @@ class Application(object):
                 f.write(res.content)
                 logging.info("保存第一次请求的html成功")
 
+            page_lxml = self.get_lxml_obj(res.text)
+            script_selectors = page_lxml.xpath("//script[@r='m']/text()")
+            if len(script_selectors) >= 3:
+                script_text = script_selectors[-2] + "\n" + script_selectors[-1]
+                if script_text.strip():
+                    with open("1.js", "w", encoding="utf-8") as f:
+                        f.write(script_text)
+                        logging.info("写0号js文件成功")
+                else:
+                    logging.error("提取0号js文件内容失败")
+
             return self.extract_javascript(res.text)
         else:
             logging.error("请求页面第一次失败")
