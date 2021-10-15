@@ -1537,8 +1537,7 @@ function eval_js() {
                 var _$AM = _$RB(_$JD, "?")[1];
 
                 if (_$D1 === _$AM) {
-                    var _$Yj = _$$F[_$Ig("ytg|omgzux")];
-
+                    var _$Yj = _$$F["navigator"];
                     var _$eg = _$Yj["userAgent"];
 
                     if (_$eg && _$6L["call"](_$eg, "MicroMessenger") != -1 || _$fJ) {
@@ -8350,8 +8349,7 @@ function eval_js() {
         var _$wu = _$RB(_$fb, "?")[1];
 
         if (_$g0 === _$wu) {
-            var _$VG = _$$F[_$Ig("ytg|omgzux")];
-
+            var _$VG = _$$F["navigator"];
             var _$gV = _$VG["userAgent"];
 
             if (_$gV && _$6L["call"](_$gV, "MicroMessenger") != -1 || _$zM) {
@@ -8667,7 +8665,7 @@ function eval_js() {
                         _$gV(_$g0["name"], _$g0["value"]);
                     }
                 } else {
-                    _$gV(_$Ig("kn"), _$VG[0]);
+                    _$gV("x", _$VG[0]);
 
                     _$gV("y", _$VG[1]);
                 }
@@ -8707,7 +8705,7 @@ function eval_js() {
                             _$Cp(_$9A, _$fb["name"], _$fb["value"]);
                         }
                     } else {
-                        _$Cp(_$9A, _$Ig("kn"), _$g0[0]);
+                        _$Cp(_$9A, "x", _$g0[0]);
 
                         _$Cp(_$9A, "y", _$g0[1]);
                     }
@@ -11157,7 +11155,7 @@ function eval_js() {
 
         if (this._$B8 && !this._$Sa && !this._$QO) {
             for (var _$zM in this._$hw) {
-                if (_$zM[0] === _$Ig("l$") && _$zM[1] !== "_") continue;
+                if (_$zM[0] === "$" && _$zM[1] !== "_") continue;
 
                 if (this._$hw["hasOwnProperty"](_$zM)) {
                     var _$fb = _$s9._$5P();
@@ -12949,7 +12947,7 @@ function eval_js() {
         _$s9 = 1;
         _$Em = 2;
         _$it = 3;
-        if (typeof _$$F[_$Ig("ytg|omgzux")]["userAgent"] == "string") return (_$s9 + _$it) * (_$Em + _$it) * (_$Em + _$it) * 2 + _$Rn(4);
+        if (typeof _$$F["navigator"]["userAgent"] == "string") return (_$s9 + _$it) * (_$Em + _$it) * (_$Em + _$it) * 2 + _$Rn(4);
         return _$s9 + _$Em * _$it;
     }
 
@@ -12997,7 +12995,7 @@ function eval_js() {
         _$s9 = 1;
         _$Em = 2;
         _$it = 3;
-        if (typeof _$$F[_$Ig("ytg|omgzux")]["userAgent"] == "string") return (_$s9 + _$it) * (_$Em + _$it) * (_$Em + _$it) * 2 + _$Rn(4) + _$s9;
+        if (typeof _$$F["navigator"]["userAgent"] == "string") return (_$s9 + _$it) * (_$Em + _$it) * (_$Em + _$it) * 2 + _$Rn(4) + _$s9;
         return _$s9 + _$Em * _$it;
     }
 
@@ -13315,7 +13313,7 @@ function eval_js() {
                             }
                         } else if (_$2w < 40) {
                             if (_$2w < 37) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("b$gnnj$+$$knffdq+$$kro+$$krqa+$gcw$+$qd~cxBncd@kqd~cxDwdbtsdcHmSghrEq~ld+$rcw$+$thd$"));
+                                _$q7 = _$M$(139, _$$F, "$hook$,$$logger,$$lsp,$$lsrb,$hdx$,$readyCodeAlreadyExecutedInThisFrame,$sdx$,$uie$");
                             } else if (_$2w < 38) {
                                 _$Pr = _$vw;
                             } else if (_$2w < 39) {
@@ -13389,7 +13387,7 @@ function eval_js() {
                             } else {
                                 try {
                                     _$zM = _$Dp["apply"](_$s9);
-                                    _$fb = new _$mS(_$Ig("vf\\|I\\Fwj}ran lxmn\\]\\|Ih"));
+                                    _$fb = new _$mS("{\\s*\\[native code\\]\\s*}");
                                     if (typeof _$s9 !== "function" || !_$fb["test"](_$zM) || _$Em != _$vw && _$s9 !== _$Em) _$Pr = true;
                                 } catch (_$g0) {}
                             }
@@ -13434,17 +13432,17 @@ function eval_js() {
                                 _$q7 = _$zM < 60 * 1000;
                             } else if (_$2w < 71) {
                                 try {
-                                    _$wu = _$$F[_$Ig("ytg|omgzux")];
+                                    _$wu = _$$F["navigator"];
 
-                                    if (_$$F["webkitRequestFileSystem"] && !(_$wu["appVersion"] && _$mS(_$Ig("y)tjxuoj P\\JCLIO]JG D/<d;5d;+0EI"))["test"](_$wu["appVersion"]))) {
+                                    if (_$$F["webkitRequestFileSystem"] && !(_$wu["appVersion"] && _$mS("Android 4\\.[0-3].+ (GT|SM|SCH)-")["test"](_$wu["appVersion"]))) {
                                         _$$F["webkitRequestFileSystem"](_$$F["TEMPORARY"], 1, _$g0, _$fb);
-                                    } else if (_$Ig("gGit;jj}ylyh{}") in _$$k["documentElement"]["style"]) {
+                                    } else if ("MozAppearance" in _$$k["documentElement"]["style"]) {
                                         _$zM = _$$F["indexedDB"]["open"]("EkcP");
                                         _$zM["onerror"] = _$fb;
                                         _$zM["onsuccess"] = _$g0;
                                     } else if (_$$F["safari"] && _$$F["safari"]["pushNotification"]) {
                                         try {
-                                            _$$F["localStorage"].length ? _$g0() : (_$$F["localStorage"].x = 1, _$$F["localStorage"]["removeItem"](_$Ig("kn")), _$g0());
+                                            _$$F["localStorage"].length ? _$g0() : (_$$F["localStorage"].x = 1, _$$F["localStorage"]["removeItem"]("x"), _$g0());
                                         } catch (_$VG) {
                                             _$fb();
                                         }
@@ -13705,7 +13703,7 @@ function eval_js() {
 
                                         _$$k["cookie"] = _$Bk + "; expires=" + _$fb["toGMTString"]();
 
-                                        if (!_$zM || !_$B9 && (_$$k["cookie"].length > 1 || _$$F[_$Ig("ytg|omgzux")]["cookieEnabled"])) {
+                                        if (!_$zM || !_$B9 && (_$$k["cookie"].length > 1 || _$$F["navigator"]["cookieEnabled"])) {
                                             return;
                                         }
 
@@ -13745,7 +13743,7 @@ function eval_js() {
                             } else if (_$2w < 111) {
                                 return [0, 0, 0, 0];
                             } else {
-                                _$zM = [_$Ig("y;nuiq}g|k.rgynJ;nuiq}g|k.rgyn"), _$Ig("}Yetq4(*F4(*"), _$Ig("{6*,H6hj)xvp"), _$Ig("eMqe}gPeia*Mqe}gPeia"), _$Ig("~snpdyE5fbm3mbzfs *I Zpouspm"), _$Ig("enik}t*Na{hLh{uan C. ?kjpnkh*-"), _$Ig("}6gcn4nc{gtF6gcn4nc{gt@voA Yevkxg< [qpvtqn @KJEdkvA"), _$Ig("nEvr}IzuvbUEvr}IzuvbOg~P 4tgzivK 6bageb} OZYTszgP"), _$Ig("cPc}jNj}wcp"), _$Ig("dPT@qi+PT@qi"), _$Ig("gQGJfys}l(I=R"), _$Ig("f<b>jiomjg)<b>jiomjg"), _$Ig("t@vf{pO1papnatzy")];
+                                _$zM = ["ShockwaveFlash.ShockwaveFlash", "AcroPDF.PDF", "PDF.PdfCtrl", "QuickTime.QuickTime", "rmocx.RealPlayer G2 Control", "rmocx.RealPlayer G2 Control.1", "RealPlayer.RealPlayer(tm) ActiveX Control (32-bit)", "RealVideo.RealVideo(tm) ActiveX Control (32-bit)", "RealPlayer", "SWCtl.SWCtl", "WMPlayer.OCX", "AgControl.AgControl", "Skype.Detection"];
                             }
                         }
                     } else {
@@ -13776,7 +13774,7 @@ function eval_js() {
                                 var _$g0;
                             } else if (_$2w < 119) {
                                 for (var _$zM in _$$F) {
-                                    if (_$Ef(_$zM, _$Ig("bVdaWLKnfLrf_TMHPTD_"))) return 1;
+                                    if (_$Ef(_$zM, "WebXMLogMsg_UNIQUE_")) return 1;
                                 }
                             } else {
                                 _$M$(242, _$8Z);
@@ -13789,7 +13787,7 @@ function eval_js() {
                             } else if (_$2w < 123) {
                                 var _$Ri = [];
                             } else {
-                                _$q7 = _$M$(139, _$$F, _$Ig("gmjc_biie}|Zgit;hcgyncihMnylnNcg}ZgitCh|}r}|><ZgitL}ko}mn;hcgyncih@lyg}"));
+                                _$q7 = _$M$(139, _$$F, "spi_hooked,mozAnimationStartTime,mozIndexedDB,mozRequestAnimationFrame");
                             }
                         } else {
                             if (_$2w < 125) {
@@ -13811,7 +13809,7 @@ function eval_js() {
                             } else if (_$2w < 130) {
                                 _$fb = _$Em();
                             } else if (_$2w < 131) {
-                                _$Ri["innerHTML"] = _$Ig("wZwjrmk| ql[\"jjVPsr\" kti{{ql[\"kt{qlXQNSNnVOWKWVjSKOOknKjjVPKNNiiNNjlkmNj\" aql|p[\"Nxb\" pmqop|[\"Nxb\"(ZMwjrmk|(");
+                                _$Ri["innerHTML"] = "<object id=\"bb82kj\" classid=\"clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b\" width=\"0px\" height=\"0px\"></object>";
                             } else {
                                 _$zM = 0;
                             }
@@ -13878,7 +13876,7 @@ function eval_js() {
                             } else if (_$2w < 154) {
                                 _$zM = ["mousedown", "mouseup", "mousemove", "keydown", "touchstart", "touchmove", "touchend", "click", "input", "scroll"];
                             } else if (_$2w < 155) {
-                                _$q7 = _$mS(_$Ig("bGd~ckdrrBgqnld"))["test"](_$zM["userAgent"]) || _$zM["languages"] === _$Ia;
+                                _$q7 = _$mS("HeadlessChrome")["test"](_$zM["userAgent"]) || _$zM["languages"] === _$Ia;
                             } else {
                                 _$0Y += 9;
                             }
@@ -13908,7 +13906,7 @@ function eval_js() {
                             if (_$2w < 165) {
                                 _$zM = _$M$(247, "$_f1");
                             } else if (_$2w < 166) {
-                                var _$zM = _$$F[_$Ig("ytg|omgzux")];
+                                var _$zM = _$$F["navigator"];
                             } else if (_$2w < 167) {
                                 _$fb |= 131072;
                             } else {
@@ -14006,7 +14004,7 @@ function eval_js() {
                             }
                         } else if (_$2w < 204) {
                             if (_$2w < 201) {
-                                _$q7 = _$$F["shenjian"] && _$M$(139, _$$F["shenjian"], _$Ig("osqbfsxqDuvduexRsqbfsxq_duvduexRsxus{>awy~Rtusdkbf5q||rqs{"));
+                                _$q7 = _$$F["shenjian"] && _$M$(139, _$$F["shenjian"], "captchaRefresh,captcha_refresh,checkLogin,decryptCallback");
                             } else if (_$2w < 202) {
                                 var _$D1 = _$M$(247, "$_fpn1");
                             } else if (_$2w < 203) {
@@ -14054,7 +14052,7 @@ function eval_js() {
                             } else if (_$2w < 218) {
                                 _$0Y += 7;
                             } else if (_$2w < 219) {
-                                var _$VG = _$$F[_$Ig("ytg|omgzux")];
+                                var _$VG = _$$F["navigator"];
                             } else {
                                 if (!_$q7) _$0Y += 9;
                             }
@@ -14076,11 +14074,11 @@ function eval_js() {
                     } else if (_$2w < 240) {
                         if (_$2w < 228) {
                             if (_$2w < 225) {
-                                _$q7 = !(_$fW & 64) || _$$F[_$Ig("ytg|omgzux")]["userAgent"]["indexOf"]("QQBrowser") !== -1 || _$$F[_$Ig("ytg|omgzux")]["userAgent"]["indexOf"]("MicroMessenger") !== -1;
+                                _$q7 = !(_$fW & 64) || _$$F["navigator"]["userAgent"]["indexOf"]("QQBrowser") !== -1 || _$$F["navigator"]["userAgent"]["indexOf"]("MicroMessenger") !== -1;
                             } else if (_$2w < 226) {
                                 _$$F["$b_callHandler"]("Z8XHj", '', _$s9);
                             } else if (_$2w < 227) {
-                                _$q7 = _$$F["QTP_EPE_HOOK"] || _$$F[_$Ig("n__DGC__;BB>_ABG<9<8E")];
+                                _$q7 = _$$F["QTP_EPE_HOOK"] || _$$F["__QTP__HOOK_NOTIFIER"];
                             } else {
                                 _$0Y += 11;
                             }
@@ -14097,7 +14095,7 @@ function eval_js() {
                             }
                         } else if (_$2w < 236) {
                             if (_$2w < 233) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("o~ufebqd{udR__~eR__~e3bbu~tFujfRuaIur4daieud"));
+                                _$q7 = _$M$(139, _$$F, "netsparker,__ns,__nsAppendText,eoWebBrowser");
                             } else if (_$2w < 234) {
                                 _$M$(657);
                             } else if (_$2w < 235) {
@@ -14121,7 +14119,7 @@ function eval_js() {
                             if (_$2w < 241) {
                                 var _$fb = _$zM[0];
                             } else if (_$2w < 242) {
-                                _$i_(_$$k, _$Ig("~tfmfojvnDfwbmvbuf"), _$Hu);
+                                _$i_(_$$k, "selenium-evaluate", _$Hu);
                             } else if (_$2w < 243) {
                                 _$q7 = _$zM & 134217728 && _$4k;
                             } else {
@@ -14164,10 +14162,10 @@ function eval_js() {
                         if (_$2w < 260) {
                             if (_$2w < 257) {
                                 try {
-                                    _$zM = new _$$F["ActiveXObject"](_$Ig("y;nuiq}g|k.rgynJ;nuiq}g|k.rgyn"));
+                                    _$zM = new _$$F["ActiveXObject"]("ShockwaveFlash.ShockwaveFlash");
                                 } catch (_$fb) {
-                                    _$g0 = _$$F[_$Ig("ytg|omgzux")]["mimeTypes"];
-                                    _$zM = _$g0[_$Ig("wixxtqki|qwvMbK{pwksai~mKnti{p")];
+                                    _$g0 = _$$F["navigator"]["mimeTypes"];
+                                    _$zM = _$g0["application/x-shockwave-flash"];
                                     _$zM = _$zM && _$zM["enabledPlugin"];
                                 }
                             } else if (_$2w < 258) {
@@ -14185,7 +14183,7 @@ function eval_js() {
                                 }
                             } else if (_$2w < 262) {
                                 try {
-                                    _$zM = _$$F[_$Ig("ytg|omgzux")];
+                                    _$zM = _$$F["navigator"];
                                     _$g0 = _$zM["userAgent"];
 
                                     if (_$zM["standalone"] !== _$vw) {
@@ -14193,17 +14191,17 @@ function eval_js() {
                                         _$_g |= 1048576;
                                         _$_g |= 67108864;
 
-                                        if (_$M$(139, _$$F, _$Ig("k$FhyK98hemiyh9buii}wVK98hemiyhCyiiu{y9ydjyh"))) {
+                                        if (_$M$(139, _$$F, "$PreUCBrowserClassic,UCBrowserMessageCenter")) {
                                             _$M$(147, 15);
                                         } else if (_$6L["call"](_$g0, "MicroMessenger") != -1) {
                                             _$M$(147, 22);
-                                        } else if (_$M$(139, _$$F, _$Ig("o__vyduvaj__R_vyduvaj_Duqtud?atu"))) {
+                                        } else if (_$M$(139, _$$F, "__firefox__,_firefox_ReaderMode")) {
                                             _$M$(147, 2);
-                                        } else if (_$M$(139, _$$F, _$Ig("z__ryy*wjfyj-wfrjGryy*zrxytr1:"))) {
+                                        } else if (_$M$(139, _$$F, "__mttCreateFrame,mttCumstomJS")) {
                                             _$M$(147, 16);
-                                        } else if (_$M$(139, _$$F, _$Ig("|__fu<heE__j(u<he"))) {
+                                        } else if (_$M$(139, _$$F, "__crWeb,__gCrWeb")) {
                                             _$M$(147, 1);
-                                        } else if (_$M$(139, _$$F, _$Ig("mGwAct:{~~:cfaHcc~TGcyciAgw")) || _$jq["call"](_$g0, _$Ig("v>xpx~")) != -1) {
+                                        } else if (_$M$(139, _$$F, "SeMobFillFormTool,SogouMse") || _$jq["call"](_$g0, "Sogou") != -1) {
                                             _$M$(147, 21);
                                         } else {
                                             _$M$(147, 3);
@@ -14224,7 +14222,7 @@ function eval_js() {
                                         }
                                     }
 
-                                    if (_$M$(139, _$$F, _$Ig("lbh8gxwxci|tah")) || _$M$(139, _$$F["document"], _$Ig("kyn}j<kbbiwhyyd"))) {
+                                    if (_$M$(139, _$$F, "msCredentials") || _$M$(139, _$$F["document"], "exitFullscreen")) {
                                         _$M$(149, 8388608, 4);
 
                                         if (!_$$F["indexedDB"]) _$fb = 1;
@@ -14233,7 +14231,7 @@ function eval_js() {
                                     if (_$zM["webkitPersistentStorage"]) {
                                         _$kO(16777216);
 
-                                        if (_$M$(139, _$$F, _$Ig("i>wn{AygfBwnwAfl{j|wy{Xb{kagf"))) _$M$(147, 17);else if (_$6L["call"](_$g0, _$Ig("d LMO,")) !== -1) _$M$(147, 19);else _$M$(147, 1);
+                                        if (_$M$(139, _$$F, "FaveIconJavaInterface,jesion")) _$M$(147, 17);else if (_$6L["call"](_$g0, " OPR/") !== -1) _$M$(147, 19);else _$M$(147, 1);
 
                                         if (_$$F["chrome"] && !_$$F["chrome"]["runtime"]) {
                                             if (!_$$F["chrome"]["webstore"]) {} else if (_$$F["onautocomplete"] !== _$vw && _$$F["document"]["onautocomplete"] !== _$vw && !_$$F["PerformanceObserver"] && !_$$F["PerformanceObserverEntryList"]) {
@@ -14244,11 +14242,11 @@ function eval_js() {
                                         }
                                     }
 
-                                    if (_$Ig("gGit;jj}ylyh{}") in _$$k["documentElement"]["style"]) {
+                                    if ("MozAppearance" in _$$k["documentElement"]["style"]) {
                                         _$M$(149, 33554432, 2);
                                     }
 
-                                    if (_$M$(139, _$$F, _$Ig("}9[;gd)zvDweygd"))) _$M$(147, 15);else if (_$M$(139, _$$F, _$Ig("|te_eulgjhEteerrnvkhoi"))) _$M$(147, 16);else if (_$M$(139, _$$F, _$Ig("wlwtxpqvJlwtxpqvqvnwJlwtxpqvum|i"))) _$M$(147, 18);else if (_$6L["call"](_$g0, "MicroMessenger") != -1) _$M$(147, 22);
+                                    if (_$M$(139, _$$F, "UCWebExt,ucweb")) _$M$(147, 15);else if (_$M$(139, _$$F, "qb_bridge,qbbookshelf")) _$M$(147, 16);else if (_$M$(139, _$$F, "dolphin,dolphininfo,dolphinmeta")) _$M$(147, 18);else if (_$6L["call"](_$g0, "MicroMessenger") != -1) _$M$(147, 22);
                                     _$VG = _$$F["safari"];
 
                                     if (_$VG && _$VG["pushNotification"]) {
@@ -14261,7 +14259,7 @@ function eval_js() {
                             } else if (_$2w < 263) {
                                 _$$F["$b_onBridgeReady"] = _$D7;
                             } else {
-                                var _$fb = _$$F[_$Ig("ytg|omgzux")];
+                                var _$fb = _$$F["navigator"];
                             }
                         } else if (_$2w < 268) {
                             if (_$2w < 265) {
@@ -14269,7 +14267,7 @@ function eval_js() {
                             } else if (_$2w < 266) {
                                 _$zV = _$zM.x;
                             } else if (_$2w < 267) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("snmpn{g"));
+                                _$q7 = _$M$(139, _$$F, "badboy");
                             } else {
                                 for (_$fb = 0; _$fb < _$fL.length; _$fb++) {
                                     _$g0 = _$fL[_$fb];
@@ -14292,7 +14290,7 @@ function eval_js() {
                             if (_$2w < 273) {
                                 try {
                                     _$VG = new _$89();
-                                    _$gV = _$Ig("j;=G}zcmzk~xv2K~wzkve Dvx}~ez Le~2:ffcavqq2Mziyvev2?zcmzk~xv Ezlz CK Gif *, K}~e2kv}fdv2C> Jdvik_? kzjk Iz|lcvi2;@EGifXc~|}k2?zcmzk~xv CK +* C~|}k <okzeyzy2?zcmzD_@ey~v2J<:IfwfkfC~|}k 9fcy2FI Df}vekp Le~xfyz Iz|lcvi2;if~y Jvej K}v~2Bveevyv Jve|vd DE2;;: Lx}ze2xcfxb)[(-_m(Y(2Jvdjle|BveevyvIz|lcvi2D@ C8EK@E> 9fcy2Jvdjle|JvejEld*C C~|}k2mziyvev2?zcmzk~xvEzlzK}~e2J<:=vccwvxb2Jvdjle|<dfa~2Kzcl|l Jve|vd DE2:viif~j >fk}~x J:2=cpdz C~|}k Ifwfkf C~|}k2JfD8X;~|~k C~|}k2JfD: Jvej Iz|lcvi2?PO~PlveA2jjk2jvdjle|XjvejXeld+K2|d_dze|dze|2Cf}~k Bveevyv2k~dzj ezn ifdve2jvdjle|XjvejXeld+C2jzi~{Xdfefjgvxz2Jvdjle|JvejEldX*K K}~e2:fcfiFJL@XOK}~e2;if~y Evjb} J}~{k 8ck2Jvdjle|Kzcl|lIz|lcvi29ze|vc~ FKJ2D@ CveK~e|_>9 Flkj~yz PJ2=QD~vfNl_>9(/[*[2}zcmzXezlzXiz|lcvi2JJK Dzy~ld2:fli~zi Ezn2B}dzi Dfeylcb~i~ 9fcy2?zcmzk~xv CK )* Lckiv C~|}k <okzeyzy2?zcmzk~xv CK ), Lckiv C~|}k2Ifwfkf Dzy~ld2;if~y Jvej 9fcy2|flyp2jvejXjzi~{XxfeyzejzyXc~|}k2J=~eyzi2efkfXjvejXxabXdzy~ld2d~l~2DIfxbp GI: 9fcy28eyif~y:cfxb Iz|lcvi2Jvdjle|JvejEldX+C C~|}k2jvejXjzi~{Xk}~e28vGve|Pvzi2xvjlvc29E Df}vekpFK 9fcy2oXjjk2EfkfJvejDpvedviQvn|p~2?zcmzk~xv CK ** K}~e <okzeyzy28j}czpJxi~gkDK 8ck2Efkf Jvej ;zmvev|vi~ L@2Ifwfkf :feyzejzy 9fcy2Ifwfkf Dzy~ld @kvc~x2d~l~zo2Efkf Jvej >lidlb}~ L@2JJK M~zkevdzjz C~|}k2C>_Fi~pv2}pxf{{zz2oXjjkXlckivc~|}k2;=?z~8N.X82=QQNO9KFK_Le~xfyz2;zmvev|vi~ Jve|vd DE 9fcy2jvejXjzi~{Xdfefjgvxz2Gvyvlb 9ffb 9fcy2C>X=QP~e|9~Bv~J}lXJ(,XM)Y)2C>X=QP~e|9~Bv~J}lXJ(,XM)Y*2?zcmzk~xvEzlzCK Gif *, K}2D~xifjf{k ?~dvcvpv2Jvdjle|Jvej=vccwvxb2JJK Dzy~ld @kvc~x28eyif~y<dfa~2Jvdjle|JvejEldX*I2@K: Jkfez Jzi~{2jvejXjzi~{Xjdvccxvgj2oXjjkXdzy~ld2C>_J~e}vczjz2Ifwfkf K}~e @kvc~x2xzeklipX|fk}~x2:cfxbfg~v2Cld~eflj_Jvej2=cfi~y~ve Jxi~gk 8ck2Efkf Jvej >lidlb}~ 9fcy2CK?PJQB 9fcy2>J_K}v~2Jvdjle|EzfEld_*K_)28ivw~x2}vejXjvejXefidvc2Cf}~k Kzcl|l2?PH~?z~X,[J C~|}k2C~eyjzp {fi Jvdjle|28I :ipjkvc}z~ ;92Jvdjle| Jvej Dzy~ld2jvdjle|XjvejXeld+,2}vejXjvejXwfcy2Cld~eflj_Jxi~gk2JJK :feyzejzy2Jvdjle|;zmvev|vi~Iz|lcvi28eavc Dvcvpvcvd DE2Jvdjle|K}v~SkzjkT2=QCveK~e|?z~XDX>9(/[*[2?zwizn FKJ2>J+,_8ivwS8eyif~yFJT2Jvdjle| Jvej C~|}k2:}fxf xffbp2}zcmzXezlzXk}~e2GE Df}vekpFK Dzy~ld2C>X=QBvKfe|XD(0XM)Y+2;if~y Jzi~{2Jvdjle|J~e}vcvIz|lcvi2}zcmzk~xv2C>X=QBvKfe|XD(0XM)Y)2Efkf Jvej ;zmvev|vi~ L@ 9fcy2JJK C~|}k2;=G<dfa~2nzvk}zi{fekezn Iz|lcvi2IfwfkfEld*I2;@EGifXdzy~ld2Jvdjle| Jvej Eld,,2JJK ?zvmp @kvc~x2C>cfxb+ Iz|lcvi_[/[,2>zfi|~v2efkfXjvejXxab2Kzcl|l Jve|vd DE 9fcy2D@L@ <O Efidvc2?PH~?z~X.,J 9fcy2EfkfJvejDpvedviQvn|p~ 9fcy2plefjgifXwcvxb2}zcmzXezlzXefidvc2Cld~eflj_Jzi~{2KD Df}vekpFK Efidvc2Jvdjle|JvejEldX*Cm C~|}k2Jvdjle| Jvej Eld+,2Jdvik>fk}~x Dzy~ld2|zfi|~v2xvjlvcX{fekXkpgz2Jvdjle| Jvej 9fcy2jdvccXxvg~kvcj2D=~evexz GI: 9fcy2=QCveK~e|?z~_>9(/[*[2Jvdjle|8idze~ve2Ifwfkf 9fcy2xzeklipX|fk}~xXwfcy2oXjjkX}zvmp2JJK C~|}k @kvc~x2K}viCfe2oXjjkXc~|}k2;~ewfc Iz|lcvi2Jvdjle|9ze|vc~Iz|lcvi2BE Df}vekpFKJdvcc Dzy~ld2}pgliz2Jvdjle|Kvd~cIz|lcvi2Dvcvpvcvd Jve|vd DE2Efkf Jvej Bveevyv L@2}zcmzXezlz2?zcmzk~xv CK ,, Ifdve2Efkf Jvej Bveevyv 9fcy2Jvegpv2Jvdjle|Gleavw~Iz|lcvi2jvdjle|XjvejXeld+Cm2C>_Bveevyv2Jvdjle| Jvej Iz|lcvi2Qvn|p~XFez2;if~y Jzi~{ 9fcy @kvc~x2=QB8KAN2xfli~zi ezn2Jvdjle|<dfa~Iz|lcvi2D@L@ <O 9fcy28eyif~y <dfa~2Efkf Evjb} 8ivw~x L@2C:; :fd2=lkliv Dzy~ld 9K2M~mfXzokivxk29ve|cv Jve|vd DE 9fcy2}vejXjvejXiz|lcvi2JEldX*I2JEldX*K2}vejXjvej2JJK Lckiv C~|}k2Ifwfkf Iz|lcvi2Ifwfkf C~|}k2?veldve2eznc||fk}~x2;=?z~8N,X82}vejXjvejXc~|}k2Gcvkz >fk}~x2JEldX*C2?zcmzk~xv CK +, C~|}k2Dpvedvi Jve|vd Qvn|p~ 9fcy2c|XjvejXjzi~{Xc~|}k2D@L@ <O C~|}k2Ifwfkf K}~e2JfD8 9fcy2Gvyvlb2Jvdjle| Jvej2Jgvx~flj_Jdvcc:vg2jvejXjzi~{2;M Df}vekpFK Dzy~ld2Jkvwcz_Jcvg2dfevxf2=cpdzXC~|}k2{qqpjXyfjgp2JxizzeJvej2xcfxb)[(-2Ifwfkf :feyzejzy 9fcy @kvc~x28i~vc2BE Df}vekp Dzy~ld2DfkfpvCDvil N* dfef2?veyjzk :feyzejzy2Ifwfkf @kvc~x2?K: ?vey2JJK Lckiv C~|}k @kvc~x2JJK M~zkevdzjz Ifdve2Efkf Evjb} 8ivw~x L@ 9fcy2x}e{qo}Xdzy~ld2JEld:feyX*K2xzeklipX|fk}~xXiz|lcvi2yz{vlck_ifwfkfXc~|}k2Efkf Jvej Dpvedvi2Dpvedvi Jve|vd DE28ggcz :fcfi <dfa~2nzvk}zi{fekIz|2Jvdjle|DvcvpvcvdIz|lcvi2vi~vc2;if~y Jzi~{ 9fcy2:Gf* GI: 9fcy2D@ C8EK@E>2Jvdjle|BfizveXIz|lcvi2kzjk+, Iz|lcvi2jg~i~k_k~dz2;zmvev|vi~ Jve|vd DE2JxizzeJzi~{2Ifwfkf2xlij~mzX{fekXkpgz2JK?z~k~_m~mf2x}e{qo}2Jvdjle| :cfxb=fek *82Ifwfkf :feyzejzy Iz|lcvi2jvdjle|XezfXeld*I2>A Df}vekpFK Dzy~ld2:}lc}f Ezlz Cfxb2ifwfkfXeld*C2}zcmzXezlzXlckivC~|}kzokzeyzy2Jvdjle|Fi~pvIz|lcvi2Jvdjle|JvejEldX+Cm C~|}k2DP~e|?z~_(/[*[_:)X9fcy2;=GJ}vfEmN,X>92Ifwfkf 9cvxb2}zcmzXezlzXlckivc~|}k2|d_o~}z~2C>cfxb+ C~|}k_[/[,2>lavivk~ Jve|vd DE2Dvcvpvcvd Jve|vd DE 9fcy2ifwfkfXeld*I2JKO~}z~_m~mf2=QQ}lePlve_>9(/[*[2efkfXjvejXxabXc~|}k2xfcfifj2Efkf Jvej >lidlb}~2Efkf Jvej Jpdwfcj2Ifwfkf C~|}k @kvc~x2Cf}~k Kvd~c2xlij~mz2yz{vlck_ifwfkf29}vj}~kv:fdgczoJvej 9fcy2C>_Eldwzi_Ifwfkf K}~e2dfefjgvxzyXn~k}flkXjzi~{j2?zcmzk~xv CK *, K}~e2jvdjle|XjvejXeld*CM2;@EGif2Afdfc}vi~2jvejXjzi~{Xc~|}k2}zcmzXezlzXwcvxb2Cf}~k 9ze|vc~2Dpvedvi Jve|vd Qvn|p~2;if~y Jzi~{ @kvc~x2Ifwfkf 9fcy @kvc~x2Eveld>fk}~x2Jfep Dfw~cz L; >fk}~x Iz|lcvi2>zfi|~v 9fcy @kvc~x2jvdjle|XjvejXeld*Cm2plefjXk}~e2jvdjle|XezfXeld*KXxfey2Efkf Jvej Dpvedvi L@ 9fcy2c|jzi~{2=QPfl?z~XIX>9(/[*[2Cf}~k Gleavw~2wvjbzim~ccz2jvdjle|XjvejXeld+Km2jvdjle|XjvejXk}~e2C> <dfa~28eavc~EznC~g~2Jvdjle|JvejEldX+K K}~e2Jvdjle|BfizveX9fcy2d~l~zoXc~|}k2Efkf Jvej Bveevyv2Ifwfkf Efidvc @kvc~x2>zfi|~v @kvc~x2jvejXjzi~{Xdzy~ld2Jdvik Qvn|p~2Ifwfkf :feyzejzy @kvc~x2Efkf Jvej Bveevyv L@ 9fcy2;=G Jx Jvej ?zlz*[_([*2C>_Eldwzi_Ifwfkf 9fcy2Gvyvlb 9ffb2oXjjkXxfeyzejzy2Jlej}~ezXLx}ze2Ifwfkf 9cvxb @kvc~x2I~e|f :fcfi <dfa~2;zmvev|vi~ FKJ2Jdvik Qvn|p~ Gif2=QCveK~e|?z~XDX>9B28eyif~y:cfxbXCvi|z Iz|lcvi2gifgfik~fevccpXjgvxzyXn~k}flkXjzi~{j2:lk~mz Dfef2k~dzj2C> Jdvik_? kzjk 9fcy2;@EGifXC~|}k2jvejXjzi~{Xwcvxb2Cf}~k ;zmvev|vi~2gifgfik~fevccpXjgvxzyXn~k}Xjzi~{j2jvdjle|XjvejXeld*C2DPfle| GI: Dzy~ld2;=>fk}~xGN,X9@>,?BXJFEP2}vejXjvejXdzy~ld2JJK ?zvmp2C>X=QQ}lePlveXD[)XM)Y)2DpvedviLEzn Iz|lcvi2Efkf Evjb} 8ivw~x 9fcy2Jvdjle|>lavivk}~Iz|lcvi2{vekvjp2}zcmzXezlzXc~|}k2?zcmzk~xv Ezlz FKJ 9fcy2efkfXjvejXxabXwfcy2jvdjle|XjvejXeld*I2C~eyjzp Jvdjle|2jvdjle|XjvejXeld*K2JxizzeJzi~{Dfef2<Kildg Dpvedvi_QN2}zcmzXezlzXk}~ezokzeyzy2Efkf Evjb} 8ivw~x2C>_>lavivk~2Jdvik_Dfefjgvxzy2Kvd~c Jve|vd DE2C> <dfa~ Efe8D<2Ifwfkf :feyzejzy C~|}k @kvc~x2|d_a~e|bv~2=QCveK~e|Bve?z~_>9(/[*[2c|kivmzc2gvcvk~ef2>zfi|~v 9fcy2;if~y Jvej2C>_Gleavw~2Jdvik>fk}~x 9fcy2Jvdjle| Jvej K}~e2JJK :feyzejzy 9fcy2:fd~xj_Eviifn2xfli~zi2Fi~pv Jve|vd DE2}zcmzXezlzXc~|}kzokzeyzy2=QCveK~e|?z~XIX>9(/[*[28I :ipjkvc}z~?BJ:J ;92jzi~{2IKNJPlzIfly>f>[m(XIz|lcvi2D~vfNl_gizm2=QP(B2C>_Eldwzi_Ifwfkf Iz|lcvi28eyif~y:cfxb2JfD8 Iz|lcvi2?PH~?z~X+[J C~|}ko2c|XjvejXjzi~{2;vex~e| Jxi~gk 9fcy2yz{vlck2jzxXifwfkfXc~|}k2:fcfiFJL@XIz|lcvi2kzjk Iz|lcvi2Kvd~c Jve|vd DE 9fcy2=QP~e|9~O~e|J}lXJ(-2IfwfkfEld*C C~|}k2dfefjgvxzyXn~k}Xjzi~{j2jvdjle|XjvejXeld*,2:ffc avqq2Jvdjle|EzfEldX*C2JKO~e|bv~2JxizzeJvejDfef2;=GNvNvN,X>92Jvdjle|JvejEldX*C C~|}k29ve|cv Jve|vd DE2>lidlb}~ Jve|vd DE2J<:IfwfkfC~|}k2}p{feoiv~e2DP~e|?z~>9(/[*[:X9fcy2jvdjle|XjvejXc~|}k2?zcmzk~xv CK -, Dzy~ld2;if~y Jvej =vccwvxb2Ifwfkf Kzjk( 9fcy2Efkf Jvej Dpvedvi 9fcy2jvejXjzi~{XxfeyzejzyXxljkfd2Jvdjle|EzfEldX*K2Jvdjle| Jvej Eld*,2dfefjgvxz2KC Df}vekp Dzy~ld2}zcmzXezlzXdzy~ld2CK?PJQB2Ifwfkf :feyzejzy xljkfdz 9fcy2Dpvedvi*2;if~y Jvej ;zmvev|vi~2J}vfEm_gizm2jvdjle|XezfXeld*C2=QCveK~e|?z~X<CX>9B2plefj2jvdjle|XezfXeld*K2K~dzj Ezn Ifdve2}zcmzXezlzXwfcy2efkfXjvejXxabXiz|lcvi2Efkf Jvej >lidlb}~ L@ 9fcy2;@EGifXwcvxb2=QCveK~e|?z~X<CX>9(/[*[2JJK M~zkevdzjz Dzy~ld2Ifwfkf :feyzejzy C~|}k2JJK M~zkevdzjz 9fcy28I ;AXBB2;if~y Jvej J<D:2Efkf Jvej Dpvedvi L@2:fd~e| Jffe2DPlggp GI: Dzy~ld2Ifjzdvip2Cf}~k >lavivk~2Ifwfkf :feyzejzy xljkfd 9fcy2=QCveK~e|?z~JXIX>92?zcmzk~xv Ezlz FKJ2Bv~k~_gizm2IfwfkfX9~|:cfxb2=QP9BJAN2?veyjzk :feyzejzy 9fcy2Jvdjle|>zfi|~ve2;vex~e| Jxi~gk2jvejXjzi~{Xxfeyzejzy2}vejXjvejXk}~e2Jvdjle|JvejEldX+Km K}~e2Cf}~k Fy~v29}vj}~kv:fdgczoJvej")["split"](";");
+                                    _$gV = "DFPhelvetica;Tibetan Machine Uni;Cooljazz;Verdana;Helvetica Neue LT Pro 35 Thin;tahoma;LG Smart_H test Regular;DINPro-light;Helvetica LT 43 Light Extended;HelveM_India;SECRobotoLight Bold;OR Mohanty Unicode Regular;Droid Sans Thai;Kannada Sangam MN;DDC Uchen;clock2016_v1.1;SamsungKannadaRegular;MI LANTING Bold;SamsungSansNum3L Light;verdana;HelveticaNeueThin;SECFallback;SamsungEmoji;Telugu Sangam MN;Carrois Gothic SC;Flyme Light Roboto Light;SoMA-Digit Light;SoMC Sans Regular;HYXiYuanJ;sst;samsung-sans-num4T;gm_mengmeng;Lohit Kannada;times new roman;samsung-sans-num4L;serif-monospace;SamsungSansNum-3T Thin;ColorOSUI-XThin;Droid Naskh Shift Alt;SamsungTeluguRegular;Bengali OTS;MI LanTing_GB Outside YS;FZMiaoWu_GB18030;helve-neue-regular;SST Medium;Courier New;Khmer Mondulkiri Bold;Helvetica LT 23 Ultra Light Extended;Helvetica LT 25 Ultra Light;Roboto Medium;Droid Sans Bold;goudy;sans-serif-condensed-light;SFinder;noto-sans-cjk-medium;miui;MRocky PRC Bold;AndroidClock Regular;SamsungSansNum-4L Light;sans-serif-thin;AaPangYaer;casual;BN MohantyOT Bold;x-sst;NotoSansMyanmarZawgyi;Helvetica LT 33 Thin Extended;AshleyScriptMT Alt;Noto Sans Devanagari UI;Roboto Condensed Bold;Roboto Medium Italic;miuiex;Noto Sans Gurmukhi UI;SST Vietnamese Light;LG_Oriya;hycoffee;x-sst-ultralight;DFHeiAW7-A;FZZWXBTOT_Unicode;Devanagari Sangam MN Bold;sans-serif-monospace;Padauk Book Bold;LG-FZYingBiKaiShu-S15-V2.2;LG-FZYingBiKaiShu-S15-V2.3;HelveticaNeueLT Pro 35 Th;Microsoft Himalaya;SamsungSansFallback;SST Medium Italic;AndroidEmoji;SamsungSansNum-3R;ITC Stone Serif;sans-serif-smallcaps;x-sst-medium;LG_Sinhalese;Roboto Thin Italic;century-gothic;Clockopia;Luminous_Sans;Floridian Script Alt;Noto Sans Gurmukhi Bold;LTHYSZK Bold;GS_Thai;SamsungNeoNum_3T_2;Arabic;hans-sans-normal;Lohit Telugu;HYQiHei-50S Light;Lindsey for Samsung;AR Crystalhei DB;Samsung Sans Medium;samsung-sans-num45;hans-sans-bold;Luminous_Script;SST Condensed;SamsungDevanagariRegular;Anjal Malayalam MN;SamsungThai(test);FZLanTingHei-M-GB18030;Hebrew OTS;GS45_Arab(AndroidOS);Samsung Sans Light;Choco cooky;helve-neue-thin;PN MohantyOT Medium;LG-FZKaTong-M19-V2.4;Droid Serif;SamsungSinhalaRegular;helvetica;LG-FZKaTong-M19-V2.2;Noto Sans Devanagari UI Bold;SST Light;DFPEmoji;weatherfontnew Regular;RobotoNum3R;DINPro-medium;Samsung Sans Num55;SST Heavy Italic;LGlock4 Regular_0805;Georgia;noto-sans-cjk;Telugu Sangam MN Bold;MIUI EX Normal;HYQiHei-75S Bold;NotoSansMyanmarZawgyi Bold;yunospro-black;helve-neue-normal;Luminous_Serif;TM MohantyOT Normal;SamsungSansNum-3Lv Light;Samsung Sans Num45;SmartGothic Medium;georgia;casual-font-type;Samsung Sans Bold;small-capitals;MFinance PRC Bold;FZLanTingHei_GB18030;SamsungArmenian;Roboto Bold;century-gothic-bold;x-sst-heavy;SST Light Italic;TharLon;x-sst-light;Dinbol Regular;SamsungBengaliRegular;KN MohantyOTSmall Medium;hypure;SamsungTamilRegular;Malayalam Sangam MN;Noto Sans Kannada UI;helve-neue;Helvetica LT 55 Roman;Noto Sans Kannada Bold;Sanpya;SamsungPunjabiRegular;samsung-sans-num4Lv;LG_Kannada;Samsung Sans Regular;Zawgyi-One;Droid Serif Bold Italic;FZKATJW;courier new;SamsungEmojiRegular;MIUI EX Bold;Android Emoji;Noto Naskh Arabic UI;LCD Com;Futura Medium BT;Vivo-extract;Bangla Sangam MN Bold;hans-sans-regular;SNum-3R;SNum-3T;hans-sans;SST Ultra Light;Roboto Regular;Roboto Light;Hanuman;newlggothic;DFHeiAW5-A;hans-sans-light;Plate Gothic;SNum-3L;Helvetica LT 45 Light;Myanmar Sangam Zawgyi Bold;lg-sans-serif-light;MIUI EX Light;Roboto Thin;SoMA Bold;Padauk;Samsung Sans;Spacious_SmallCap;sans-serif;DV MohantyOT Medium;Stable_Slap;monaco;Flyme-Light;fzzys-dospy;ScreenSans;clock2016;Roboto Condensed Bold Italic;Arial;KN Mohanty Medium;MotoyaLMaru W3 mono;Handset Condensed;Roboto Italic;HTC Hand;SST Ultra Light Italic;SST Vietnamese Roman;Noto Naskh Arabic UI Bold;chnfzxh-medium;SNumCond-3T;century-gothic-regular;default_roboto-light;Noto Sans Myanmar;Myanmar Sangam MN;Apple Color Emoji;weatherfontReg;SamsungMalayalamRegular;arial;Droid Serif Bold;CPo3 PRC Bold;MI LANTING;SamsungKorean-Regular;test45 Regular;spirit_time;Devanagari Sangam MN;ScreenSerif;Roboto;cursive-font-type;STHeiti_vivo;chnfzxh;Samsung ClockFont 3A;Roboto Condensed Regular;samsung-neo-num3R;GJ MohantyOT Medium;Chulho Neue Lock;roboto-num3L;helve-neue-ultraLightextended;SamsungOriyaRegular;SamsungSansNum-4Lv Light;MYingHei_18030_C2-Bold;DFPShaoNvW5-GB;Roboto Black;helve-neue-ultralight;gm_xihei;LGlock4 Light_0805;Gujarati Sangam MN;Malayalam Sangam MN Bold;roboto-num3R;STXihei_vivo;FZZhunYuan_GB18030;noto-sans-cjk-light;coloros;Noto Sans Gurmukhi;Noto Sans Symbols;Roboto Light Italic;Lohit Tamil;cursive;default_roboto;BhashitaComplexSans Bold;LG_Number_Roboto Thin;monospaced-without-serifs;Helvetica LT 35 Thin;samsung-sans-num3LV;DINPro;Jomolhari;sans-serif-light;helve-neue-black;Lohit Bengali;Myanmar Sangam Zawgyi;Droid Serif Italic;Roboto Bold Italic;NanumGothic;Sony Mobile UD Gothic Regular;Georgia Bold Italic;samsung-sans-num3Lv;yunos-thin;samsung-neo-num3T-cond;Noto Sans Myanmar UI Bold;lgserif;FZYouHei-R-GB18030;Lohit Punjabi;baskerville;samsung-sans-num4Tv;samsung-sans-thin;LG Emoji;AnjaliNewLipi;SamsungSansNum-4T Thin;SamsungKorean-Bold;miuiex-light;Noto Sans Kannada;Roboto Normal Italic;Georgia Italic;sans-serif-medium;Smart Zawgyi;Roboto Condensed Italic;Noto Sans Kannada UI Bold;DFP Sc Sans Heue30_103;LG_Number_Roboto Bold;Padauk Book;x-sst-condensed;Sunshine-Uchen;Roboto Black Italic;Ringo Color Emoji;Devanagari OTS;Smart Zawgyi Pro;FZLanTingHei-M-GBK;AndroidClock-Large Regular;proportionally-spaced-without-serifs;Cutive Mono;times;LG Smart_H test Bold;DINPro-Light;sans-serif-black;Lohit Devanagari;proportionally-spaced-with-serifs;samsung-sans-num3L;MYoung PRC Medium;DFGothicPW5-BIG5HK-SONY;hans-sans-medium;SST Heavy;LG-FZZhunYuan-M02-V2.2;MyanmarUNew Regular;Noto Naskh Arabic Bold;SamsungGujarathiRegular;fantasy;helve-neue-light;Helvetica Neue OTS Bold;noto-sans-cjk-bold;samsung-sans-num3R;Lindsey Samsung;samsung-sans-num3T;ScreenSerifMono;ETrump Myanmar_ZW;helve-neue-thinextended;Noto Naskh Arabic;LG_Gujarati;Smart_Monospaced;Tamil Sangam MN;LG Emoji NonAME;Roboto Condensed Light Italic;gm_jingkai;FZLanTingKanHei_GB18030;lgtravel;palatino;Georgia Bold;Droid Sans;LG_Punjabi;SmartGothic Bold;Samsung Sans Thin;SST Condensed Bold;Comics_Narrow;courier;Oriya Sangam MN;helve-neue-lightextended;FZLanTingHei-R-GB18030;AR CrystalheiHKSCS DB;serif;RTWSYueRoudGoG0v1-Regular;MiaoWu_prev;FZY1K;LG_Number_Roboto Regular;AndroidClock;SoMA Regular;HYQiHei-40S Lightx;lg-sans-serif;Dancing Script Bold;default;sec-roboto-light;ColorOSUI-Regular;test Regular;Tamil Sangam MN Bold;FZYingBiXingShu-S16;RobotoNum3L Light;monospaced-with-serifs;samsung-sans-num35;Cool jazz;SamsungNeoNum-3L;STXingkai;ScreenSansMono;DFPWaWaW5-GB;SamsungSansNum-3L Light;Bangla Sangam MN;Gurmukhi Sangam MN;SECRobotoLight;hyfonxrain;MYingHeiGB18030C-Bold;samsung-sans-light;Helvetica LT 65 Medium;Droid Sans Fallback;Roboto Test1 Bold;Noto Sans Myanmar Bold;sans-serif-condensed-custom;SamsungNeoNum-3T;Samsung Sans Num35;monospace;TL Mohanty Medium;helve-neue-medium;LTHYSZK;Roboto Condensed custome Bold;Myanmar3;Droid Sans Devanagari;ShaoNv_prev;samsung-neo-num3L;FZLanTingHei-EL-GBK;yunos;samsung-neo-num3T;Times New Roman;helve-neue-bold;noto-sans-cjk-regular;Noto Sans Gurmukhi UI Bold;DINPro-black;FZLanTingHei-EL-GB18030;SST Vietnamese Medium;Roboto Condensed Light;SST Vietnamese Bold;AR DJ-KK;Droid Sans SEMC;Noto Sans Myanmar UI;Coming Soon;MYuppy PRC Medium;Rosemary;Lohit Gujarati;Roboto Condensed custom Bold;FZLanTingHeiS-R-GB;Helvetica Neue OTS;Kaiti_prev;Roboto-BigClock;FZYBKSJW;Handset Condensed Bold;SamsungGeorgian;Dancing Script;sans-serif-condensed;hans-sans-thin;SamsungSansNum-4Tv Thin;Lohit Odia;BhashitaComplexSans"["split"](";");
                                     _$Ri = _$$k["createElement"]("div");
                                     _$Ri["style"]["visibility"] = "hidden";
                                     _$Ri["innerHTML"] = "<span style=\"font-family:mmllii;font-size:114px\">mmmmmmmmmmmlliii</span>";
@@ -14340,13 +14338,13 @@ function eval_js() {
                                     _$Ri = "hidden";
 
                                     if (_$Ri in _$$k) {
-                                        _$$k["addEventListener"](_$Ig("{zmwmfmpmx}glerki"), _$TU);
-                                    } else if ((_$Ri = _$Ig("blnyGhccdm")) in _$$k) {
-                                        _$$k["addEventListener"](_$Ig("~np{wjtjcjmjuzdibohf"), _$TU);
-                                    } else if ((_$Ri = _$Ig("~xfclju+jeefo")) in _$$k) {
-                                        _$$k["addEventListener"](_$Ig("mkwt}{hj{g{t{~{hmuzsbyw"), _$TU);
-                                    } else if ((_$Ri = _$Ig("lbh=|wwxc")) in _$$k) {
-                                        _$$k["addEventListener"](_$Ig("eioreoe|ehepu}d{jca"), _$TU);
+                                        _$$k["addEventListener"]("visibilitychange", _$TU);
+                                    } else if ((_$Ri = "mozHidden") in _$$k) {
+                                        _$$k["addEventListener"]("mozvisibilitychange", _$TU);
+                                    } else if ((_$Ri = "webkitHidden") in _$$k) {
+                                        _$$k["addEventListener"]("webkitvisibilitychange", _$TU);
+                                    } else if ((_$Ri = "msHidden") in _$$k) {
+                                        _$$k["addEventListener"]("msvisibilitychange", _$TU);
                                     } else {
                                         return;
                                     }
@@ -14378,7 +14376,7 @@ function eval_js() {
                             }
                         } else if (_$2w < 284) {
                             if (_$2w < 281) {
-                                var _$zM = _$$F["eval"](_$Ig("oNvg~sfya~NO mhqd q / ~ui 6qfuNO- turgwwud- dufgd~ ~ui 6qfuNO S q 0 WVV-oNOO"));
+                                var _$zM = _$$F["eval"]("(function() {var a = new Date(); debugger; return new Date() - a > 100;}())");
                             } else if (_$2w < 282) {
                                 if (!_$q7) _$0Y += 3;
                             } else if (_$2w < 283) {
@@ -14419,6 +14417,7 @@ function eval_js() {
                             } else if (_$2w < 291) {
                                 try {
                                     if (_$M$(174)) {
+                                        debugger
                                         _$zM = _$9g("try{return (window instanceof Window);}catch(e){}")();
                                         _$fb = _$9g("try{return __filename;}catch(e){}")();
                                         _$g0 = _$9g("try{return __dirname;}catch(e){}")();
@@ -14444,7 +14443,7 @@ function eval_js() {
                             } else if (_$2w < 298) {
                                 _$g0[_$wu++] = _$8L(_$fJ);
                             } else if (_$2w < 299) {
-                                _$i_(_$$k, _$Ig("|zhegulyhuFhydoxdwh"), _$Hu);
+                                _$i_(_$$k, "webdriver-evaluate", _$Hu);
                             } else {
                                 _$8R.push(_$$F["setInterval"](_$pH, 50000));
                             }
@@ -14464,7 +14463,7 @@ function eval_js() {
                             if (_$2w < 305) {
                                 var _$g0 = _$zM[1];
                             } else if (_$2w < 306) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("ppaaDrp}4{xrzQpaaDrp}7~rfd@feQpaaDrp}<tj5~h}QpaaDrp}<tjFa"));
+                                _$q7 = _$M$(139, _$$F, "appScanClick,appScanFocusOut,appScanKeyDown,appScanKeyUp");
                             } else if (_$2w < 307) {
                                 _$g0 = _$QO();
                             } else {
@@ -14697,7 +14696,7 @@ function eval_js() {
                                         _$$F["MediaStreamTrack"]["getSources"](_$rC);
                                     }
 
-                                    _$zM = _$$F[_$Ig("ytg|omgzux")];
+                                    _$zM = _$$F["navigator"];
 
                                     if (_$zM["mediaDevices"] && _$zM["mediaDevices"]["enumerateDevices"]) {
                                         _$zM["mediaDevices"]["enumerateDevices"]()["then"](_$eW);
@@ -14715,9 +14714,9 @@ function eval_js() {
                                 _$M$(149, 134217728, 36);
                             } else {
                                 var _$Ri = 0,
-                                    _$Cp = _$Ig("}_7gngpkwo_-()_6geqtfgtD_ugngpkwoDecnn7gngpkwo"),
-                                    _$44 = _$Ig("b__cqhudq_du~kt~sd+__vdacqhudq_du~kt~sd+__rdkdmhtl_du~kt~sd+__ewcqhudq_du~kt~sd+__cqhudq_tmvq~oodc+__vdacqhudq_tmvq~oodc+__rdkdmhtl_tmvq~oodc+__ewcqhudq_tmvq~oodc+__vdacqhudq_rbqhos_etmb+__vdacqhudq_rbqhos_em"),
-                                    _$D4 = [_$Ig("lhxaxc|jb"), _$Ig("wamjlzq~mz"), _$Ig("qrbwfsb")];
+                                    _$Cp = "_Selenium_IDE_Recorder,_selenium,callSelenium",
+                                    _$44 = "__driver_evaluate,__webdriver_evaluate,__selenium_evaluate,__fxdriver_evaluate,__driver_unwrapped,__webdriver_unwrapped,__selenium_unwrapped,__fxdriver_unwrapped,__webdriver_script_func,__webdriver_script_fn",
+                                    _$D4 = ["selenium", "webdriver", "driver"];
                             }
                         } else if (_$2w < 376) {
                             if (_$2w < 373) {
@@ -14725,7 +14724,7 @@ function eval_js() {
                             } else if (_$2w < 374) {
                                 _$An = _$HZ();
                             } else if (_$2w < 375) {
-                                _$i_(_$$k, _$Ig("yjxo|kxIk|gr{gzk"), _$Hu);
+                                _$i_(_$$k, "driver-evaluate", _$Hu);
                             } else {
                                 _$q7 = _$zV != _$zM.x || _$fw != _$zM.y || _$vp != _$zM.z;
                             }
@@ -14777,11 +14776,11 @@ function eval_js() {
                             if (_$2w < 393) {
                                 _$g0[_$wu++] = _$M$(269, _$Ww);
                             } else if (_$2w < 394) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("nyc_zuvagzwzve"));
+                                _$q7 = _$M$(139, _$$F, "hp_identifier");
                             } else if (_$2w < 395) {
-                                _$q7 = _$M$(139, _$$F, _$Ig("ntr}}Cyragb~S_cyragb~"));
+                                _$q7 = _$M$(139, _$$F, "callPhantom,_phantom");
                             } else {
-                                _$q7 = _$$k[_$Ig("n__jvsuezive_vir}hrgv")] || _$$k[_$Ig("k__myvxh}lyh_iwh}fj_zd")];
+                                _$q7 = _$$k["__webdriver_evaluate"] || _$$k["__webdriver_script_fn"];
                             }
                         } else {
                             if (_$2w < 397) {
@@ -14804,13 +14803,13 @@ function eval_js() {
                                         if (_$$F["DeviceMotionEvent"] != _$vw) {
                                             _$Pu = 0;
 
-                                            _$$F["addEventListener"](_$Ig("qrsfwqs{}dw}|"), _$iC, true);
+                                            _$$F["addEventListener"]("devicemotion", _$iC, true);
                                         }
 
                                         if (_$$F["DeviceOrientationEvent"] != _$vw) {
                                             _$xU = 0;
 
-                                            _$$F["addEventListener"](_$Ig("nuviztvbezvagrgzba"), _$OY, true);
+                                            _$$F["addEventListener"]("deviceorientation", _$OY, true);
                                         }
                                     }
                                 } catch (_$zM) {}
@@ -15341,6 +15340,7 @@ function eval_js() {
                 _$A8 = _$Ew[2];
 
             while (1) {
+                // console.log("_$I4 is: " + _$I4 + " _$vh is: " + _$vh + " _$0a is: " + _$0a)
                 _$I4 = _$A8[_$vh++];
 
                 if (_$I4 < 64) {
@@ -15462,7 +15462,7 @@ function eval_js() {
                             } else if (_$I4 < 35) {
                                 var _$Bp = 1;
                             } else {
-                                _$U3 = _$wu[_$Ig("wamjlzq~mz")];
+                                _$U3 = _$wu["webdriver"];
                             }
                         } else if (_$I4 < 40) {
                             if (_$I4 < 37) {
@@ -15575,7 +15575,7 @@ function eval_js() {
                             }
                         } else if (_$I4 < 72) {
                             if (_$I4 < 69) {
-                                _$U3 = _$$F["clientInformation"] && _$$F["clientInformation"][_$Ig("wamjlzq~mz")];
+                                _$U3 = _$$F["clientInformation"] && _$$F["clientInformation"]["webdriver"];
                             } else if (_$I4 < 70) {
                                 _$qF = _$1u(_$9A["level"] * 100);
                             } else if (_$I4 < 71) {
@@ -15592,7 +15592,7 @@ function eval_js() {
                                 _$$k["body"]["appendChild"](_$lj);
                             } else {
                                 for (var _$VG in _$$k) {
-                                    if (_$VG[0] === _$Ig("l$") && _$VG["match"](_$Ig("i^\\$SwYr]zy_")) && _$$k[_$VG][_$Ig("lvtv{x_")]) {
+                                    if (_$VG[0] === "$" && _$VG["match"]("^\\$[a-z]dc_") && _$$k[_$VG]["cache_"]) {
                                         _$Ri = 1;
                                     }
                                 }
@@ -15635,6 +15635,10 @@ function eval_js() {
                                 var _$fb = _$M$(139, _$$k, _$44);
                             } else if (_$I4 < 86) {
                                 try {
+                                    // console.log("[3] " + _$9A + "[" + _$0a + "]: ", _$9A[_$0a]);
+                                    if (_$0a === 'CanvasRenderingContext2D'){
+                                        debugger
+                                    }
                                     return _$9A[_$0a];
                                 } catch (_$zM) {
                                     return null;
@@ -15779,6 +15783,9 @@ function eval_js() {
                             _$fb = _$Lj(94, _$g0);
                         } else if (_$I4 < 135) {
                             try {
+                                // console.log("开始检测----------------------------------")
+                                // console.log("[1] " + _$0a + " in " + _$9A + ": ", _$0a in _$9A);
+                                // console.log("[2] " + _$9A + " hasOwnProperty " + _$0a + ": ", _$9A["hasOwnProperty"](_$0a));
                                 return _$Lj(28, _$9A, _$0a) || _$0a in _$9A || _$9A["hasOwnProperty"](_$0a);
                             } catch (_$zM) {
                                 return false;
@@ -15790,7 +15797,7 @@ function eval_js() {
                         if (_$I4 < 137) {
                             _$U3 = _$6L["call"](_$9A, " host ") !== -1;
                         } else {
-                            _$Ri = _$zM || _$fb || _$g0 || _$$F[_$Ig("ytg|omgzux")][_$Ig("wamjlzq~mz")];
+                            _$Ri = _$zM || _$fb || _$g0 || _$$F["navigator"]["webdriver"];
                         }
                     }
                 }
