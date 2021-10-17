@@ -11,12 +11,12 @@ const t = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("E:\\个人\\SpiderCollection\\中国药监局\\eval_js.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\中国药监局\\eval_js.js", {
     encoding: "utf-8"
 });
 
-var _$em = []
-function _$Ig(_$9o) {
+var _$z0 = []
+function _$$f(_$9o) {
         var _$KV = _$9o.length;
         var _$q5, _$sh = new Array(_$KV - 1), _$uE = _$9o.charCodeAt(0) - 97;
         for (var _$JQ = 0, _$0Z = 1; _$0Z < _$KV; ++_$0Z) {
@@ -34,9 +34,9 @@ function _$Ig(_$9o) {
     }
 
 
-function _$zM(_$9o) {
+function _$k_(_$9o) {
         var _$KV = String.fromCharCode(96);
-        _$em = _$Ig(_$9o).split(_$KV);
+        _$z0 = _$$f(_$9o).split(_$KV);
     }
 
 let ast = parser.parse(js_code);
@@ -48,7 +48,7 @@ traverse(ast, {
         let callEe = path.node.callee;
         if (!callEe) return ;
         let callEeName = callEe.name;
-        if (callEeName === '_$zM'){
+        if (callEeName === '_$k_'){
             let argumentsNode = path.node.arguments;
             if (argumentsNode.length === 0 || !t.isStringLiteral(argumentsNode[0])) return;
             let argument = argumentsNode[0].value;
@@ -62,11 +62,11 @@ traverse(ast, {
     MemberExpression(path){
         let memberExpressionNode = path.node.object;
         let memberExpressionName = memberExpressionNode.name;
-        if (memberExpressionName && memberExpressionName === '_$em'){
+        if (memberExpressionName && memberExpressionName === '_$z0'){
             let property = path.node.property;
             if (t.isNumericLiteral(property)){
                 let propertyValue = property.value;
-                let realValue = eval("_$em[" + propertyValue + "]");
+                let realValue = eval("_$z0[" + propertyValue + "]");
                 path.replaceWith(t.valueToNode(realValue))
             }
         }
@@ -77,7 +77,7 @@ ast = parser.parse(generator(ast).code);
 traverse(ast, {
     CallExpression(path){
         let calleeName = path.node.callee.name;
-        if (calleeName === "_$Ig"){
+        if (calleeName === "_$$f"){
             let argumentsNode = path.node.arguments;
             if (argumentsNode && argumentsNode.length === 1 && t.isStringLiteral(argumentsNode[0])){
                 let realValue = eval(path.toString());

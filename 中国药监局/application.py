@@ -9,7 +9,8 @@ import copy
 import re
 import logging
 import sys
-from urllib.parse import urljoin
+from retrying import retry
+from urllib.parse import urljoin, urlparse
 
 from lxml.html import etree
 import requests
@@ -46,6 +47,7 @@ class Application(object):
 
     def get_page(self, page_url):
         """公告通告"""
+        host = urlparse(page_url).netloc
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;"
                       "q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -53,14 +55,14 @@ class Application(object):
             "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
-            "Host": "www.nmpa.gov.cn",
+            "Host": host,
             "Pragma": "no-cache",
             "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
         }
 
         res = self.s.get(page_url, headers=headers)
-        if res.status_code in [200, 202]:
+        if res.status_code == 202:
             logging.info("请求页面第一次成功")
             with open("first_index.html", 'wb') as f:
                 f.write(res.content)
@@ -78,6 +80,9 @@ class Application(object):
                     logging.error("提取0号js文件内容失败")
 
             return self.extract_javascript(res.text)
+        elif res.status_code == 200:
+            res.encoding = "utf-8"
+            return "success", res.text
         else:
             logging.error("请求页面第一次失败")
 
@@ -101,13 +106,13 @@ class Application(object):
         else:
             logging.error("请求script文件失败")
 
-    def get_gmp_cookie(self, code, cookie_str=None):
+    def get_gmp_cookie(self, code, cookie=None):
         url = "http://127.0.0.1:8090/cookie"
 
-        if not cookie_str:
+        if not cookie:
             session_cookie = self.s.cookies.get_dict()
         else:
-            session_cookie = cookie_str
+            session_cookie = cookie
         cookie = ""
         for name, value in session_cookie.items():
             cookie += f"{name}={value}; "
@@ -123,20 +128,21 @@ class Application(object):
                 raise Exception("正則匹配cookie失敗")
             return {"neCYtZEjo8GmP": cookie_value_pattern.group(1)}
 
-    def generate_cookie(self, page_url_or_response_text, cookie_str=None):
-        if page_url_or_response_text.startswith("https://www.nmpa.gov.cn"):
-            script_src, execute_script = self.get_page(page_url_or_response_text)
-        else:
-            script_src, execute_script = self.extract_javascript(page_url_or_response_text)
-        script_url = urljoin("https://www.nmpa.gov.cn", script_src)
+    def generate_cookie(self, page_url, cookie=None):
+        script_src_or_success, execute_script_or_response = self.get_page(page_url)
+        if script_src_or_success == "success":
+            return "success", execute_script_or_response
+
+        script_url = urljoin("https://www.nmpa.gov.cn", script_src_or_success)
         self.save_first_script(script_url)
 
-        cookie = self.get_gmp_cookie(execute_script, cookie_str)
+        cookie = self.get_gmp_cookie(execute_script_or_response, cookie)
         cookie_dict = copy.deepcopy(self.s.cookies.get_dict())
         cookie_dict.update(cookie)
-        return cookie_dict
+        return None, cookie_dict
 
     @staticmethod
+    @retry(stop_max_attempt_number=5)
     def check(cookie):
         # 公告通告url
         url = "https://www.nmpa.gov.cn/xxgk/ggtg/index.html"
@@ -156,7 +162,6 @@ class Application(object):
         res = requests.get(url, headers=headers, cookies=cookie)
         if res.status_code == 200:
             res.encoding = "utf-8"
-            print(res.text)
             with open("first_index.html", 'wb') as f:
                 f.write(res.content)
                 logging.info("保存首页请求的html成功")
@@ -165,6 +170,7 @@ class Application(object):
             raise Exception("请求首页html失败")
 
     @staticmethod
+    @retry(stop_max_attempt_number=5)
     def check_detail_page(cookie):
         url = "https://www.nmpa.gov.cn/xxgk/ggtg/qtggtg/20210930161420143.html"
         headers = {
@@ -185,29 +191,33 @@ class Application(object):
         page_detail_res = requests.get(url, headers=headers, cookies=cookie)
         if page_detail_res.status_code == 200:
             page_detail_res.encoding = "utf-8"
-            print(page_detail_res.text)
             return page_detail_res.text
         else:
             raise Exception("请求详情页失败")
 
-
     def scheduler(self):
-        cookie_dict = self.generate_cookie("https://www.nmpa.gov.cn/xxgk/ggtg/index.html")
-        page_html = self.check(cookie_dict)
-        new_cookie_dict = self.generate_cookie(page_html, cookie_dict)
+        is_success, cookie_dict = self.generate_cookie("https://www.nmpa.gov.cn/xxgk/ggtg/index.html")
+        if is_success != "success":
+            page_html = self.check(cookie_dict)
+        else:
+            page_html = cookie_dict
+        print(page_html)
 
-        page_detail_cookie_dict = self.generate_cookie("https://www.nmpa.gov.cn/xxgk/ggtg/qtggtg/20210930161420143.html",
-                                                       cookie_str=new_cookie_dict)
-        page_detail_html = self.check_detail_page(page_detail_cookie_dict)
-        new_cookie_dict = self.generate_cookie(page_detail_html, page_detail_cookie_dict)
+        is_success, page_detail_cookie_dict = self.generate_cookie(
+            "https://www.nmpa.gov.cn/xxgk/ggtg/qtggtg/20210930161420143.html", cookie=cookie_dict)
+        if is_success != "success":
+            page_detail_html = self.check_detail_page(page_detail_cookie_dict)
+        else:
+            page_detail_html = page_detail_cookie_dict
+        print(page_detail_cookie_dict)
 
-        page_detail_cookie_dict = self.generate_cookie(
-            "http://www.ccgp.gov.cn/cggg/zygg/gkzb/202109/t20210930_16966761.htm",
-            cookie_str=new_cookie_dict)
-        page_detail_html = self.check_detail_page(page_detail_cookie_dict)
-        new_cookie_dict = self.generate_cookie(page_detail_html, page_detail_cookie_dict)
-
-
+        is_success, page_detail_cookie_dict = self.generate_cookie(
+            "http://www.ccgp.gov.cn/cggg/zygg/gkzb/202109/t20210930_16966761.htm", cookie=page_detail_cookie_dict)
+        if is_success != "success":
+            page_detail_html = self.check_detail_page(page_detail_cookie_dict)
+        else:
+            page_detail_html = page_detail_cookie_dict
+        print(page_detail_html)
 
 
 if __name__ == "__main__":
