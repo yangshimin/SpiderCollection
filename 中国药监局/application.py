@@ -1,10 +1,4 @@
 # !/usr/bin/python3
-# -*- coding: utf-8 -*-
-# @Time    : 09/14/21
-# @Author  : YangShiMin
-# @Email   : fausty@synnex.com
-# @File    : application.py
-# @Software: PyCharm
 import copy
 import re
 import logging
@@ -209,7 +203,7 @@ class Application(object):
             page_detail_html = self.check_detail_page(page_detail_cookie_dict)
         else:
             page_detail_html = page_detail_cookie_dict
-        print(page_detail_cookie_dict)
+        print(page_detail_html)
 
         is_success, page_detail_cookie_dict = self.generate_cookie(
             "http://www.ccgp.gov.cn/cggg/zygg/gkzb/202109/t20210930_16966761.htm", cookie=page_detail_cookie_dict)
