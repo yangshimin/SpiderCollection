@@ -213,6 +213,14 @@ class Application(object):
             page_detail_html = page_detail_cookie_dict
         print(page_detail_html)
 
+        is_success, page_detail_cookie_dict = self.generate_cookie(
+            "http://www.gov.cn/xinwen/2021-12/10/content_5659796.htm", cookie=page_detail_cookie_dict)
+        if is_success != "success":
+            page_detail_html = self.check_detail_page(page_detail_cookie_dict)
+        else:
+            page_detail_html = page_detail_cookie_dict
+        print(page_detail_html)
+
 
 if __name__ == "__main__":
     app = Application()

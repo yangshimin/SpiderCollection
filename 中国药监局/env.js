@@ -4,6 +4,7 @@ var fs = require('fs');
 // npm install cookie
 var cookieIns = require('cookie');
 var canvas = require('canvas');
+var mock_cookie = require("./cookie").mock;
 var dtaEventTarget = require('./simpleEventTarget').EventTarget
 var navigator = require("./navigator").navigator;
 var localStorage = require('./localStorage');
@@ -299,20 +300,14 @@ document.getElementById = function (id) {
 };
 
 // 不能采取document.$cookie的方式来定义 代码中有检查属性的第一个字符是否是$
-document.cookie = dom.window.document.cookie
-let CookieStore = Object;
-// Object.defineProperty(document, 'cookie', {
-//     get: function () {
-//         let cookieStr = "";
-//         for (let name in CookieStore) {
-//             cookieStr += name + "=" + CookieStore[name] + "; ";
-//         }
-//         return cookieStr.slice(0, cookieStr.length - 2)
-//     },
-//     set: function (value) {
-//         Object.assign(CookieStore, cookieIns.parse(value))
-//     }
-// });
+Object.defineProperty(document, 'cookie', {
+    get: function () {
+        return mock_cookie.cookie;
+    },
+    set: function (value) {
+        mock_cookie.cookie = value;
+    }
+});
 
 window.document = document;
 
