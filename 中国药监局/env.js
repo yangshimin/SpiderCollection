@@ -338,6 +338,7 @@ screen.availTop = 0;
 screen.availWidth = 1920;
 screen.colorDepth = 24;
 screen.height = 1080;
+screen.width = 1920;
 screen.pixelDepth = 24;
 screen.orientation = {"angle": 0, "onchange": null, "type": "landscape-primary"};
 window.screen = screen;
