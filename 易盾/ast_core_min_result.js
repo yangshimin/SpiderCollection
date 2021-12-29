@@ -5156,10 +5156,14 @@
                             };
 
                         try {
+                            debugger;
                             _0x4e2e01 = setTimeout(function () {
                                 _0x48dead(new Error("get anticheat token timeout"));
-                            }, _0x43b322 + 0x32), _0x13249f["getAnticheat"]()["getToken"](_0x2982f5['acConfig']['bid'], function (_0x4d385d) {
-                                clearTimeout(_0x4e2e01), _0x552449(_0x4d385d);
+                            }, _0x43b322 + 0x32),
+                                _0x13249f["getAnticheat"]()["getToken"](_0x2982f5['acConfig']['bid'],
+                                    function (_0x4d385d) {
+                                    clearTimeout(_0x4e2e01),
+                                        _0x552449(_0x4d385d);
                             }, _0x43b322);
                         } catch (_0x99e656) {
                             _0x48dead(_0x99e656);
