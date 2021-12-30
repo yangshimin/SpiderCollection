@@ -42,10 +42,6 @@ Object.defineProperty(p,'onchargingchange',{get: ()=> null});
 Object.defineProperty(p,'onchargingtimechange',{get: ()=> null});
 Object.defineProperty(p,'ondischargingtimechange',{get: ()=> null});
 Object.defineProperty(p,'onlevelchange',{get: ()=> null});
-// Object.defineProperty(navigator, "getBattery", {
-//     value: () => { return Promise.resolve(p)
-//     }
-// });
 
 let navigatorProperties = {
     appCodeName: "Mozilla",
@@ -94,7 +90,9 @@ let navigatorProperties = {
     xr: {},
     managed: {},
     // getBattery: function (){return Promise.resolve(p)},
-    getBattery: function (){},
+    getBattery: () => { return new Promise(function(resolve, reject) {
+        return resolve(p); });
+    },
     getGamepads: function(){},
     javaEnabled: function (){},
     sendBeacon: function(){},
@@ -140,7 +138,12 @@ makeFnsNative(navigator)
 //     console.log(k)
 // }
 // console.log(navigator.toString())
-// console.log(navigator.getBattery)
+// navigator.getBattery().then(function(battery){
+//     console.log(battery.charging); // Boolean
+//     console.log(battery.chargingTime); // Infinity
+//     console.log(battery.dischargingTime); // Infinity
+//     console.log(battery.level ); // Float (0 to 1)
+// });
 // console.log(navigator.getBattery.toString())
 // navigator.getBattery().then(function(battery) {
 //     console.log(battery.level)

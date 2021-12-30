@@ -26,38 +26,38 @@ function generate_js(astObjList){
     return code;
 }
 
-let decrypt_body = ast.program.body.slice(0, 4);
+let decrypt_body = ast.program.body.slice(0, 2);
 let decrypt_code = generate_js(decrypt_body);
-// let new_ast = parser.parse(generate_js([ast.program.body[ast.program.body.length - 1]]));
-let new_ast = parser.parse(fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\static\\watch_man_test.js", {
-    encoding: "utf-8"
-}))
 eval(decrypt_code)
+let new_ast = parser.parse(generate_js(ast.program.body.slice(2, ast.program.body.length)))
 
 traverse(new_ast, {
-    MemberExpression: {
-        exit(path){
-            if (!path.node.computed) return;
-            let objectName = path.node.object.name;
-            let property = path.node.property;
-            if (!property) return;
-            let propertyValue = property.value;
-
-            if (!objectName || propertyValue === undefined) return;
-            let code = path.toString();
-            try{
-                // console.log(code);
-                if (code === 'h["type"]'){
-                    debugger
-                }
-                let realValue = eval(code);
-                path.replaceWith(type.valueToNode(realValue));
-            }catch (e){}
-        }
+    VariableDeclaration(path){
+        if (path.parent.type !== "Program") return;
+        path.node.declarations.map(function (node){
+            let identifierName = node.id.name;
+            let init = node.init;
+            if (!init) return;
+            let elementsValue = node.init.elements;
+            if (!elementsValue) return;
+            let elementsRealValue = [];
+            elementsValue.map(function (ele){
+                let ele_js_code = generate_js([ele])
+                let realValue = eval(ele_js_code);
+                elementsRealValue.push(realValue);
+            })
+            let Bindings = path.scope.getBinding(identifierName);
+            if (Bindings && Bindings.referenced){
+                Bindings.referencePaths.map(function(nodePath){
+                    let parenPath = nodePath.parentPath;
+                    let propertyValue = parenPath.node.property.value;
+                    parenPath.replaceWith(type.valueToNode(elementsRealValue[propertyValue]))
+                })
+            }
+        })
     }
 })
 
-
+new_ast = parser.parse(generate_js(new_ast.program.body.slice(2, new_ast.program.body.length)))
 code = generator(new_ast).code
-console.log(code)
-// fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result.js", code);
+fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result.js", code);
