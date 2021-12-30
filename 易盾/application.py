@@ -284,7 +284,7 @@ class Application(object):
                                                                      "captcha_drag_js.js")
         captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
         conf_infos = self.get_conf(captcha_id)
-        ac_token = conf_infos.get("data", {}).get("ac", {}).get("token")
+        config_hash = conf_infos.get("data", {}).get("ac", {}).get("token")
         core_min_js = self.get_core_min_js(conf_infos)
         image_infos = self.get_image_info(captcha_id)
         if not image_infos:
@@ -303,6 +303,7 @@ class Application(object):
         track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
                                               func_argument=(track_data_decrypt, image_token, discern),
                                               is_func=True)
+        ac_token = ""
         self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
 
 
