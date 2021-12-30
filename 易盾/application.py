@@ -277,6 +277,40 @@ class Application(object):
         else:
             logging.error("请求验证码验证失败")
 
+    def get_js_config(self):
+        url = "https://ac.dun.163.com/v2/config/js"
+        headers = {
+            "Accept": "*/*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Host": "ac.dun.163.com",
+            "Pragma": "no-cache",
+            "Referer": "https://dun.163.com/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                          "(KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36",
+        }
+        params = {
+            "pn": "YD20160637306799",  # productNumber
+            "cvk": "",
+            "cb": f"__wmjsonp_{self.execute_js('Math.random().toString(0x24).slice(0x2, 0x9)')}",
+            "t": int(time.time() * 1000),
+        }
+
+        res = self.session.get(url, params=params, headers=headers)
+        if res.status_code == 200:
+            logging.info("请求product config 成功")
+            config_info_pattern = re.search(r'(\{.*\})', res.text)
+            if config_info_pattern:
+                config_info = config_info_pattern.group(1)
+                return json.loads(config_info)['result']
+            else:
+                logging.error("正则匹配config info失败")
+
+        else:
+            logging.error("请求product config 失败")
+
     def scheduler(self):
         load_min_js_url, pt_experience_captcha_drag_js_url = self.get_index()
         load_min_js = self.save_download_file(load_min_js_url, "load_min.js")
@@ -284,7 +318,7 @@ class Application(object):
                                                                      "captcha_drag_js.js")
         captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
         conf_infos = self.get_conf(captcha_id)
-        config_hash = conf_infos.get("data", {}).get("ac", {}).get("token")
+        js_config_infos = self.get_js_config()
         core_min_js = self.get_core_min_js(conf_infos)
         image_infos = self.get_image_info(captcha_id)
         if not image_infos:

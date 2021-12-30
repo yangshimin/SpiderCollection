@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="renderer" content="webkit">
+    <meta name="baidu-site-verification" content="We9ZpV0QoV">
+
+    <title>滑动拼图验证码_拼图验证_图形验证_在线体验_网易易盾</title>
+    <meta name="description" content="网易易盾创新行为式验证，轻松一滑完成拼图，用户体验极佳，秒速通过验证。">
+    <meta name="keywords" content="滑动拼图验证码,滑动验证码,验证码接口">
+
+    <link rel="shortcut icon" href="/public/res/favicon.ico" />
+
+
+
+    <link rel="stylesheet" href="/public/assets/pt_layout_base.css?b44ca54a6fad88ed3a67aa8f0e5b34e0"/>
+
+    <link rel="stylesheet" href="/public/assets/pt_experience_base.css?dc0b2203fd8edb59a381ebd5b5c2d57b"/>
+
+    <link rel="stylesheet" href="/public/assets/pt_experience_captcha_drag.css?2f568e9745998ab15ceb346d3b720ca4"/>
+
+
+    <script>
+        !function(e,n,t,s,c){var r=void 0!==t&&t.resolve,a=e[s];(a=e[s]=function(){this.modules={}}).callbacks=[],a.ready=r?function(){return a.instance?t.resolve(a.instance.vars()):new t(function(e){return a.callbacks.push(e)})}:function(e){return a.instance?e(a.instance.vars()):a.callbacks.push(e)};var i=n.createElement(c),u=n.getElementsByTagName(c)[0];i.async=!0,i.src="https://s6.music.126.net/puzzle/puzzle@0004A6.js",u.parentNode.insertBefore(i,u)}(window,document,window.Promise,"puzzle","script");
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?4671c5d502135636b837050ec6d716ce";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+
+    </script>
+    <script>
+        var exp = new Date(), from
+        var search = decodeURIComponent(location.search.slice(1)).split('&')
+        for (var i = 0; i < search.length; i++) {
+            var query = search[i].split('=')
+            if (query[0] === 'from') {
+                from = query[1]
+                break
+            }
+        }
+        if (!!from) {
+            exp.setTime(exp.getTime() + 1000 * 24 * 60 * 60 * 1000)
+            document.cookie = 'from=' + encodeURIComponent(from) + ';domain=.' + location.hostname + ';path=/;expires=' +
+                exp.toGMTString()
+        }
+    </script>
+    <script type="text/javascript">
+        (function(document,datracker,root){function loadJsSDK(){var script,first_script;script=document.createElement("script");script.type="text/javascript";script.async=true;script.src="https://hubble-js-bucket.nosdn.127.net/DATracker.globals.1.6.12.8.js";first_script=document.getElementsByTagName("script")[0];first_script.parentNode.insertBefore(script,first_script)}if(!datracker["__SV"]){var win=window;var gen_fn,functions,i,lib_name="DATracker";window[lib_name]=datracker;datracker["_i"]=[];datracker["init"]=function(token,config,name){var target=datracker;if(typeof(name)!=="undefined"){target=datracker[name]=[]}else{name=lib_name}target["people"]=target["people"]||[];target["abtest"]=target["abtest"]||[];target["toString"]=function(no_stub){var str=lib_name;if(name!==lib_name){str+="."+name}if(!no_stub){str+=" (stub)"}return str};target["people"]["toString"]=function(){return target.toString(1)+".people (stub)"};function _set_and_defer(target,fn){var split=fn.split(".");if(split.length==2){target=target[split[0]];fn=split[1]}target[fn]=function(){target.push([fn].concat(Array.prototype.slice.call(arguments,0)))}}functions="get_user_id track_heatmap register_attributes register_attributes_once clear_attributes unregister_attributes current_attributes single_pageview disable time_event get_appStatus track set_userId track_pageview track_links track_forms register register_once alias unregister identify login logout signup name_tag set_config reset people.set people.set_once people.set_realname people.set_country people.set_province people.set_city people.set_age people.set_gender people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.set_populationWithAccount  people.set_location people.set_birthday people.set_region people.set_account abtest.get_variation abtest.async_get_variable".split(" ");for(i=0;i<functions.length;i++){_set_and_defer(target,functions[i])}datracker["_i"].push([token,config,name])};datracker["__SV"]=1.6;loadJsSDK()}})(document,window["DATracker"]||[],window);
+        // 初始化
+        // 注意： 在Hubble平台创建一个类型为`Web`应用，复制对应的appkey，替换下面的 `88888888`
+        // truncateLength:上报数据字段的长度设置
+        // persistence: 存储到本地的方式
+        // cross_subdomain_cookie : 若是存储到cookie，是否支持跨二级域
+        DATracker.init('MA-93D5-9AD06EA4329A', {truncateLength: 255,persistence: "localStorage",cross_subdomain_cookie: false});
+    </script>
+</head>
+<body>
+<header>
+    <div class="g-hd">
+
+        <div class="m-thead m-thead-normal j-thead">
+            <div class="g-in f-cb">
+                <div class="m-logo">
+
+                    <a href="/">网易易盾</a>
+
+                </div>
+                <div class="m-locale">
+                    <div class="m-locale__lang j-drop_handle"><span>中文站</span></div>
+                    <div class="m-locale__downdrop j-drop_target">
+                        <div class="m-locale__menu">
+                            <a class="m-locale__link" href="/">中文站</a>
+                            <a class="m-locale__link" href="/locale/en">English</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-right">
+                    <div class="m-search">
+                        <div class="m-search__content">
+                            <input
+                                    type="text"
+                                    class="m-search__input j-search_input"
+                                    placeholder="网易易盾"
+                                    maxlength="100" />
+                            <button type="button" class="m-search__btn j-search_btn">搜索</button>
+                        </div>
+                        <div class="m-search__dropdown">
+                            <ul class="m-search__menu">
+                                <div class="m-search__hot">热门搜索</div>
+
+                                <li><a class="m-search__link" href="/search/5YaF5a655a6J5YWo" target="_blank">内容安全</a></li>
+
+                                <li><a class="m-search__link" href="/search/6aqM6K-B56CB" target="_blank">验证码</a></li>
+
+                                <li><a class="m-search__link" href="/search/5Lia5Yqh6aOO5o6n" target="_blank">业务风控</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="m-login">
+
+                        <a
+                                class="login J_login"
+                                href="https://dun.163.com/dashboard?v=0116&amp;locale=zh-CN#/login/?referrer=/"
+                                target="_blank"
+                                data-hubble-event="click-thead_login-all">登录</a>
+                        <a class="regis J_reg"
+                           href="https://id.grow.163.com/register?h=yd&amp;t=yd&amp;i18nEnable=true&amp;locale=zh_CN&amp;referrer=https%3A%2F%2Fdun.163.com%2Fdashboard"
+                           target="_blank"
+                           data-hubble-event="click-thead_regis-all">免费试用</a>
+
+                    </div>
+
+                </div>
+                <div class="m-tnav">
+                    <ul>
+                        <li class="">
+                            <a class="tnav_title j-drop_handle has-menu">产品</a>
+                            <div class="m-snav m-snav-2line j-drop_target">
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">内容安全</dt>
+                                    <dd><a href="/product/text-detection">文本检测<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/product/picture-detection">图片检测</a></dd>
+                                    <dd><a href="/product/video-detection">视频检测</a></dd>
+                                    <dd><a href="/product/audio-detection">音频检测</a></dd>
+                                    <dd><a href="/product/censor">审核运营服务</a></dd>
+                                    <dd><a href="/product/censor-system">智能审核平台<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/product/ai-picture">AI识图<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">业务安全</dt>
+                                    <dd><a href="/product/captcha">行为式验证码<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/product/phone-verification">号码认证<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/product/sms">短信验证码</a></dd>
+                                    <dd><a href="/product/certification">实人信息认证</a></dd>
+                                    <dd><a href="/product/anticheat">营销反作弊<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/product/register-protect">注册保护</a></dd>
+                                    <dd><a href="/product/login-protect">登录保护</a></dd>
+                                    <dd><a href="/product/dna">设备指纹</a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">移动安全</dt>
+                                    <dd><a href="/product/phone-game">手游智能反外挂<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/product/pc-game">端游智能反外挂<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/product/h5-game">小游戏智能反外挂<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/product/android-reinforce">Android应用加固<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/product/ios-reinforce">iOS应用加固</a></dd>
+                                    <dd><a href="/product/h5-reinforce">H5应用加固</a></dd>
+                                    <dd><a href="/product/sdk-reinforce">SDK加固</a></dd>
+                                    <dd><a href="/product/security-module">安全组件</a></dd>
+                                    <dd><a href="/product/compliance-detect">合规测评<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li class="">
+                            <a class="tnav_title j-drop_handle has-menu">解决方案</a>
+                            <div class="m-snav m-snav-sm m-snav-2line j-drop_target">
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">行业解决方案</dt>
+                                    <dd><a href="/solution/video">音视频</a></dd>
+                                    <dd><a href="/solution/social">社交</a></dd>
+                                    <dd><a href="/solution/game">游戏</a></dd>
+                                    <dd><a href="/solution/media">媒体</a></dd>
+                                    <dd><a href="/solution/education">教育</a></dd>
+                                    <dd><a href="/solution/digital-read">数字阅读</a></dd>
+                                    <dd><a href="/solution/gov-enterprise">政企</a></dd>
+                                    <dd><a href="/solution/finance">金融</a></dd>
+                                    <dd><a href="/solution/block-chain">区块链</a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">专项解决方案</dt>
+                                    <dd><a href="/solution/emotion-fraud">社交情感反欺诈<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/solution/paper">文档内容检测</a></dd>
+                                    <dd><a href="/solution/website">品牌内容安全</a></dd>
+                                    <dd><a href="/solution/history-data">历史数据清洗</a></dd>
+                                    <dd><a href="/solution/juvenile">未成年人保护</a></dd>
+                                    <dd><a href="/solution/compliance-ad">广告合规</a></dd>
+                                    <dd><a href="/solution/compliance-detect">合规测评安全</a></dd>
+                                    <dd><a href="/solution/account">账号安全</a></dd>
+                                    <dd><a href="/solution/oversea">海外安全</a></dd>
+                                    <dd><a href="/solution/miniprogram">小程序安全</a></dd>
+                                    <dd><a href="/solution/fulllink">内容风控全链路</a></dd>
+                                    <dd><a href="/solution/identify">身份信息认证</a></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li class="z-sel">
+                            <a class="tnav_title j-drop_handle has-menu">在线体验</a>
+                            <div class="m-snav m-snav-2line j-drop_target">
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">内容安全</dt>
+                                    <dd><a href="/trial/image">图片检测</a></dd>
+                                    <dd><a href="/trial/text">文本检测</a></dd>
+                                    <dd><a href="/trial/video">视频检测</a></dd>
+                                    <dd><a href="/trial/audio">音频检测</a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">业务安全</dt>
+                                    <dd><a href="/trial/sense">验证码体验</a></dd>
+                                    <dd><a href="/trial/face/compare">人脸识别体验</a></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li class="">
+                            <a class="tnav_title j-drop_handle has-menu">价格</a>
+                            <div class="m-snav m-snav-2line j-drop_target">
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">内容安全</dt>
+                                    <dd><a href="/price/antispam">机器检测服务<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/price/censor-system">智能审核平台<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                    <dd><a href="/price/human-censor">人工审核服务</a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">业务安全</dt>
+                                    <dd><a href="/price/captcha">行为式验证码<s class="nav_cat-popular nav_cat-popular--hot">HOT</s></a></dd>
+                                    <dd><a href="/price/phone-verification">号码认证<s class="nav_cat-popular nav_cat-popular--new">NEW</s></a></dd>
+                                </dl>
+                                <dl class="snav_cat">
+                                    <dt class="snav_cat-title">其他产品与业务</dt>
+                                    <dd><a href="/price/reinforce">加固服务</a></dd>
+                                    <dd><a href="/price/antiplugin">智能反外挂</a></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="tnav_title" href="https://support.dun.163.com?locale=zh-CN" target="_blank">帮助中心</a>
+                        </li>
+                        <li class="">
+                            <a class="tnav_title" href="/cooperation">渠道合作</a>
+                        </li>
+                        <li class="">
+                            <a class="tnav_title j-drop_handle has-menu">关于易盾</a>
+                            <div class="m-snav m-snav-sm m-snav-1line j-drop_target">
+                                <div class="m-snav__inner--1line">
+                                    <a href="/news/">动态资讯</a>
+                                    <a href="/about/brief">易盾简介</a>
+                                    <a href="/about/develop">发展历程</a>
+                                    <a href="/about/honor">资质荣誉</a>
+                                    <a href="/about/contact">联系我们</a>
+                                    <a href="/college/security-sermon">易盾学院</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div></header>
+<main>
+
+    <div class="g-bd">
+        <div class="g-in g-in-top">
+            <div class="g-sd2">
+
+
+                <div class="m-tnavigator">
+                    <dl class="m-tnavigator__item">
+                        <dt><i class="m-tnavigator__icon m-tnavigator__icon--captcha"></i>验证码体验</dt>
+                        <dd class="
+
+"><a href="/trial/sense">智能无感知</a></dd>
+                        <dd class="
+ is-active
+"><a href="/trial/jigsaw">滑动拼图</a></dd>
+                        <dd class="
+
+"><a href="/trial/picture-click">文字点选</a></dd>
+                        <dd class="
+
+"><a href="/trial/icon-click">图标点选</a></dd>
+                        <dd class="
+
+ m-tnavigator__new"><a href="/trial/inference">推理拼图</a></dd>
+                        <dd class="
+
+"><a href="/trial/sms">短信上行</a></dd>
+                        <dd class="
+
+"><a href="/trial/word-order">语序点选</a></dd>
+                        <dd class="
+
+"><a href="/trial/space-inference">空间推理</a></dd>
+                    </dl>
+                    <dl class="m-tnavigator__item">
+                        <dt><i class="m-tnavigator__icon m-tnavigator__icon--face"></i>人脸识别体验</dt>
+                        <dd class="
+
+"><a href="/trial/face/compare">人脸比对</a></dd>
+                        <dd class="
+
+"><a href="/trial/face/check">人脸检测</a></dd>
+                        <dd class="
+
+"><a href="/trial/face/ocr">身份证OCR</a></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="g-mn2">
+                <div class="m-tbanner m-tbanner-e">
+                    <h1 class="tbanner_title">滑动拼图验证码体验</h1>
+                    <p class="tbanner_desc">流畅优质的用户体验，仅需轻轻滑动完成拼图，即可完成安全验证</p>
+                    <p class="captcha-score">防御能力：<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun"></i>
+<i class="dun"></i>
+</span>用户体验：<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan"></i>
+</span>
+                        <span class="compare" id="J-compare-button">验证方式对比&gt;</span>
+                    </p>
+
+
+                    <a
+                            class="tbanner_action J_reg"
+                            target="_blank"
+
+                            href="https://id.grow.163.com/register?h=yd&amp;t=yd&amp;i18nEnable=true&amp;locale=zh_CN&amp;referrer=https%3A%2F%2Fdun.163.com%2Fdashboard">免费试用</a>
+
+
+                </div>
+                <div class="m-tcapt">
+                    <ul class="tcapt-tabs__container">
+                        <li class="tcapt-tabs__tab active" captcha-mode="float">触发式</li>
+                        <li class="tcapt-tabs__tab" captcha-mode="embed">嵌入式</li>
+                        <li class="tcapt-tabs__tab" captcha-mode="popup">弹出式</li>
+                    </ul>
+                    <div class="tcapt-type__container">
+                        <div class="tcapt-type__item active">
+                            <div class="tcapt_item is-center">
+                                <div class="tcapt_wrap">
+                                    <div class="tcapt_hd">
+                                        <h2 class="u-mdtitle">触发式<a class="u-mdtitle_btn j-custom" href="javascript:void(0)">点击查看自定义样式</a></h2>
+                                        <p class="tcapt_desc">鼠标移入验证条后显示验证拼图，轻松接入，不影响网页原有的排版和美观</p>
+                                    </div>
+                                    <div class="tcapt_content">
+                                        <div class="u-fitem">
+                                            <label>用户名</label><input disabled type="text" value="易小盾">
+                                        </div>
+                                        <div class="u-fitem">
+                                            <label>密码</label><input disabled type="password" value="123456">
+                                        </div>
+                                        <div class="u-fitem u-fitem-capt">
+                                            <label>验证码</label>
+                                            <div data-type="jigsaw" class="j-captcha"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcapt-type__item">
+                            <div class="tcapt_item is-center">
+                                <div class="tcapt_wrap">
+                                    <div class="tcapt_hd">
+                                        <h2 class="u-mdtitle">嵌入式<a class="u-mdtitle_btn j-custom" href="javascript:void(0)">点击查看自定义样式</a></h2>
+                                        <p class="tcapt_desc">拼图验证区域直接完整嵌入网页，清晰直观，便于用户使用和广告宣传</p>
+                                    </div>
+                                    <div class="tcapt_content">
+                                        <div class="u-fitem">
+                                            <label>用户名</label><input disabled type="text" value="易小盾">
+                                        </div>
+                                        <div class="u-fitem">
+                                            <label>密码</label><input disabled type="password" value="123456">
+                                        </div>
+                                        <div class="u-fitem u-fitem-capt">
+                                            <label>验证码</label>
+                                            <div data-type="jigsaw" class="j-captcha"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tcapt-type__item">
+                            <div class="tcapt_item is-center">
+                                <div class="tcapt_wrap tcapt_wrap--pop">
+                                    <div class="tcapt_hd">
+                                        <h2 class="u-mdtitle">弹出式<a class="u-mdtitle_btn j-custom" href="javascript:void(0)">点击查看自定义样式</a></h2>
+                                        <p class="tcapt_desc">绑定自有验证按钮效果，与自有业务样式完美融合</p>
+                                    </div>
+                                    <div class="tcapt_content">
+                                        <div class="u-fitem">
+                                            <label>用户名</label><input disabled type="text" value="易小盾">
+                                        </div>
+                                        <div class="u-fitem">
+                                            <label>密码</label><input disabled type="password" value="123456">
+                                        </div>
+                                        <div class="u-fitem u-fitem-capt">
+                                            <div data-type="jigsaw" class="j-captcha"></div>
+                                            <button class="tcapt-bind_btn tcapt-bind_btn--login j-pop">登录</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tcapt_item is-block">
+                        <div class="tcapt_wrap">
+                            <div class="tcapt_hd">
+                                <h2 class="u-mdtitle">移动端</h2>
+                                <p class="tcapt_desc">基于移动端特点跳转验证，为移动端客户提供更好的用户体验</p>
+                            </div>
+                            <div class="tcapt_content">
+                                <div class="wapimg">
+                                    <img src="/public/res/web/wap_drag_link.jpg?66559fbe2bb214e3649d67fee96a9fed">
+                                    <span>“扫一扫”体验移动端验证码效果</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdialog" id="J-compare-dialog" style="display: none;">
+        <div class="mdialog__mask"></div>
+        <div class="mdialog__wrap">
+            <div class="mdialog__header">
+                <h4 class="mdialog__title">验证方式对比</h4>
+                <span class="mdialog__close" id="J-compare-close"></span>
+            </div>
+            <div class="mdialog__body">
+                <table class="compare-table">
+                    <thead>
+                    <tr>
+                        <th>验证方式</th>
+                        <th>防御能力</th>
+                        <th>用户体验</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>智能无感知</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun"></i>
+<i class="dun"></i>
+<i class="dun"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>滑动拼图</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun"></i>
+<i class="dun"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>文字点选</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>图标点选</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>推理拼图</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--half"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--half"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>短信上行</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>语序点选</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--half"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--half"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>空间推理</td>
+                        <td>
+<span class="star">
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--full"></i>
+<i class="dun dun--half"></i>
+</span>
+                        </td>
+                        <td>
+<span class="star">
+<i class="zan zan--full"></i>
+<i class="zan zan--full"></i>
+<i class="zan zan--half"></i>
+<i class="zan"></i>
+<i class="zan"></i>
+</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="register-outer">
+        <div class="register layout-quick">
+            <div class="register__container">
+                <h3 class="register__title">即刻获得网易易盾安全防护</h3>
+
+                <p class="phone-reg register__input-wrap">
+                    <input placeholder="请填写您的手机号" type="text" class="J_placeholder register__input J_reg_phone" />
+
+                    <a
+                            class="register__submit J_reg"
+                            target="_blank"
+                            href="https://id.grow.163.com/register?h=yd&amp;t=yd&amp;i18nEnable=true&amp;locale=zh_CN&amp;referrer=https%3A%2F%2Fdun.163.com%2Fdashboard"
+                            data-hubble-event=click-register_submit-all>免费试用</a>
+
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer><div class="layout-footer">
+    <div class="layout-container">
+
+
+        <div class="footer-news">
+            <ul class="footer-news__container j-loop-news"></ul>
+            <button class="j-loop-next footer-news__angle"></button>
+        </div>
+
+        <div class="footer-about">
+            <dl class="footer-about__item recommend">
+                <dt class="footer-about__title">推荐产品</dt>
+                <dl class="recommend__item">
+                    <dd class="recommend__content">
+                        <a href="/product/text-detection">文本检测</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/picture-detection">图片检测</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/captcha">行为式验证码</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/sms">短信验证码</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/anticheat">营销反作弊</a>
+                    </dd>
+                </dl>
+                <dl class="recommend__item">
+                    <dd class="recommend__content">
+                        <a href="/product/phone-game">手游智能反外挂</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/android-reinforce">Android应用加固</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/ios-reinforce">iOS应用加固</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/product/sdk-reinforce">SDK加固</a>
+                    </dd>
+                </dl>
+            </dl>
+            <dl class="footer-about__item experience">
+                <dt class="footer-about__title">在线体验</dt>
+                <dl class="recommend__item">
+                    <dd class="experience__content">
+                        <a href="/trial/image">图片检测</a>
+                    </dd>
+                    <dd class="experience__content">
+                        <a href="/trial/text">文本检测</a>
+                    </dd>
+                    <dd class="experience__content">
+                        <a href="/trial/video">视频检测</a>
+                    </dd>
+                    <dd class="experience__content">
+                        <a href="/trial/audio">音频检测</a>
+                    </dd>
+                </dl>
+                <dl class="recommend__item">
+                    <dd class="recommend__content">
+                        <a href="/trial/sense">验证码体验</a>
+                    </dd>
+                    <dd class="recommend__content">
+                        <a href="/trial/face/compare">人脸识别体验</a>
+                    </dd>
+                </dl>
+            </dl>
+            <dl class="footer-about__item about">
+                <dt class="footer-about__title">关于易盾</dt>
+                <dd class="about__content">
+                    <a href="/about/brief">易盾简介</a>
+                </dd>
+                <dd class="about__content">
+                    <a href="/about/develop">发展历程</a>
+                </dd>
+                <dd class="about__content">
+                    <a href="/about/honor">资质荣誉</a>
+                </dd>
+                <dd class="about__content">
+                    <a href="/clause/terms" target="_blank">服务条款</a>
+                </dd>
+                <dd class="about__content">
+                    <a href="/clause/privacy" target="_blank">隐私条款</a>
+                </dd>
+            </dl>
+            <dl class="footer-about__item contact">
+                <dt class="footer-about__title">联系方式</dt>
+                <dd class="contact__content">商务咨询&nbsp;&nbsp;95163223</dd>
+                <dd class="contact__content">商务邮箱&nbsp;&nbsp;antispam@188.com</dd>
+                <dd class="contact__content">市场合作&nbsp;&nbsp;luhaidong@corp.netease.com</dd>
+                <dd class="contact__content">媒体品牌合作&nbsp;&nbsp;jifeng01@corp.netease.com</dd>
+                <dd class="contact__content">联系地址&nbsp;&nbsp;杭州市滨江区网商路599号网易大厦</dd>
+            </dl>
+            <dl class="footer-about__item wechat">
+                <dt class="footer-about__title">关注我们</dt>
+                <dd class="wechat__content">
+                    <img class="wechat__image" src="/public/res/next/wechat.png?39b242285e18324f1e7dbc93e78f13e4" srcset="/public/res/next/wechat@2x.png 2x" alt="网易易盾">
+                </dd>
+            </dl>
+        </div>
+        <div class="footer-company">
+            <dl class="friend__wrap">
+                <dt class="friend__title">友情链接</dt>
+                <dd class="friend__content">
+                    <a href="https://yunxin.163.com/" target="_blank">网易云信</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="https://163yun.com/" target="_blank">网易数帆</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="http://qiyukf.com/" target="_blank">七鱼</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="http://sitemap.163.com/" target="_blank">网易网站地图</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="http://www.woshipm.com/" target="_blank">人人都是产品经理</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="https://www.qidianla.com/" target="_blank">起点学院</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="http://www.52im.net/" target="_blank">即时通讯网</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="https://www.easemob.com/product/im" target="_blank">环信</a>
+                </dd>
+                <dd class="friend__content">
+                    <a href="https://ai.youdao.com/gw.s#/" target="_blank">有道智云</a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="footer-copyright"><p>© 1997-2021 网易公司</p></div>
+    </div>
+</div>
+    <div class="g-im">
+        <div class="m-im">
+            <a href="javascript:void(0)" class="item client" data-qidian="client" data-hubble-event="click-item_client-all">
+                <i class="i-im i-im-1"></i>
+                <span class="im-tip-wrap"><span class="im-tip-content">QQ咨询：反馈更及时</span></span>
+            </a>
+            <a href="javascript:void(0)" class="item online" data-qidian="online" data-hubble-event="click-item_online-all">
+                <i class="i-im i-im-5"></i>
+                <span class="im-tip-wrap"><span class="im-tip-content">在线咨询</span></span>
+            </a>
+            <div href="javascript:void(0)" class="item call" data-hubble-event="click-item_call-all">
+                <i class="i-im i-im-2"></i>
+                <span class="im-tip-wrap"><span class="im-tip-content">电话咨询：95163223</span></span>
+            </div>
+            <a href="javascript:void(0)" class="item item-top j-back_top">
+                <i class="i-im i-im-3"></i>
+            </a>
+        </div>
+    </div>
+    <!--[if lt IE 8]>
+    <div class="m-ie8">
+    <div class="ie8-mask"></div>
+    <div class="ie8-box">
+    <h5 class="">您使用的浏览器版本过低，请升级！</h5>
+    <p>建议使用浏览器： <a target="_blank" href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html">谷歌浏览器</a>&nbsp;&nbsp;<a
+    target="_blank" href="http://www.firefox.com.cn/">火狐浏览器</a></p>
+    </div>
+    </div>
+    <![endif]--></footer>
+
+
+<script>
+    window.siteInfo = {
+        isLogined: 'false' === 'true',
+        loginUrl: 'https://dun.163.com/dashboard?v=0116&locale=zh-CN#/login/?referrer=/',
+        registerBackHome: 'https://id.grow.163.com/register?h=yd&t=yd&i18nEnable=true&locale=zh_CN&referrer=https://dun.163.com',
+        registerUrl: 'https://id.grow.163.com/register?h=yd&t=yd&i18nEnable=true&locale=zh_CN&referrer=https%3A%2F%2Fdun.163.com%2Fdashboard',
+        cloudDomain: 'https://id.grow.163.com'
+    }
+</script>
+<script src="/public/assets/t_layout_base_m0.js?68400f2a16c57746314b18cdf3ed05bb"></script>
+
+<script src="https://cstaticdun.126.net/load.min.js"></script>
+<script src="/public/assets/core.js?47ed4fad07f5e2bc40b2efc50645ff34"></script>
+<script src="/public/assets/pt_experience_captcha_drag.js?b2d9a503ad5150803c302aaa71442e41"></script>
+
+
+
+<script>
+    Qidian.init({
+        qq: '2852175932',
+        online: '4ff7e83b73e006f04e3b8578fb145705',
+        client: 'dd64fcaf30c83dd72f8f3e3527eee5ff'
+    })
+</script>
+
+
+</body>
+</html>
