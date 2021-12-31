@@ -1,5 +1,6 @@
 var plugins = require("./plugin").plugins;
 var mimetypes = require("./mimetype").mimetypes;
+var dtaEventTarget = require('./simpleEventTarget').EventTarget;
 
 makeFnsNative = (obj) => {
     const oldCall = Function.prototype.call
@@ -32,7 +33,7 @@ makeFnsNative = (obj) => {
     Function.prototype.toString = functionToString
 }
 
-var p = Object.create({});
+var p = Object.create(Object.setPrototypeOf({}, dtaEventTarget.prototype));
 Object.defineProperty(p,'level',{enumerable: true, configurable: true, get: ()=> 1});
 Object.defineProperty(p,'charging',{get: ()=> true});
 Object.defineProperty(p,'chargingTime',{get: ()=> 0});
@@ -93,7 +94,7 @@ let navigatorProperties = {
         return resolve(p); });
     },
     getGamepads: function(){},
-    javaEnabled: function (){},
+    javaEnabled: function (){return false},
     sendBeacon: function(){},
     vibrate: function(){},
     canShare: function(){},

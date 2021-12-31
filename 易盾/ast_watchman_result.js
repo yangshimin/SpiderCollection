@@ -12,7 +12,7 @@ var canvas = require('canvas');
 const jsdom = require("jsdom");
 
 const {JSDOM} = jsdom;
-let index_code = fs.readFileSync("F:\\code\\SpiderCollection\\易盾\\static\\index.html", {
+let index_code = fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\static\\index.html", {
     encoding: "utf-8"
 });
 const dom = new JSDOM(index_code, {

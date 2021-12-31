@@ -311,6 +311,10 @@ class Application(object):
         else:
             logging.error("请求product config 失败")
 
+    def download_watch_man_js(self, js_config):
+        url = f"https://{js_config['s']}/{js_config['v']}/watchman.min.js"
+        return self.save_download_file(url, "watchMan.js")
+
     def scheduler(self):
         load_min_js_url, pt_experience_captcha_drag_js_url = self.get_index()
         load_min_js = self.save_download_file(load_min_js_url, "load_min.js")
@@ -319,6 +323,7 @@ class Application(object):
         captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
         conf_infos = self.get_conf(captcha_id)
         js_config_infos = self.get_js_config()
+        watch_man_js_file = self.download_watch_man_js(js_config_infos)
         core_min_js = self.get_core_min_js(conf_infos)
         image_infos = self.get_image_info(captcha_id)
         if not image_infos:
