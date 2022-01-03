@@ -11,7 +11,7 @@ const type = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 const generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\static\\watchMan.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\易盾\\static\\watchMan.js", {
     encoding: "utf-8"
 });
 
@@ -82,4 +82,4 @@ traverse(new_ast, {
 
 new_ast = parser.parse(generate_js(new_ast.program.body.slice(2, new_ast.program.body.length)))
 code = generator(new_ast).code
-fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result_v1.js", code);
+fs.writeFileSync("F:\\code\\SpiderCollection\\易盾\\ast_watchman_result_v2.js", code);

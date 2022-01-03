@@ -247,7 +247,7 @@ class Application(object):
             "id": captcha_id,
             "token": image_token,
             "acToken": ac_token,
-            "data": track_infos,
+            "data": json.dumps(track_infos['data']).replace(" ", ""),
             "width": "320",
             "type": "2",
             "version": "2.16.2",

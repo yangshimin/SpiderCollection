@@ -340,12 +340,12 @@ function get_track_post_data(traceData, image_token, x_offset) {
     var _0x13a719 = sample(traceData, 50),
         _0x582e97 = eypt(track_decrypt(image_token, parseInt(x_offset, 0xa) / 320 * 0x64 + ''));
     var captchaData = {
-        'data': JSON['stringify']({
+        'data': {
             'd': eypt(_0x13a719['join'](':')),
             'm': '',
             'p': _0x582e97,
             'ext': eypt(track_decrypt(image_token, 1 + ',' + traceData['length']))
-        })
+        }
     }
     return captchaData;
 }
