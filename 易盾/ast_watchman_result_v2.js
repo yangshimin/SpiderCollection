@@ -48,7 +48,7 @@ var canvas = require('canvas');
 const jsdom = require("jsdom");
 
 const {JSDOM} = jsdom;
-let index_code = fs.readFileSync("F:\\code\\SpiderCollection\\易盾\\static\\index.html", {
+let index_code = fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\static\\index.html", {
   encoding: "utf-8"
 });
 
@@ -255,7 +255,7 @@ window.initWatchman || (window.initWatchman = window.initNEWatchman = {},
     window.initWatchman.__instances__ = {},
     window.initWatchman.__supportCaptcha__ = !0)
 
-consoleAble = true
+consoleAble = false
 
 function getMethodHandler(WatchName) {
   let methodhandler = {
@@ -319,7 +319,7 @@ function getObjhandler(WatchName) {
     getOwnPropertyDescriptor(target, propKey) {
       var result = Reflect.getOwnPropertyDescriptor(target, propKey);
       if (consoleAble) {
-        console.log(`[${WatchName}] getOwnPropertyDescriptor  propKey [${propKey.toString()}] result is [${getPrintShow(result)}]`)
+        console.info(`[${WatchName}] getOwnPropertyDescriptor  propKey [${propKey.toString()}] result is [${getPrintShow(result)}]`)
       }
       return result;
     },
@@ -569,6 +569,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     this.Z = {};
     this.ka = a;
     this.j = {};
+    this.j = new Proxy(this.j, getObjhandler("this.j"))
     this.l = !1;
 
     this.qa = function () {
@@ -4134,6 +4135,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       C.h(la, this.g);
       var u = this;
       d = $a();
+      debugger;
       var v = ka(this.M.I, 4, this.M)(),
           w = ca();
       "";
@@ -4225,11 +4227,22 @@ function get_ac_token(l) {
     "timeout": 6000,
     "pn": "YD20160637306799"
   }
+
   var ee = M(new window.window['Watchman'](u));
-  ee.getToken('07e2387ab53a4d6f930b8d9a9be71bdf', function (e) {
-    console.log(console.log("acToken is:", e))
-    window['acToken'] = e;
-  }, 750)
+  var traceInfo = fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\trace", {
+    encoding: "utf-8"
+  });
+  traceInfo = JSON.parse(traceInfo);
+  for (var infoIndex=0; infoIndex < traceInfo.length; infoIndex++){
+    let dtaEvent = new Proxy(Object.create(traceInfo[infoIndex]), getObjhandler(traceInfo[infoIndex].type));
+    console.log(traceInfo[infoIndex]);
+    window.dispatchEvent(dtaEvent);
+  }
+
+  // ee.getToken('07e2387ab53a4d6f930b8d9a9be71bdf', function (e) {
+  //   console.log(console.log("acToken is:", e))
+  //   window['acToken'] = e;
+  // }, 750)
 
 }
 
