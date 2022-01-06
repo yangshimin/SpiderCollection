@@ -1,4 +1,5 @@
-[
+let window = global;
+let trace_info = [
     {
         "isTrusted": true,
         "interval": 16,
@@ -577,7 +578,9 @@
         "NONE": 0,
         "CAPTURING_PHASE": 1,
         "AT_TARGET": 2,
-        "BUBBLING_PHASE": 3
+        "BUBBLING_PHASE": 3,
+        "srcElement": window,
+        "target": window
     },
     {
         "isTrusted": true,
@@ -5521,7 +5524,9 @@
         "NONE": 0,
         "CAPTURING_PHASE": 1,
         "AT_TARGET": 2,
-        "BUBBLING_PHASE": 3
+        "BUBBLING_PHASE": 3,
+        "srcElement": window,
+        "target": window
     },
     {
         "isTrusted": true,
@@ -5876,3 +5881,7 @@
         "BUBBLING_PHASE": 3
     }
 ]
+
+module.exports = {
+    trace_info
+}

@@ -165,16 +165,22 @@ class Application(object):
         cb = self.execute_js(js_code, func_name='get_cb', is_func=True)
         return cb
 
+    @staticmethod
+    def get_fp():
+        url = "http://127.0.0.1:8090/get_fp"
+        res = requests.get(url)
+        return res.text
+
     def get_image_info(self, captcha_id):
         url = "https://c.dun.163.com/api/v2/get"
         params = {
             "referer": self.index_url,
             "zoneId": "CN31",
             "id": captcha_id,
-            "fp": "HnXBeXoq1GksKrbP1kUISYUIwsuAtmJuU+qBmcNmAsYf2nY9+6K8ejOkRl5RBRsWgooWJtlc5g46m5Rob7nOlSZmmOJZYLVXvGb\IAjKI2aARXZttlyagQSfmzxMYLq+SGOBZu2\tR7oN4t/sI/5BnGvbEm2MgCT4nkC/t9PeZow1Yje:1640593895164",
+            "fp": self.get_fp(),
             "https": "true",
             "type": "2",
-            "version": "2.16.2",
+            "version": "2.17.1",
             "dpr": "1",
             "dev": "1",
             "cb": self.get_cb(),
@@ -233,6 +239,8 @@ class Application(object):
         for index, x_track in enumerate(tracks):
             # 易盾的轨迹横坐标都是从4开始的
             if x_track < 4:
+                if index == 0:
+                    track_data_list.append([4, 0, 4])
                 continue
             y_track = random.randint(-5, 2)
             track_time = time_offsets[index]
@@ -250,12 +258,12 @@ class Application(object):
             "data": json.dumps(track_infos['data']).replace(" ", ""),
             "width": "320",
             "type": "2",
-            "version": "2.16.2",
+            "version": "2.17.1",
             "cb": self.get_cb(),
             "extraData": "",
             "bf": "0",
             "runEnv": "10",
-            "callback": f"__JSONP_{self.execute_js('Math.random().toString(0x24).slice(0x2, 0x9)')}_0",
+            "callback": f"__JSONP_{self.execute_js('Math.random().toString(0x24).slice(0x2, 0x9)')}_1",
         }
         headers = {
             "Accept": "*/*",
@@ -276,6 +284,19 @@ class Application(object):
             print(res.text)
         else:
             logging.error("请求验证码验证失败")
+
+    @staticmethod
+    def get_ac_token(watch_man_js, config_info, product_number, bid):
+        url = "http://127.0.0.1:8090/convert_watch_man"
+        data = {
+            "watch_man_js": watch_man_js,
+            "js_config_info": json.dumps(config_info),
+            "productNumber": product_number,
+            "bid": bid
+        }
+
+        res = requests.post(url, data=data)
+        return res.text
 
     def get_js_config(self):
         url = "https://ac.dun.163.com/v2/config/js"
@@ -342,7 +363,12 @@ class Application(object):
         track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
                                               func_argument=(track_data_decrypt, image_token, discern),
                                               is_func=True)
-        ac_token = ""
+
+        bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
+        ac_token = self.get_ac_token(open(watch_man_js_file, 'r', encoding="utf-8").read(),
+                                     js_config_infos, "YD20160637306799", bid)
+        if not ac_token:
+            raise Exception("服务端没有返回ac_token")
         self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
 
 

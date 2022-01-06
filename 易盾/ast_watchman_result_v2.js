@@ -32,6 +32,7 @@ const OfflineAudioContext = require("web-audio-engine").OfflineAudioContext;
 
 require("fake-indexeddb/auto");
 const fs = require('fs');
+var sleep = require('sleep');
 var dtaEventTarget = require('./simpleEventTarget').EventTarget;
 
 var xml_http_request = require('xhr2');
@@ -41,6 +42,7 @@ XMLHttpRequest.prototype.withCredentials = true;
 var openDatabase = require('websql');
 var navigator = require("./navigator").navigator;
 var deprecated_color = require("./deprecated_system_color").color;
+var trace_info = require("./trace").trace_info;
 var mock_cookie = require("./cookie").mock;
 var localStorage = require('./localStorage');
 var sessionStorage = require('./sessionStorage');
@@ -569,7 +571,6 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     this.Z = {};
     this.ka = a;
     this.j = {};
-    this.j = new Proxy(this.j, getObjhandler("this.j"))
     this.l = !1;
 
     this.qa = function () {
@@ -3846,7 +3847,10 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     var p = q.length;
     g = p < e ? 10 : g;
     h = K();
-    if (h - (q.za || 0) <= g) return this;
+    if (h - (q.za || 0) <= g) {
+      // debugger;
+      return this;
+    };
     q.za = h;
     q.ca || (q.ca = id(e));
     p >= e && (e = q.ca(), q.splice(e, 1));
@@ -4135,7 +4139,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       C.h(la, this.g);
       var u = this;
       d = $a();
-      debugger;
+      // debugger;
       var v = ka(this.M.I, 4, this.M)(),
           w = ca();
       "";
@@ -4197,7 +4201,7 @@ function M(a) {
   }
 }
 
-function get_ac_token(l) {
+function get_ac_token(l, productNumber, bid) {
   function w(a) {
     void 0 === a && (a = 0);
     return (new Date).getTime() + parseInt(a, 10)
@@ -4221,39 +4225,23 @@ function get_ac_token(l) {
     "apiServers": l.ass,
     "buildVersion": l.v,
     "protocol": "https",
-    "productNumber": "YD20160637306799",
+    "productNumber": productNumber || "YD20160637306799",
     "merged": true,
     "auto": true,
     "timeout": 6000,
-    "pn": "YD20160637306799"
+    "pn": productNumber || "YD20160637306799"
   }
 
   var ee = M(new window.window['Watchman'](u));
-  var traceInfo = fs.readFileSync("E:\\个人\\SpiderCollection\\易盾\\trace", {
-    encoding: "utf-8"
-  });
-  traceInfo = JSON.parse(traceInfo);
-  for (var infoIndex=0; infoIndex < traceInfo.length; infoIndex++){
-    let dtaEvent = new Proxy(Object.create(traceInfo[infoIndex]), getObjhandler(traceInfo[infoIndex].type));
-    console.log(traceInfo[infoIndex]);
+  for (var infoIndex=0; infoIndex < trace_info.length; infoIndex++){
+    let dtaEvent = trace_info[infoIndex]
     window.dispatchEvent(dtaEvent);
+    sleep.msleep(15);
   }
-
-  // ee.getToken('07e2387ab53a4d6f930b8d9a9be71bdf', function (e) {
-  //   console.log(console.log("acToken is:", e))
-  //   window['acToken'] = e;
-  // }, 750)
-
+  ee.getToken(bid || "07e2387ab53a4d6f930b8d9a9be71bdf", function (e) {
+    window['acToken'] = e;
+    console.log(e);
+  }, 750)
 }
 
-console.log(get_ac_token({
-  's': 'acstatic-dun.126.net',
-  'v': '2.7.3_eb045ea7',
-  'luv': '2.7.1_7c08033d',
-  'as': 'ac.dun.163yun.com',
-  'ivp': 300000,
-  'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
-  'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
-  'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
-  'cvk': '2c492abe0532265928ae77e8513e6066'
-}));
+console.log(get_ac_token({'s': 'acstatic-dun.126.net', 'v': '2.7.1_a02527b8', 'luv': '2.7.3_eb045ea7', 'as': 'ac.dun.163yun.com', 'ivp': 300000, 'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf', 'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'], 'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'], 'cvk': 'c67fcb4b8e3f931ced40b4d3c7a2cd9c'}));
