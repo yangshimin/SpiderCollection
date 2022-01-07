@@ -392,6 +392,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     void 0 === b && (b = {});
     this.aa = ja(this.aa, 0, this);
     this.ma = [];
+    debugger;
     this.aa(b);
   }
 
@@ -814,7 +815,16 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     },
         m = [];
     ua(Object.keys(h)).forEach(function (e) {
-      M(h[e]) !== "undefined" && (ba[e].c >= 800 && ba[e].c <= 804 && (h[e] = Kc(h[e])), "", m.push.apply(m, va(h[e], ba[e])));
+        if (M(h[e]) !== "undefined"){
+            if (ba[e].c >= 800 && ba[e].c <= 804){
+                h[e] = Kc(h[e]);
+                "";
+                debugger;
+                m.push.apply(m, va(h[e], ba[e]))
+
+            }
+        }
+      // M(h[e]) !== "undefined" && (ba[e].c >= 800 && ba[e].c <= 804 && (h[e] = Kc(h[e])), "", m.push.apply(m, va(h[e], ba[e])));
     });
     return m;
   }
@@ -865,6 +875,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
 
         try {
           e = JSON["parse"]((d["responseText"] || "").match(c)[1] || "");
+          console.log(d["responseText"]);
         } catch (q) {}
 
         e ? I(e) : f(Error("Response is empty"));
@@ -1851,6 +1862,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     if (ec) return e(ec);
 
     try {
+        debugger;
       var f = new fc(1, 44100, 44100),
           h = f["createOscillator"]();
       h["type"] = "triangle";
@@ -4113,6 +4125,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
   var sa;
   v["initWatchman"]["__supportCaptcha__"] ? v["Watchman"] = f : id();
 })();
+
 function M(a) {
     return {
         start: function () {
@@ -4169,13 +4182,26 @@ function get_ac_token(l, productNumber, bid) {
     }
 
     var ee = M(new window.window['Watchman'](u));
-    for (var infoIndex=0; infoIndex < trace_info.length; infoIndex++){
-        let dtaEvent = trace_info[infoIndex]
-        window.dispatchEvent(dtaEvent);
-        sleep.msleep(15);
-    }
-    ee.getToken(bid || "07e2387ab53a4d6f930b8d9a9be71bdf", function (e) {
-        window['acToken'] = e;
-        console.log(e);
-    }, 750)
+
+    // for (var infoIndex=0; infoIndex < trace_info.length; infoIndex++){
+    //     let dtaEvent = trace_info[infoIndex]
+    //     window.dispatchEvent(dtaEvent);
+    //     sleep.msleep(15);
+    // }
+    // ee.getToken(bid || "07e2387ab53a4d6f930b8d9a9be71bdf", function (e) {
+    //     window['acToken'] = e;
+    //     console.log(e);
+    // }, 750)
 }
+
+get_ac_token({
+    's': 'acstatic-dun.126.net',
+    'v': '2.7.1_a02527b8',
+    'luv': '2.7.3_eb045ea7',
+    'as': 'ac.dun.163yun.com',
+    'ivp': 300000,
+    'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
+    'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
+    'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
+    'cvk': 'c67fcb4b8e3f931ced40b4d3c7a2cd9c'
+})
