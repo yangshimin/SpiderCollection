@@ -367,7 +367,7 @@ class Application(object):
         bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
         ac_token = self.get_ac_token(open(watch_man_js_file, 'r', encoding="utf-8").read(),
                                      js_config_infos, "YD20160637306799", bid)
-        # ac_token = "9ca17ae2e6ffcda170e2e6ee97ca3e989afc9ac97fbc928ba3c55b839b8b84aa2192ecaab6c93db2939ea2e62af0feaec3b92ab6beaa8ef04188879884eb5e978b9eb3d45f8eaff9b2b75c98e989a2f1478aabee9e"
+        # ac_token = "9ca17ae2e6ffcda170e2e6eea4f544f7b6fcdaf834a9bc8eb6c84e969f9eaeb57b92aec0d9e87daf909cd6b82af0feaec3b92ab79fa387fc7f9687a4a6f25e868f9fb2d14a8af1f9b2b53ff891fdb7d264f390ee9e"
         if not ac_token:
             raise Exception("服务端没有返回ac_token")
         self.check(captcha_id, image_token, ac_token, track_decrypt_infos)

@@ -48,29 +48,214 @@ class PluginArray{
             {
                 'description':"Portable Document Format",
                 'filename':"internal-pdf-viewer",
-                'length':1,
-                'name':"Chrome PDF Plugin",
-                '0':
+                'length':2,
+                'name':"PDF Viewer",
+                "0":
                     {
-                        "description": "Portable Document Format",
-                        "suffixes": "pdf",
-                        "type": "application/x-google-chrome-pdf",
-                        "enabledPlugin": {
+                        'description':"Portable Document Format",
+                        'suffixes': "pdf",
+                        'type': "application/pdf",
+                        'enabledPlugin': {
                             'description':"Portable Document Format",
                             'filename':"internal-pdf-viewer",
-                            'length':1,
-                            'name':"Chrome PDF Plugin",
-                            '0':
-                                {
-                                    "description":"Portable Document Format",
-                                    "enabledPlugin":{},
-                                    "type":"application/x-google-chrome-pdf",
-                                    "suffixes":"pdf"
-                                }
-
+                            'length':2,
+                            'name':"PDF Viewer",
+                            "0":{
+                                'description':"Portable Document Format",
+                                "type":"application/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            },
+                            "1": {
+                                'description':"Portable Document Format",
+                                "type":"text/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            }
+                        }
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"PDF Viewer",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
                         }
                     }
-
+                }
+            },
+            {
+                'description':"Portable Document Format",
+                'filename':"internal-pdf-viewer",
+                'length':2,
+                'name':"Chromium PDF Viewer",
+                "0":
+                    {
+                        'description':"Portable Document Format",
+                        'suffixes': "pdf",
+                        'type': "application/pdf",
+                        'enabledPlugin': {
+                            'description':"Portable Document Format",
+                            'filename':"internal-pdf-viewer",
+                            'length':2,
+                            'name':"Chromium PDF Viewer",
+                            "0":{
+                                'description':"Portable Document Format",
+                                "type":"application/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            },
+                            "1": {
+                                'description':"Portable Document Format",
+                                "type":"text/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            }
+                        }
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"Chromium PDF Viewer",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        }
+                    }
+                }
+            },
+            {
+                'description':"Portable Document Format",
+                'filename':"internal-pdf-viewer",
+                'length':2,
+                'name':"Microsoft Edge PDF Viewer",
+                "0":
+                    {
+                        'description':"Portable Document Format",
+                        'suffixes': "pdf",
+                        'type': "application/pdf",
+                        'enabledPlugin': {
+                            'description':"Portable Document Format",
+                            'filename':"internal-pdf-viewer",
+                            'length':2,
+                            'name':"Microsoft Edge PDF Viewer",
+                            "0":{
+                                'description':"Portable Document Format",
+                                "type":"application/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            },
+                            "1": {
+                                'description':"Portable Document Format",
+                                "type":"text/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            }
+                        }
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"Microsoft Edge PDF Viewer",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        }
+                    }
+                }
+            },
+            {
+                'description':"Portable Document Format",
+                'filename':"internal-pdf-viewer",
+                'length':2,
+                'name':"WebKit built-in PDF",
+                "0":
+                    {
+                        'description':"Portable Document Format",
+                        'suffixes': "pdf",
+                        'type': "application/pdf",
+                        'enabledPlugin': {
+                            'description':"Portable Document Format",
+                            'filename':"internal-pdf-viewer",
+                            'length':2,
+                            'name':"WebKit built-in PDF",
+                            "0":{
+                                'description':"Portable Document Format",
+                                "type":"application/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            },
+                            "1": {
+                                'description':"Portable Document Format",
+                                "type":"text/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            }
+                        }
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"WebKit built-in PDF",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        }
+                    }
+                }
             },
             {
                 'description':"Portable Document Format",
@@ -100,72 +285,31 @@ class PluginArray{
                                 "enabledPlugin":{},
                             }
                         }
-                    }
-            },
-            {
-                'description':"",
-                'filename':"internal-nacl-plugin",
-                'length':1,
-                'name':"Native Client",
-                "0":
-                    {
-                        "description": "Native Client Executable",
-                        "suffixes": "",
-                        "type": "application/x-nacl",
-                        "enabledPlugin": {
-                            'description':"",
-                            'filename':"internal-nacl-plugin",
-                            'length':1,
-                            'name':"Native Client",
-                            "0":
-                                {
-                                    "description":"Native Client Executable",
-                                    "type":"application/x-nacl",
-                                    "suffixes":"",
-                                    "enabledPlugin":{},
-                                }
-                            ,
-                            "1":{
-                                "description":"Portable Native Client Executable",
-                                "type":"application/x-pnacl",
-                                "suffixes":"",
-                                "enabledPlugin":{},
-                            }
-
-
-                        }
-                    }
-                ,
-                "1":{
-                    "description": "Portable Native Client Executable",
-                    "suffixes": "",
-                    "type": "application/x-pnacl",
-                    "enabledPlugin": {
-                        'description':"",
-                        'filename':"internal-nacl-plugin",
-                        'length':1,
-                        'name':"Native Client",
-                        "0":
-                            {
-                                "description":"Native Client Executable",
-                                "type":"application/x-nacl",
-                                "suffixes":"",
-                                "enabledPlugin":{},
-                            }
-                        ,
-                        "1":{
-                            "description":"Portable Native Client Executable",
-                            "type":"application/x-pnacl",
-                            "suffixes":"",
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"Chrome PDF Viewer",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
                             "enabledPlugin":{},
                         }
-
-
                     }
                 }
-
-
-            }
+            },
             ];
 
         this.plugins.map(function (p) {

@@ -50,17 +50,18 @@ function get_ac_token(l, productNumber, bid) {
         "merged": true,
         "auto": true,
         "timeout": 6000,
-        "pn": productNumber || "YD20160637306799"
+        "pn": productNumber || "YD20160637306799",
+        "onerror": function(){console.log('call onerror')},
+        "onload": function(){console.log('call onload')},
     }
 
-    var ee = M(new window.window['Watchman'](u));
+    M(new window.window['Watchman'](u)).getToken(bid || "07e2387ab53a4d6f930b8d9a9be71bdf", function (e) {
+        window['acToken'] = e;
+        console.log(e);
+    }, 750)
     for (var infoIndex=0; infoIndex < trace_info.length; infoIndex++){
         let dtaEvent = trace_info[infoIndex]
         window.dispatchEvent(dtaEvent);
         sleep.msleep(15);
     }
-    ee.getToken(bid || "07e2387ab53a4d6f930b8d9a9be71bdf", function (e) {
-        window['acToken'] = e;
-        console.log(e);
-    }, 750)
 }

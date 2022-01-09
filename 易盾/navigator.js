@@ -70,7 +70,7 @@ let navigatorProperties = {
     onLine: true,
     permissions: {},
     platform: "Win32",
-    plugins: plugins,
+    plugins: plugins.plugins,
     presentation: {},
     product: "Gecko",
     productSub: "20030107",
