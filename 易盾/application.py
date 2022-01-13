@@ -385,7 +385,7 @@ class Application(object):
         print(ac_token)
 
         # ac_token = requests.get('http://122.51.245.133:3011/ac', params={
-        #     'tid': 'NrZFRFkIGTpFRAFUFBZqqHNZTBxme0I0',
+        #     'tid': 'hdzce5A3gmdEVFBQQQNqqCNO/ZpA+Q57',
         # }).text
         # print(ac_token)
         # ac_token = "9ca17ae2e6ffcda170e2e6eea8d85dbae98dd8b2608ebc8aa2d14f838e9b84f13e889682b9e862aeabbfd7ce2af0feaec3b92a8baafbd4f274bbb9bfa4c44a979b8ea2d54fa8aabab4e7529895b790d86091baee9e"
