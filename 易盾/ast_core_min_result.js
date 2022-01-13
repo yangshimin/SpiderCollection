@@ -2745,14 +2745,12 @@
                 this["_state"] === _0x567618 && (_0x42d4bd instanceof Error ? this['_state'] = _0x40c6fb : this["_state"] = _0x3ee0a4, this["_arg"] = _0x42d4bd, this["_emit"](this["_state"]));
             },
             '_emit': function (_0x3f5e80) {
-                debugger
                 var _0x6f9f72 = this;
 
                 switch (_0x3f5e80) {
                     case _0x3ee0a4:
                         _0x31650e(function () {
                             _0x6f9f72["_fullfilledCallback"]['map'](function (_0x11d505) {
-                                debugger;
                                 return _0x11d505(_0x6f9f72['_arg']);
                             }), _0x6f9f72["_fullfilledCallback"] = [], _0x6f9f72["_rejectedCallback"] = [];
                         });
@@ -3760,7 +3758,6 @@
                     });
                     Object['assign'](_0x11d580, _0x29fc65);
 
-                    debugger;
                     var _0x13a719 = _0x40cd71["sample"](this["traceData"], _0x4b7450),
                         _0x1289fa = this['$store']["state"]["token"],
                         _0x582e97 = _0x277e54(_0x5debee(_0x1289fa,
@@ -5124,7 +5121,6 @@
     },
     function (_0x3cd925, _0x49cd75, _0x2d173e) {
         function _0xde995e(_0x11d25c, _0xeb25be) {
-            debugger;
             this["_captchaConf"] = _0x11d25c, this["_captchaCollector"] = _0xeb25be;
         }
 
@@ -5156,7 +5152,6 @@
                             };
 
                         try {
-                            debugger;
                             _0x4e2e01 = setTimeout(function () {
                                 _0x48dead(new Error("get anticheat token timeout"));
                             }, _0x43b322 + 0x32),
@@ -8602,7 +8597,9 @@
                                     _0x52a62b["push"](_0x5c513b()), _0x33ddf5['a'] && _0x520f7d["push"](_0xddf7c4()), _0x520f7d["push"](_0x691604[_0x50695a[0x60]]), _0x520f7d["push"](_0x691604[_0x404143[0x68]]), _0x520f7d['push'](window[_0x312032[0x9]][_0x312032[0x6d]]), _0x33ddf5['j'] && (_0x18a449 = window[_0x312032[0x9]] ? [window[_0x312032[0x9]]["height"], window[_0x312032[0x9]]["width"]] : [_0x4b17e3[0x9], _0x4b17e3[0x9]], ("undefined" == typeof _0x18a449 ? "undefined" : _0x36c62a(_0x18a449)) !== _0x50695a[0x55] && _0x520f7d["push"](_0x18a449["join"](_0x404143[0x5b]))), _0x520f7d["push"](new Date()[_0x404143[0x51]]()), _0x520f7d["push"](_0x691604[_0x404143[0x4b]]), _0x520f7d["push"](_0x51c22b());
                                 }
 
-                                return _0x18a449 = [], _0x33ddf5['e'] ? (_0x18a449["push"](_0x33ddf5['e'](_0x52a62b['join'](_0x50695a[0x8b]))), _0x18a449['push'](_0x33ddf5['e'](_0x520f7d["join"](_0x50695a[0x8b])))) : (_0x18a449["push"](_0x41152a(_0x52a62b["join"](_0x50695a[0x8b]))), _0x18a449['push'](_0x41152a(_0x520f7d["join"](_0x50695a[0x8b])))), _0x18a449;
+                                res =  _0x18a449 = [], _0x33ddf5['e'] ? (_0x18a449["push"](_0x33ddf5['e'](_0x52a62b['join'](_0x50695a[0x8b]))), _0x18a449['push'](_0x33ddf5['e'](_0x520f7d["join"](_0x50695a[0x8b])))) : (_0x18a449["push"](_0x41152a(_0x52a62b["join"](_0x50695a[0x8b]))), _0x18a449['push'](_0x41152a(_0x520f7d["join"](_0x50695a[0x8b])))), _0x18a449;
+                                debugger
+                                return res;
                             };
                         }
 

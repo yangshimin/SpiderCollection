@@ -186,7 +186,8 @@ function fp() {
                     _0x47ceda = [];
 
                 try {
-                    _0x1f244a = _0x206d30["createElement"]("canvas"), _0x41e1bd = _0x1f244a["getContext"]("webgl") || _0x1f244a["getContext"]("experimental-webgl");
+                    _0x1f244a = _0x206d30["createElement"]("canvas"),
+                        _0x41e1bd = _0x1f244a["getContext"]("webgl") || _0x1f244a["getContext"]("experimental-webgl");
                 } catch (_0x4fbd98) {
                 }
 
@@ -368,7 +369,9 @@ function fp() {
                         _0xf23ad1 = !0x0;
                     }
 
-                    if (_0x52a62b["push"](_0xf23ad1), _0x52a62b["push"](!!window["indexedDB"]), _0x206d30["body"] ? _0x52a62b['push'](_0x36c62a(_0x206d30["body"]["addBehavior"])) : _0x52a62b["push"]("undefined"),
+                    if (_0x52a62b["push"](_0xf23ad1),
+                        _0x52a62b["push"](!!window["indexedDB"]),
+                        _0x206d30["body"] ? _0x52a62b['push'](_0x36c62a(_0x206d30["body"]["addBehavior"])) : _0x52a62b["push"]("undefined"),
                         _0x52a62b["push"](_0x36c62a(window["openDatabase"])),
                         _0x52a62b['push'](_0x691604["cpuClass"]),
                         _0x52a62b["push"](_0x691604["platform"]),

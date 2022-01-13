@@ -38,7 +38,7 @@ function convert(watchManJs){
                 let callEeArguments = expression.arguments;
                 // callEe为函数并且调用的时候参数为空 这里手动指定了替换的次数(需要自行判断，如果不这么做 碰见同名的变量或函数会出问题)
                 if (type.isFunctionExpression(callEe) && Array.isArray(callEeArguments) && this.opt.index <=2){
-                    console.log("[1]提取自执行函数body")
+                    // console.log("[1]提取自执行函数body")
                     path.replaceWithMultiple(callEe.body.body);
                     this.opt.index++;
                 }
@@ -75,7 +75,7 @@ function convert(watchManJs){
                         let parenPath = nodePath.parentPath;
                         let propertyValue = parenPath.node.property.value;
                         parenPath.replaceWith(type.valueToNode(elementsRealValue[propertyValue]))
-                        console.log("[2]字符串解密")
+                        // console.log("[2]字符串解密")
                     })
                 }
             })
@@ -89,7 +89,7 @@ function convert(watchManJs){
             let strValue = path.node.value;
             if (strValue === "Buffer"){
                 path.remove();
-                console.log("[3]删除检测项: ", strValue)
+                // console.log("[3]删除检测项: ", strValue)
                 path.stop();
             }
         }

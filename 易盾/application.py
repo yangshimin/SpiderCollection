@@ -286,11 +286,9 @@ class Application(object):
             logging.error("请求验证码验证失败")
 
     @staticmethod
-    def get_ac_token(watch_man_js, config_info, product_number, bid):
-        url = "http://127.0.0.1:8090/convert_watch_man"
+    def get_ac_token(product_number, bid):
+        url = "http://127.0.0.1:8090/getAc"
         data = {
-            "watch_man_js": watch_man_js,
-            "js_config_info": json.dumps(config_info),
             "productNumber": product_number,
             "bid": bid
         }
@@ -336,6 +334,19 @@ class Application(object):
         url = f"https://{js_config['s']}/{js_config['v']}/watchman.min.js"
         return self.save_download_file(url, "watchMan.js")
 
+    @staticmethod
+    def init_watchman(bid, pn, config_info, watch_man_js):
+        url = "http://127.0.0.1:8090/initWatchMan"
+        data = {
+            "watch_man_js": watch_man_js,
+            "js_config_info": json.dumps(config_info),
+            "productNumber": pn,
+            "bid": bid
+        }
+
+        res = requests.post(url, data=data)
+        return res.text
+
     def scheduler(self):
         load_min_js_url, pt_experience_captcha_drag_js_url = self.get_index()
         load_min_js = self.save_download_file(load_min_js_url, "load_min.js")
@@ -344,7 +355,13 @@ class Application(object):
         captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
         conf_infos = self.get_conf(captcha_id)
         js_config_infos = self.get_js_config()
+        bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
         watch_man_js_file = self.download_watch_man_js(js_config_infos)
+        is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
+                                              open(watch_man_js_file, 'r', encoding="utf-8").read())
+        if is_init_watchman != "ok":
+            logging.info("init watchman 失败")
+            return
         core_min_js = self.get_core_min_js(conf_infos)
         image_infos = self.get_image_info(captcha_id)
         if not image_infos:
@@ -364,10 +381,14 @@ class Application(object):
                                               func_argument=(track_data_decrypt, image_token, discern),
                                               is_func=True)
 
-        bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
-        ac_token = self.get_ac_token(open(watch_man_js_file, 'r', encoding="utf-8").read(),
-                                     js_config_infos, "YD20160637306799", bid)
-        # ac_token = "9ca17ae2e6ffcda170e2e6eea4f544f7b6fcdaf834a9bc8eb6c84e969f9eaeb57b92aec0d9e87daf909cd6b82af0feaec3b92ab79fa387fc7f9687a4a6f25e868f9fb2d14a8af1f9b2b53ff891fdb7d264f390ee9e"
+        ac_token = self.get_ac_token("YD20160637306799", bid)
+        print(ac_token)
+
+        # ac_token = requests.get('http://122.51.245.133:3011/ac', params={
+        #     'tid': 'NrZFRFkIGTpFRAFUFBZqqHNZTBxme0I0',
+        # }).text
+        # print(ac_token)
+        # ac_token = "9ca17ae2e6ffcda170e2e6eea8d85dbae98dd8b2608ebc8aa2d14f838e9b84f13e889682b9e862aeabbfd7ce2af0feaec3b92a8baafbd4f274bbb9bfa4c44a979b8ea2d54fa8aabab4e7529895b790d86091baee9e"
         if not ac_token:
             raise Exception("服务端没有返回ac_token")
         self.check(captcha_id, image_token, ac_token, track_decrypt_infos)

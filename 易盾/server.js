@@ -12,7 +12,7 @@ api.use(bodyParser.urlencoded({
     extended: false
 }));
 
-api.post('/convert_watch_man', function (req, res){
+api.post('/initWatchMan', function (req, res){
     let envCode = fs.readFileSync("env.js", {
         encoding: "utf-8"
     });
@@ -23,7 +23,7 @@ api.post('/convert_watch_man', function (req, res){
     let watch_file_path = req.body.watch_man_js;
     let config_info = JSON.parse(req.body.js_config_info);
     let product_number = req.body.productNumber;
-    let bid = req.body.bid;
+
     let convert_watch_man_code = convert(watch_file_path);
     let watchManExecuteCode = envCode + "\n" + convert_watch_man_code + "\n" + getAcTokenJs;
     // fs.writeFileSync("watchManExecute.js", watchManExecuteCode, {
@@ -35,17 +35,20 @@ api.post('/convert_watch_man', function (req, res){
     // })
 
     eval(watchManExecuteCode)
-    get_ac_token(config_info, product_number, bid)
+    initWatchMan(config_info, product_number);
+    res.send("ok")
+})
 
-    setTimeout(function(){
-        let ac_token = eval('window["acToken"]');
-        res.send(ac_token);
-    }, 3000);
-
+api.post("/getAc", function(req, res){
+    let pn = req.body.productNumber;
+    let bid = req.body.bid;
+    window['initWatchman']["__instances__"][pn].getToken(bid, function(e){window['acToken'] = e;console.log(e);}, 750)
+    sleep.sleep(2)
+    res.send(window['acToken'])
 })
 
 api.get('/get_fp', function(req, res){
-    let envCode = fs.readFileSync("env.js", {
+    let envCode = fs.readFileSync("fp_env.js", {
         encoding: "utf-8"
     });
     let fp_code = fs.readFileSync("get_fingerprint.js", {
