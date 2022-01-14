@@ -178,6 +178,9 @@ class Application(object):
             "zoneId": "CN31",
             "id": captcha_id,
             "fp": self.get_fp(),
+            # "fp": f"yBz2QLpT0phgXd9VtVQn2\\XflGnwkzJxxuQNRIb8xxWQ8A6TRr1caY/mUSyoG8am4LBvnIIaXf0IK6MDx\o\RCxV91czDhEi"
+            #       f"Oq/qbgMd2ot\7IN1hM0JLyzRQf1mGWD4cztsxVtA0zPVYYxHxvMJ+\mxSpjouwji"
+            #       f"qKdrCte9ulpuKIb:{int(time.time() * 1000)}",
             "https": "true",
             "type": "2",
             "version": "2.17.1",
@@ -355,13 +358,14 @@ class Application(object):
         captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
         conf_infos = self.get_conf(captcha_id)
         js_config_infos = self.get_js_config()
+        print(js_config_infos)
         bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
         watch_man_js_file = self.download_watch_man_js(js_config_infos)
-        is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
-                                              open(watch_man_js_file, 'r', encoding="utf-8").read())
-        if is_init_watchman != "ok":
-            logging.info("init watchman 失败")
-            return
+        # is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
+        #                                       open(watch_man_js_file, 'r', encoding="utf-8").read())
+        # if is_init_watchman != "ok":
+        #     logging.info("init watchman 失败")
+        #     return
         core_min_js = self.get_core_min_js(conf_infos)
         image_infos = self.get_image_info(captcha_id)
         if not image_infos:
@@ -381,14 +385,11 @@ class Application(object):
                                               func_argument=(track_data_decrypt, image_token, discern),
                                               is_func=True)
 
-        ac_token = self.get_ac_token("YD20160637306799", bid)
-        print(ac_token)
+        # ac_token = self.get_ac_token("YD20160637306799", bid)
 
-        # ac_token = requests.get('http://122.51.245.133:3011/ac', params={
-        #     'tid': 'hdzce5A3gmdEVFBQQQNqqCNO/ZpA+Q57',
-        # }).text
-        # print(ac_token)
-        # ac_token = "9ca17ae2e6ffcda170e2e6eea8d85dbae98dd8b2608ebc8aa2d14f838e9b84f13e889682b9e862aeabbfd7ce2af0feaec3b92a8baafbd4f274bbb9bfa4c44a979b8ea2d54fa8aabab4e7529895b790d86091baee9e"
+        # ac_token = "9ca17ae2e6ffcda170e2e6eeb8c880b7aeaa97fb4386928fb3c54e979f8fbbf47b9592bad6d85db0e7a484cc2af0feaec3b92a96bdb782d150a79fadd2d54f979a8aa6c44a8feafab8c97bb49bb7d3cc7f96ebee9e"
+        ac_token = input("输入ac_Token测试: ")
+        print(ac_token)
         if not ac_token:
             raise Exception("服务端没有返回ac_token")
         self.check(captcha_id, image_token, ac_token, track_decrypt_infos)

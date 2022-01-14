@@ -102,6 +102,59 @@ class PluginArray{
                 'description':"Portable Document Format",
                 'filename':"internal-pdf-viewer",
                 'length':2,
+                'name':"Chrome PDF Viewer",
+                "0":
+                    {
+                        'description':"Portable Document Format",
+                        'suffixes': "pdf",
+                        'type': "application/pdf",
+                        'enabledPlugin': {
+                            'description':"Portable Document Format",
+                            'filename':"internal-pdf-viewer",
+                            'length':2,
+                            'name':"Chrome PDF Viewer",
+                            "0":{
+                                'description':"Portable Document Format",
+                                "type":"application/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            },
+                            "1": {
+                                'description':"Portable Document Format",
+                                "type":"text/pdf",
+                                "suffixes":"pdf",
+                                "enabledPlugin":{},
+                            }
+                        }
+                    },
+                "1": {
+                    'description':"Portable Document Format",
+                    'suffixes': "pdf",
+                    'type': "text/pdf",
+                    'enabledPlugin': {
+                        'description':"Portable Document Format",
+                        'filename':"internal-pdf-viewer",
+                        'length':2,
+                        'name':"Chrome PDF Viewer",
+                        "0":{
+                            'description':"Portable Document Format",
+                            "type":"application/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        },
+                        "1": {
+                            'description':"Portable Document Format",
+                            "type":"text/pdf",
+                            "suffixes":"pdf",
+                            "enabledPlugin":{},
+                        }
+                    }
+                }
+            },
+            {
+                'description':"Portable Document Format",
+                'filename':"internal-pdf-viewer",
+                'length':2,
                 'name':"Chromium PDF Viewer",
                 "0":
                     {
@@ -242,59 +295,6 @@ class PluginArray{
                         'filename':"internal-pdf-viewer",
                         'length':2,
                         'name':"WebKit built-in PDF",
-                        "0":{
-                            'description':"Portable Document Format",
-                            "type":"application/pdf",
-                            "suffixes":"pdf",
-                            "enabledPlugin":{},
-                        },
-                        "1": {
-                            'description':"Portable Document Format",
-                            "type":"text/pdf",
-                            "suffixes":"pdf",
-                            "enabledPlugin":{},
-                        }
-                    }
-                }
-            },
-            {
-                'description':"Portable Document Format",
-                'filename':"internal-pdf-viewer",
-                'length':2,
-                'name':"Chrome PDF Viewer",
-                "0":
-                    {
-                        'description':"Portable Document Format",
-                        'suffixes': "pdf",
-                        'type': "application/pdf",
-                        'enabledPlugin': {
-                            'description':"Portable Document Format",
-                            'filename':"internal-pdf-viewer",
-                            'length':2,
-                            'name':"Chrome PDF Viewer",
-                            "0":{
-                                    'description':"Portable Document Format",
-                                    "type":"application/pdf",
-                                    "suffixes":"pdf",
-                                    "enabledPlugin":{},
-                                },
-                            "1": {
-                                'description':"Portable Document Format",
-                                "type":"text/pdf",
-                                "suffixes":"pdf",
-                                "enabledPlugin":{},
-                            }
-                        }
-                    },
-                "1": {
-                    'description':"Portable Document Format",
-                    'suffixes': "pdf",
-                    'type': "text/pdf",
-                    'enabledPlugin': {
-                        'description':"Portable Document Format",
-                        'filename':"internal-pdf-viewer",
-                        'length':2,
-                        'name':"Chrome PDF Viewer",
                         "0":{
                             'description':"Portable Document Format",
                             "type":"application/pdf",
