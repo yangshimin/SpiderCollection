@@ -30,6 +30,7 @@ api.post('/initWatchMan', function (req, res){
     //     encoding: "utf-8"
     // });
 
+    console.log("start init watchman")
     let watchManExecuteCode = fs.readFileSync("watchManExecute.js", {
         encoding: "utf-8"
     })
@@ -51,7 +52,7 @@ api.post("/getAc", function(req, res){
 })
 
 api.get('/get_fp', function(req, res){
-    let envCode = fs.readFileSync("env.js", {
+    let envCode = fs.readFileSync("fp_env.js", {
         encoding: "utf-8"
     });
     let fp_code = fs.readFileSync("get_fingerprint.js", {

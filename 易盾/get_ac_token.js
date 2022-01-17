@@ -62,14 +62,14 @@ function initWatchMan(l, productNumber, bid) {
     }
 
     window['initWatchman']["__instances__"][pn] = M(new window.window['Watchman'](u));
-    for (var infoIndex = 0; infoIndex < trace_info.length; infoIndex++) {
-        let dtaEvent = trace_info[infoIndex]
-        window.dispatchEvent(dtaEvent);
-        sleep.msleep(15);
-    }
 }
 
 function get_ac_token(pn, bid){
+    for (var infoIndex = 0; infoIndex < trace_info2.length; infoIndex++) {
+        let dtaEvent = trace_info2[infoIndex]
+        window.dispatchEvent(dtaEvent);
+        sleep.msleep(15);
+    }
     pn = pn || "YD20160637306799";
     bid = bid || "07e2387ab53a4d6f930b8d9a9be71bdf";
     window['initWatchman']["__instances__"][pn].getToken(bid, function(e){window['acToken'] = e;console.log(e);}, 750)

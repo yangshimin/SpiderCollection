@@ -171,7 +171,7 @@ class Application(object):
         res = requests.get(url)
         return res.text
 
-    def get_image_info(self, captcha_id):
+    def get_image_info(self, captcha_id, token=None):
         url = "https://c.dun.163.com/api/v2/get"
         params = {
             "referer": self.index_url,
@@ -194,7 +194,7 @@ class Application(object):
             "lang": "zh-CN",
             "width": "320",
             "audio": "false",
-            "token": "",
+            "token": token if token else "",
             "callback": f"__JSONP_{self.execute_js('Math.random().toString(0x24).slice(0x2, 0x9)')}_0",
         }
         headers = {
@@ -284,7 +284,9 @@ class Application(object):
         res = self.session.get(url, params=params, headers=headers)
         if res.status_code == 200:
             logging.info("请求验证码验证成功")
-            print(res.text)
+            check_info_pattern = re.search(r'(\{"data".*\})', res.text)
+            if check_info_pattern:
+                return json.loads(check_info_pattern.group(1))
         else:
             logging.error("请求验证码验证失败")
 
@@ -360,39 +362,45 @@ class Application(object):
         js_config_infos = self.get_js_config()
         print(js_config_infos)
         bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
-        watch_man_js_file = self.download_watch_man_js(js_config_infos)
+        # watch_man_js_file = self.download_watch_man_js(js_config_infos)
         # is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
         #                                       open(watch_man_js_file, 'r', encoding="utf-8").read())
         # if is_init_watchman != "ok":
         #     logging.info("init watchman 失败")
         #     return
         core_min_js = self.get_core_min_js(conf_infos)
-        image_infos = self.get_image_info(captcha_id)
-        if not image_infos:
-            logging.error("请求图片信息失败")
-        discern = self.get_slide_offset(image_infos)
-        track_data = self.get_track_data(discern)
-        image_token = image_infos.get("data", {}).get("token")
-        track_data_decrypt = []
-        js_code = open(os.path.join(os.getcwd(), 'getCallBack.js'), 'r', encoding="utf-8").read()
-        for track in track_data:
-            decrypt_data = self.execute_js(js_code, func_name='track_decrypt',
-                                           func_argument=(image_token, ",".join([str(d) for d in track])),
-                                           is_func=True)
-            track_data_decrypt.append(decrypt_data)
 
-        track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
-                                              func_argument=(track_data_decrypt, image_token, discern),
-                                              is_func=True)
+        while True:
+            token = ""
 
-        # ac_token = self.get_ac_token("YD20160637306799", bid)
+            image_infos = self.get_image_info(captcha_id, token=token)
+            if not image_infos:
+                logging.error("请求图片信息失败")
+            discern = self.get_slide_offset(image_infos)
+            track_data = self.get_track_data(discern)
+            image_token = image_infos.get("data", {}).get("token")
+            track_data_decrypt = []
+            js_code = open(os.path.join(os.getcwd(), 'getCallBack.js'), 'r', encoding="utf-8").read()
+            for track in track_data:
+                decrypt_data = self.execute_js(js_code, func_name='track_decrypt',
+                                               func_argument=(image_token, ",".join([str(d) for d in track])),
+                                               is_func=True)
+                track_data_decrypt.append(decrypt_data)
 
-        # ac_token = "9ca17ae2e6ffcda170e2e6eeb8c880b7aeaa97fb4386928fb3c54e979f8fbbf47b9592bad6d85db0e7a484cc2af0feaec3b92a96bdb782d150a79fadd2d54f979a8aa6c44a8feafab8c97bb49bb7d3cc7f96ebee9e"
-        ac_token = input("输入ac_Token测试: ")
-        print(ac_token)
-        if not ac_token:
-            raise Exception("服务端没有返回ac_token")
-        self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
+            track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
+                                                  func_argument=(track_data_decrypt, image_token, discern),
+                                                  is_func=True)
+
+            time.sleep(2)
+            ac_token = self.get_ac_token("YD20160637306799", bid)
+            print(ac_token)
+            if not ac_token:
+                raise Exception("服务端没有返回ac_token")
+            check_info = self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
+            print(check_info)
+            if check_info.get("data", {}).get("result") is True:
+                break
+            token = check_info["data"]["token"]
 
 
 if __name__ == "__main__":
