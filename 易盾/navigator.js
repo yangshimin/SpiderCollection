@@ -47,7 +47,7 @@ Object.defineProperty(p,'onlevelchange',{get: ()=> null});
 let navigatorProperties = {
     appCodeName: "Mozilla",
     appName: "Netscape",
-    appVersion: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+    appVersion: "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
     bluetooth: {},
     clipboard: {},
     connection: {downlink: 10, effectiveType: "4g", onchange: null, rtt: 250, saveData: false},
@@ -80,7 +80,7 @@ let navigatorProperties = {
     storage: {},
     usb: {},
     userActivation: {},
-    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
     userAgentData: {},
     vendor: "Google Inc.",
     vendorSub: "",
