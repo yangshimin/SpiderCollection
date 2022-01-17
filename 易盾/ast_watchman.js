@@ -95,51 +95,51 @@ function convert(watchManJs){
     })
 
     // 替换掉createOscillator的步骤中调用不存在的方法的语句: k["reduction"] && (k["reduction"]["value"] = -20);
-    new_ast = parser.parse(generator(new_ast).code);
-    traverse(new_ast, {
-        ExpressionStatement(path){
-            let expression = path.node.expression;
-            if (!type.isLogicalExpression(expression)) return;
-            let leftValue = expression.left;
-            if (!leftValue || !type.isMemberExpression(leftValue)) return;
-            if (type.isStringLiteral(leftValue.property) && leftValue.property.value === "reduction"){
-                path.remove();
-            }
-        }
-    })
+    // new_ast = parser.parse(generator(new_ast).code);
+    // traverse(new_ast, {
+    //     ExpressionStatement(path){
+    //         let expression = path.node.expression;
+    //         if (!type.isLogicalExpression(expression)) return;
+    //         let leftValue = expression.left;
+    //         if (!leftValue || !type.isMemberExpression(leftValue)) return;
+    //         if (type.isStringLiteral(leftValue.property) && leftValue.property.value === "reduction"){
+    //             path.remove();
+    //         }
+    //     }
+    // })
 
     // 用固定的值替换createOscillator的计算结果
-    new_ast = parser.parse(generator(new_ast).code);
-    traverse(new_ast, {
-        MemberExpression(path){
-            let property = path.node.property;
-            if (!property) return;
-            if (property.value === "renderedBuffer"){
-                let parentPath = path.parentPath;
-                while (parentPath.type !== 'VariableDeclaration'){
-                    parentPath = parentPath.parentPath;
-                }
-                let declarations = parentPath.node.declarations;
-                if (!declarations) return;
-                let identifierName = declarations[0].id;
-                let newVar = type.variableDeclaration('var',
-                    [type.variableDeclarator(identifierName, type.stringLiteral("902f0fe98719b779ea37f27528dfb0aa"))]);
-                parentPath.replaceWith(newVar)
-            }
-        }
-    })
+    // new_ast = parser.parse(generator(new_ast).code);
+    // traverse(new_ast, {
+    //     MemberExpression(path){
+    //         let property = path.node.property;
+    //         if (!property) return;
+    //         if (property.value === "renderedBuffer"){
+    //             let parentPath = path.parentPath;
+    //             while (parentPath.type !== 'VariableDeclaration'){
+    //                 parentPath = parentPath.parentPath;
+    //             }
+    //             let declarations = parentPath.node.declarations;
+    //             if (!declarations) return;
+    //             let identifierName = declarations[0].id;
+    //             let newVar = type.variableDeclaration('var',
+    //                 [type.variableDeclarator(identifierName, type.stringLiteral("902f0fe98719b779ea37f27528dfb0aa"))]);
+    //             parentPath.replaceWith(newVar)
+    //         }
+    //     }
+    // })
 
 
     code = generator(new_ast).code
-    fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result_v3.js", code);
-    // return code
+    // fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result_v3.js", code);
+    return code
 }
 
 
-const js_code = fs.readFileSync('static\\watchMan.js', {
-    encoding: "utf-8"
-});
-convert(js_code)
-// module.exports = {
-//     convert
-// }
+// const js_code = fs.readFileSync('static\\watchMan.js', {
+//     encoding: "utf-8"
+// });
+// convert(js_code)
+module.exports = {
+    convert
+}

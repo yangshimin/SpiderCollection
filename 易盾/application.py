@@ -362,12 +362,12 @@ class Application(object):
         js_config_infos = self.get_js_config()
         print(js_config_infos)
         bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
-        # watch_man_js_file = self.download_watch_man_js(js_config_infos)
-        # is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
-        #                                       open(watch_man_js_file, 'r', encoding="utf-8").read())
-        # if is_init_watchman != "ok":
-        #     logging.info("init watchman 失败")
-        #     return
+        watch_man_js_file = self.download_watch_man_js(js_config_infos)
+        is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
+                                              open(watch_man_js_file, 'r', encoding="utf-8").read())
+        if is_init_watchman != "ok":
+            logging.info("init watchman 失败")
+            return
         core_min_js = self.get_core_min_js(conf_infos)
 
         while True:
