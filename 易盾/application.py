@@ -391,7 +391,7 @@ class Application(object):
                                                   func_argument=(track_data_decrypt, image_token, discern),
                                                   is_func=True)
 
-            time.sleep(2)
+            # ac_token = "9ca17ae2e6ffcda170e2e6eeaac55d83b6b8d5c53a96e78ea6c84b839a9b85b67b81a70089d443bbbe9799b62af0feaec3b92a9586f9d0b16e8795aad7e65b838a8ba6d85e8eaee5a4f93cb58a8795ae34959fee9e"
             ac_token = self.get_ac_token("YD20160637306799", bid)
             print(ac_token)
             if not ac_token:
