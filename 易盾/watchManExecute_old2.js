@@ -178,7 +178,7 @@ document.getElementsByTagName = function (tag) {
     }else if (tag.toLowerCase() === "input"){
         return new Array(10).fill({})
     }else if (tag.toLowerCase() === "script"){
-        let scriptArray = new Array(30).fill({});
+        let scriptArray = new Array(28).fill({});
         scriptArray.push({"src": 'https://acstatic-dun.126.net/tool.min.js'})
         return scriptArray;
     }
@@ -675,7 +675,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
         g = [];
 
     try {
-      Object.keys(e).forEach(function (a) {
+      va(Object.keys(e)).forEach(function (a) {
         var d = e[a].f();
         "";
           console.log("check key : " + a + " check result is:" + d);
@@ -709,9 +709,9 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
           g = Ya[a].Fa;
       d.jc = a;
       ca[a].a !== d.a || N(d) !== "object" || e && (e === Jb && !v || e === Za && !m || e === Kb && !l) || (d.Ga = g ? d.f : function (a) {
-          e_res = d.f();
-          console.log("check key : " + d.jc + "; check result is: " + e_res);
-          return a(e_res);
+          f_res = d.f();
+          console.log("check key : " + d.jc + "; check result is: " + f_res);
+          return a(f_res);
       }, Wa.push(d));
     });
     Wa.forEach(function (d) {
@@ -817,13 +817,13 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
         v = {
       Xb: "200",
       Gb: Gc(),
-      yb: "3844f0503df640809c6ed0e6fea4e27a",    // ab(): 模式匹配随机值: 3844f0503df640809c6ed0e6fea4e27a
-      Pb: 1642499450, // Hc(J() + (D["state"].wa || 0)): 时间戳
+      yb: ab(),
+      Pb: Hc(J() + (D["state"].wa || 0)),
       Ka: Ic,
       La: t,
-      Ia: "Mu67SZ6RfTNEFAUBARN6uXyxh8RowZsL", // m: 随机值
-      Ub: "D8egaluwZrFAFUBRQFN+/T3gk9Q9hzvi",  // e: d包的第3个值
-      Ya: "ZhljHNPPwvVARAUFERM76G30woR4gyvz",  // g: d包的第4个值
+      Ia: m,
+      Ub: e,
+      Ya: g,
       Fb: d,
       Sa: Jc,
       Ta: Kc,
@@ -832,8 +832,8 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       Wa: Mc
     },
         l = [];
-      console.log("开始执行$a函数, 对象结果是: ", v);
-    Object.keys(v).forEach(function (d) {
+      console.log("开始执行$a函数");
+    va(Object.keys(v)).forEach(function (d) {
       N(v[d]) !== "undefined" && (ca[d].c >= 800 && ca[d].c <= 804 && (v[d] = Nc(v[d])), "", l.push.apply(l, wa(v[d], ca[d])));
     });
       console.log("$a 函数执行完毕")
@@ -886,7 +886,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
 
         try {
           d = JSON["parse"]((g["responseText"] || "").match(e)[1] || "");
-          console.log(g["responseText"])
+          console.log(g["responseText"]);
         } catch (m) {}
 
         d ? p(d) : h(Error("Response is empty"));
@@ -1881,6 +1881,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       h["threshold"] && (h["threshold"]["value"] = -50);
       h["knee"] && (h["knee"]["value"] = 40);
       h["ratio"] && (h["ratio"]["value"] = 12);
+      // h["reduction"] && (h["reduction"]["value"] = -20);
       h["attack"] && (h["attack"]["value"] = 0);
       h["release"] && (h["release"]["value"] = 0.25);
       m["connect"](h);
@@ -2608,7 +2609,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     state: {
       options: {},
       wa: 0,
-      $: new Proxy([0, 0, 0, 0, 0, 0], getObjhandler("STATE $"))
+      $: [0, 0, 0, 0, 0, 0]
     },
     ac: ba,
     tc: Ra
@@ -3429,12 +3430,13 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       Ib = !1,
       Sa = /./;
 
+  console.log("准备执行Sa.toString操作")
   try {
     Sa.toString = function () {
         console.log("执行了Sa.toString操作");
       return Sa.wc = !0;
     }, console.log("%c", Sa);
-  } catch (td) {}
+  } catch (td) {console.log("error td: ", td)}
 
   var Gb = {
     ib: {
@@ -4096,17 +4098,16 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     this.h.Cc = J() - p;
     this.h.S = J();
     var u = this.h.C = bc();
-    console.log("随机值是: ", u)
 
     if (!~r.indexOf(d)) {
       this.h.la = d;
       D.j(oa, this.h);
       var w = this;
       d = $a();
-      console.log("$a 的计算值是: ", d);
-      window['request_d_$a'] = d;
-      var x = ka(this.M.I, 4, this.M)(),
-          z = Fb();
+        var x = ka(this.M.I, 4, this.M)();
+        z = Fb();
+      // var x = ka(this.M.I, 4, this.M)(),
+      //     z = Fb();
       "";
       "";
       "";
@@ -4217,16 +4218,16 @@ function get_ac_token(pn, bid){
     window['initWatchman']["__instances__"][pn].getToken(bid, function(e){window['acToken'] = e;console.log(e);}, 750)
 }
 
-initWatchMan({
-    's': 'acstatic-dun.126.net',
-    'v': '2.7.1_7c08033d',
-    'luv': '2.7.1_a02527b8',
-    'as': 'ac.dun.163yun.com',
-    'ivp': 300000,
-    'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
-    'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
-    'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
-    'cvk': 'e83a009874ccd095e6a37c43ad1c5b4f'
-})
-
-get_ac_token()
+// initWatchMan({
+//     's': 'acstatic-dun.126.net',
+//     'v': '2.7.3_eb045ea7',
+//     'luv': '2.7.1_7c08033d',
+//     'as': 'ac.dun.163yun.com',
+//     'ivp': 300000,
+//     'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
+//     'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
+//     'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
+//     'cvk': '2c492abe0532265928ae77e8513e6066'
+// })
+//
+// get_ac_token()

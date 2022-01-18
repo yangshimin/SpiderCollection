@@ -157,7 +157,6 @@ var document_documentElement_custom_properties = {
 function documentElementHand(watchName){
     let handler = {
         get: function (obj, prop) {
-            console.log(`[${watchName}] setting propKey is [${getPrintShow(prop)}]`);
             if (prop in document_documentElement_custom_properties){
                 return document_documentElement_custom_properties[prop]
             }

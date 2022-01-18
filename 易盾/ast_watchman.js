@@ -95,18 +95,18 @@ function convert(watchManJs){
     })
 
     // 替换掉createOscillator的步骤中调用不存在的方法的语句: k["reduction"] && (k["reduction"]["value"] = -20);
-    // new_ast = parser.parse(generator(new_ast).code);
-    // traverse(new_ast, {
-    //     ExpressionStatement(path){
-    //         let expression = path.node.expression;
-    //         if (!type.isLogicalExpression(expression)) return;
-    //         let leftValue = expression.left;
-    //         if (!leftValue || !type.isMemberExpression(leftValue)) return;
-    //         if (type.isStringLiteral(leftValue.property) && leftValue.property.value === "reduction"){
-    //             path.remove();
-    //         }
-    //     }
-    // })
+    new_ast = parser.parse(generator(new_ast).code);
+    traverse(new_ast, {
+        ExpressionStatement(path){
+            let expression = path.node.expression;
+            if (!type.isLogicalExpression(expression)) return;
+            let leftValue = expression.left;
+            if (!leftValue || !type.isMemberExpression(leftValue)) return;
+            if (type.isStringLiteral(leftValue.property) && leftValue.property.value === "reduction"){
+                path.remove();
+            }
+        }
+    })
 
     // 用固定的值替换createOscillator的计算结果
     // new_ast = parser.parse(generator(new_ast).code);
