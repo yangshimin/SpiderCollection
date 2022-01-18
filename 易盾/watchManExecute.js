@@ -817,13 +817,13 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
         v = {
       Xb: "200",
       Gb: Gc(),
-      yb: "3844f0503df640809c6ed0e6fea4e27a",    // ab(): 模式匹配随机值: 3844f0503df640809c6ed0e6fea4e27a
-      Pb: 1642499450, // Hc(J() + (D["state"].wa || 0)): 时间戳
+      yb: ab(),
+      Pb: Hc(J() + (D["state"].wa || 0)),
       Ka: Ic,
       La: t,
-      Ia: "Mu67SZ6RfTNEFAUBARN6uXyxh8RowZsL", // m: 随机值
-      Ub: "D8egaluwZrFAFUBRQFN+/T3gk9Q9hzvi",  // e: d包的第3个值
-      Ya: "ZhljHNPPwvVARAUFERM76G30woR4gyvz",  // g: d包的第4个值
+      Ia: m,
+      Ub: e,
+      Ya: g,
       Fb: d,
       Sa: Jc,
       Ta: Kc,
@@ -832,11 +832,14 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       Wa: Mc
     },
         l = [];
-      console.log("开始执行$a函数, 对象结果是: ", v);
+    console.log(v);
     Object.keys(v).forEach(function (d) {
-      N(v[d]) !== "undefined" && (ca[d].c >= 800 && ca[d].c <= 804 && (v[d] = Nc(v[d])), "", l.push.apply(l, wa(v[d], ca[d])));
+      N(v[d]) !== "undefined" && (ca[d].c >= 800 && ca[d].c <= 804 && (v[d] = Nc(v[d])), "",
+          console.log("d key is: " + d + " d value is: " + v[d]),
+          l.push.apply(l, wa(v[d], ca[d])));
     });
       console.log("$a 函数执行完毕")
+      console.log("开始执行$a函数, 对象结果是: ", v);
     return l;
   }
 
