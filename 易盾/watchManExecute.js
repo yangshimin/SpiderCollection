@@ -36,8 +36,8 @@ var sleep = require('sleep');
 var dtaEventTarget = require('./simpleEventTarget').EventTarget;
 
 var xml_http_request = require('xhr2');
-var XMLHttpRequest = xml_http_request.XMLHttpRequest;
-XMLHttpRequest.prototype.withCredentials = true;
+// var XMLHttpRequest = xml_http_request.XMLHttpRequest;
+// XMLHttpRequest.prototype.withCredentials = true;
 
 var openDatabase = require('websql');
 var navigator = require("./navigator").navigator;
@@ -81,6 +81,7 @@ const dom = new JSDOM(index_code, {
     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0",
 });
 
+XMLHttpRequest = dom.window.XMLHttpRequest;
 global.window = global;
 var Window = function () {
 };
@@ -245,7 +246,7 @@ window.performance = {
     "onresourcetimingbufferfull": null,
     "timeOrigin": "",
     "timing": {
-        responseStart: 172,
+        responseStart: 60,
         requestStart: 4,
         responseEnd: 174,
         fetchStart: 0
@@ -399,10 +400,11 @@ function getObjhandler(WatchName) {
     return handler;
 }
 
-navigator = new Proxy(Object.create(navigator), getObjhandler("navigator"));
-location = new Proxy(location, getObjhandler("location"));
-document = new Proxy(document, getObjhandler("document"));
-window = new Proxy(Object.assign(global, window), getObjhandler("window"));
+// navigator = new Proxy(Object.create(navigator), getObjhandler("navigator"));
+// location = new Proxy(location, getObjhandler("location"));
+// document = new Proxy(document, getObjhandler("document"));
+// window = new Proxy(Object.assign(global, window), getObjhandler("window"));
+
 (function () {
   function f(d) {
     void 0 === d && (d = {});
@@ -678,7 +680,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       Object.keys(e).forEach(function (a) {
         var d = e[a].f();
         "";
-          console.log("check key : " + a + " check result is:" + d);
+          // console.log("check key : " + a + " check result is:" + d);
         g.push.apply(g, wa(d, ca[a]));
       });
     } catch (b) {}
@@ -710,7 +712,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       d.jc = a;
       ca[a].a !== d.a || N(d) !== "object" || e && (e === Jb && !v || e === Za && !m || e === Kb && !l) || (d.Ga = g ? d.f : function (a) {
           e_res = d.f();
-          console.log("check key : " + d.jc + "; check result is: " + e_res);
+          // console.log("check key : " + d.jc + "; check result is: " + e_res);
           return a(e_res);
       }, Wa.push(d));
     });
@@ -832,14 +834,11 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       Wa: Mc
     },
         l = [];
-    console.log(v);
     Object.keys(v).forEach(function (d) {
       N(v[d]) !== "undefined" && (ca[d].c >= 800 && ca[d].c <= 804 && (v[d] = Nc(v[d])), "",
-          console.log("d key is: " + d + " d value is: " + v[d]),
           l.push.apply(l, wa(v[d], ca[d])));
     });
-      console.log("$a 函数执行完毕")
-      console.log("开始执行$a函数, 对象结果是: ", v);
+      // console.log("$a 函数执行完毕")
     return l;
   }
 
@@ -2546,12 +2545,18 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
         var c = d[0],
             e = d[1],
             k = d[2];
-        c === 200 || c === 420 ? (k && f(ub, {
-          domain: h,
-          id: k
-        }), c === 420 && e && f(vb, e), g(null, d)) : c === 470 ? g(null, d) : g(new U(U.K, "behavior api response wrong", {
-          url: l
-        }));
+        if (c === 200 || c === 420){
+            (k && f(ub, {
+                domain: h,
+                id: k
+            }), c === 420 && e && f(vb, e), g(null, d))
+        }else if (c === 470){
+            g(null, d)
+        }else{
+            g(new U(U.K, "behavior api response wrong", {
+                url: l
+            }))
+        }
       },
       U: function (a) {
         void 0 === a && (a = {});
@@ -3434,7 +3439,6 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
 
   try {
     Sa.toString = function () {
-        console.log("执行了Sa.toString操作");
       return Sa.wc = !0;
     }, console.log("%c", Sa);
   } catch (td) {}
@@ -3784,6 +3788,7 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       });
     });
     this.A();
+    // console.log("替换轨迹");
     return c;
   };
 
@@ -3942,7 +3947,9 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
       return typeof b === "number" && isFinite(b) ? b : -1;
     }(n ? l : p));
     "";
-    this.g.push(wa(f, ca["_battery"]));
+    battery_res = wa(f, ca["_battery"])
+    // console.log("navigator battery 生成的数组是: ", battery_res)
+    this.g.push(battery_res);
   };
 
   pa.prototype.I = function () {
@@ -4085,7 +4092,10 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     }
 
     function q() {
-      y || (ga(A), console.log("\u8D85\u65F6\u4E86"), y = w.h.pc = !0, D.j(oa, w.h), e(dc({
+      y || (ga(A), console.log("\u8D85\u65F6\u4E86"),
+          y = w.h.pc = !0,
+          D.j(oa, w.h),
+          e(dc({
         C: u,
         ka: y
       })));
@@ -4099,15 +4109,16 @@ window = new Proxy(Object.assign(global, window), getObjhandler("window"));
     this.h.Cc = J() - p;
     this.h.S = J();
     var u = this.h.C = bc();
-    console.log("随机值是: ", u)
+    // console.log("随机值是: ", u)
 
     if (!~r.indexOf(d)) {
       this.h.la = d;
       D.j(oa, this.h);
       var w = this;
       d = $a();
-      console.log("$a 的计算值是: ", d);
-      window['request_d_$a'] = d;
+      //   fs.writeFileSync("d$a.js", JSON.stringify(d), {
+      //       encoding: "utf-8"
+      //   });
       var x = ka(this.M.I, 4, this.M)(),
           z = Fb();
       "";
@@ -4212,24 +4223,25 @@ function initWatchMan(l, productNumber, bid) {
 function get_ac_token(pn, bid){
     for (var infoIndex = 0; infoIndex < trace_info2.length; infoIndex++) {
         let dtaEvent = trace_info2[infoIndex]
+        sleep.msleep(2)
         window.dispatchEvent(dtaEvent);
-        sleep.msleep(15);
     }
     pn = pn || "YD20160637306799";
     bid = bid || "07e2387ab53a4d6f930b8d9a9be71bdf";
     window['initWatchman']["__instances__"][pn].getToken(bid, function(e){window['acToken'] = e;console.log(e);}, 750)
 }
 
-initWatchMan({
-    's': 'acstatic-dun.126.net',
-    'v': '2.7.1_7c08033d',
-    'luv': '2.7.1_a02527b8',
-    'as': 'ac.dun.163yun.com',
-    'ivp': 300000,
-    'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
-    'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
-    'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
-    'cvk': 'e83a009874ccd095e6a37c43ad1c5b4f'
-})
+// initWatchMan({
+//     's': 'acstatic-dun.126.net',
+//     'v': '2.7.1_7c08033d',
+//     'luv': '2.7.1_a02527b8',
+//     'as': 'ac.dun.163yun.com',
+//     'ivp': 300000,
+//     'conf': '9ca170a1abeedba16ba1f2ac96ed26f3eafdcfe265aff1bad3ae70e2f4ee83e27fe2e6ee82e226a8aba2cfb43ef1f2ad90f025b6eee183a128e2bca4c3b92ae2f4ee8ee867e2e6fbd1af2aafbba7c3b939f4f0e4c3e26faffef6d3b328e2bdab8aa132f1f000cda161a7b3eedbb43cf0fea586ec2afaed00d1af2aa6bba3c3b93af4f4ee87e863e2e6fdd1b328e2adab8ea132f2f0e4c3f26fabfef6d4b33cf0feab8be270e2e6aa82ef79a7f4ee86e579e2e6aa82ef79a7f4ee86f679e2e6aa82ef79a7f4ee93e880e2e6ffcda169afb2eedbb128e2bda7c3b93bf4f0e4c3ee80a7b3eedbb83cf0fea195e863e2e6fdd1b328e2b3bc86f02afaeb00cda167b8bba7c3b939f4f0e4c3f366e2e6eebac73af4effad1b539f5ed00d7b633fbfee4c3e870a1fef695f17fa7f4ee83ef2afafeeecda163b6b0eedbb23cf4f000d1af2aa8acba91a132fceafcd1b33cf4f0e4c3f780adfef6d3b33cf4f4ee86e47fe2e6aa82ef79a7f4ee82e780e2e6fbd1af2aa7acadc3b96ea3b4bd86af2ab8bdbcc3b93cbf',
+//     'ass': ['ac.dun.163.com', 'ac.dun.163yun.com'],
+//     'ss': ['acstatic-dun.126.net', 'acstatic.dun.163yun.com'],
+//     'cvk': 'e83a009874ccd095e6a37c43ad1c5b4f'
+// })
+//
+// get_ac_token()
 
-get_ac_token()

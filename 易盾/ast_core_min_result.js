@@ -3718,6 +3718,7 @@
                             'dragX': _0x406b33 - _0x2e2783["startX"]
                         });
 
+                        debugger;
                         var _0x2ba971 = this["$store"]["state"]["token"],
                             _0x56b9b8 = _0x5debee(_0x2ba971,
                                 [Math['round'](_0x2e2783["dragX"] < 0x0 ? 0x0 : _0x2e2783["dragX"]),
@@ -5137,6 +5138,7 @@
                 _0xe942f8 = arguments["length"] > 0x1 && void 0x0 !== arguments[0x1] ? arguments[0x1] : 0x3,
                 _0x2982f5 = this["_captchaConf"],
                 _0x523255 = new _0x2e3108(function (_0x552449) {
+                    debugger;
                     var _0x1c2a71 = function _0x173fce() {
                         var _0x4f670d = arguments['length'] > 0x0 && void 0x0 !== arguments[0x0] ? arguments[0x0] : 0x0,
                             _0x4e2e01 = null,
@@ -5145,6 +5147,7 @@
                                     return _0x173fce(_0x4f670d + 0x1);
                                 }, 0xc8);
                                 else {
+                                    debugger
                                     var _0x256e38 = new _0x1453ec(_0x3a870f, _0x202a5e["message"] + ";initWatchman: " + _0x13f467['typeOf'](window["initWatchman"]) + ";Watchman: " + _0x13f467['typeOf'](window['Watchman']));
 
                                     _0x13249f["_captchaCollector"]["collectErr"](_0x256e38), _0x552449(_0x2982f5["acConfig"]["token"] || '');
@@ -8598,7 +8601,6 @@
                                 }
 
                                 res =  _0x18a449 = [], _0x33ddf5['e'] ? (_0x18a449["push"](_0x33ddf5['e'](_0x52a62b['join'](_0x50695a[0x8b]))), _0x18a449['push'](_0x33ddf5['e'](_0x520f7d["join"](_0x50695a[0x8b])))) : (_0x18a449["push"](_0x41152a(_0x52a62b["join"](_0x50695a[0x8b]))), _0x18a449['push'](_0x41152a(_0x520f7d["join"](_0x50695a[0x8b])))), _0x18a449;
-                                debugger
                                 return res;
                             };
                         }
