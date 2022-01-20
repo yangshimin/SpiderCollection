@@ -353,54 +353,55 @@ class Application(object):
         return res.text
 
     def scheduler(self):
-        load_min_js_url, pt_experience_captcha_drag_js_url = self.get_index()
-        load_min_js = self.save_download_file(load_min_js_url, "load_min.js")
-        pt_experience_captcha_drag_js_file = self.save_download_file(pt_experience_captcha_drag_js_url,
-                                                                     "captcha_drag_js.js")
-        captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
-        conf_infos = self.get_conf(captcha_id)
-        js_config_infos = self.get_js_config()
-        print(js_config_infos)
-        bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
-        watch_man_js_file = self.download_watch_man_js(js_config_infos)
-        is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
-                                              open(watch_man_js_file, 'r', encoding="utf-8").read())
-        if is_init_watchman != "ok":
-            logging.info("init watchman 失败")
-            return
-        core_min_js = self.get_core_min_js(conf_infos)
+        for i in range(10):
+            load_min_js_url, pt_experience_captcha_drag_js_url = self.get_index()
+            load_min_js = self.save_download_file(load_min_js_url, "load_min.js")
+            pt_experience_captcha_drag_js_file = self.save_download_file(pt_experience_captcha_drag_js_url,
+                                                                         "captcha_drag_js.js")
+            captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
+            conf_infos = self.get_conf(captcha_id)
+            js_config_infos = self.get_js_config()
+            print(js_config_infos)
+            bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
+            watch_man_js_file = self.download_watch_man_js(js_config_infos)
+            is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,
+                                                  open(watch_man_js_file, 'r', encoding="utf-8").read())
+            if is_init_watchman != "ok":
+                logging.info("init watchman 失败")
+                return
+            core_min_js = self.get_core_min_js(conf_infos)
 
-        while True:
-            token = ""
+            while True:
+                token = ""
 
-            image_infos = self.get_image_info(captcha_id, token=token)
-            if not image_infos:
-                logging.error("请求图片信息失败")
-            discern = self.get_slide_offset(image_infos)
-            track_data = self.get_track_data(discern)
-            image_token = image_infos.get("data", {}).get("token")
-            track_data_decrypt = []
-            js_code = open(os.path.join(os.getcwd(), 'getCallBack.js'), 'r', encoding="utf-8").read()
-            for track in track_data:
-                decrypt_data = self.execute_js(js_code, func_name='track_decrypt',
-                                               func_argument=(image_token, ",".join([str(d) for d in track])),
-                                               is_func=True)
-                track_data_decrypt.append(decrypt_data)
+                image_infos = self.get_image_info(captcha_id, token=token)
+                if not image_infos:
+                    logging.error("请求图片信息失败")
+                discern = self.get_slide_offset(image_infos)
+                track_data = self.get_track_data(discern)
+                image_token = image_infos.get("data", {}).get("token")
+                track_data_decrypt = []
+                js_code = open(os.path.join(os.getcwd(), 'getCallBack.js'), 'r', encoding="utf-8").read()
+                for track in track_data:
+                    decrypt_data = self.execute_js(js_code, func_name='track_decrypt',
+                                                   func_argument=(image_token, ",".join([str(d) for d in track])),
+                                                   is_func=True)
+                    track_data_decrypt.append(decrypt_data)
 
-            track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
-                                                  func_argument=(track_data_decrypt, image_token, discern),
-                                                  is_func=True)
+                track_decrypt_infos = self.execute_js(js_code, func_name='get_track_post_data',
+                                                      func_argument=(track_data_decrypt, image_token, discern),
+                                                      is_func=True)
 
-            # ac_token = "9ca17ae2e6ffcda170e2e6eeaac55d83b6b8d5c53a96e78ea6c84b839a9b85b67b81a70089d443bbbe9799b62af0feaec3b92a9586f9d0b16e8795aad7e65b838a8ba6d85e8eaee5a4f93cb58a8795ae34959fee9e"
-            ac_token = self.get_ac_token("YD20160637306799", bid)
-            print(ac_token)
-            if not ac_token:
-                raise Exception("服务端没有返回ac_token")
-            check_info = self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
-            print(check_info)
-            if check_info.get("data", {}).get("result") is True:
-                break
-            token = check_info["data"]["token"]
+                # ac_token = "9ca17ae2e6ffcda170e2e6eeaac55d83b6b8d5c53a96e78ea6c84b839a9b85b67b81a70089d443bbbe9799b62af0feaec3b92a9586f9d0b16e8795aad7e65b838a8ba6d85e8eaee5a4f93cb58a8795ae34959fee9e"
+                ac_token = self.get_ac_token("YD20160637306799", bid)
+                print(ac_token)
+                if not ac_token:
+                    raise Exception("服务端没有返回ac_token")
+                check_info = self.check(captcha_id, image_token, ac_token, track_decrypt_infos)
+                print(check_info)
+                if check_info.get("data", {}).get("result") is True:
+                    break
+                token = check_info["data"]["token"]
 
 
 if __name__ == "__main__":
