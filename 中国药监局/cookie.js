@@ -18,6 +18,14 @@ function MockCookie() {
         var cookie = new CookieIns(s);
         if (cookie['expiration_date'] > new Date().getTime()){
             this.cookie_infos.push(cookie);
+        }else{
+            var newCookieInfo = [];
+            for(var index=0; index<this.cookie_infos.length;index++){
+                if (this.cookie_infos[index].name !== cookie.name){
+                    newCookieInfo.push(this.cookie_infos[index]);
+                }
+            }
+            this.cookie_infos = newCookieInfo;
         }
     });
 }
