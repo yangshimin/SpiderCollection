@@ -109,26 +109,83 @@ function convert(watchManJs){
     })
 
     // 用固定的值替换createOscillator的计算结果
-    // new_ast = parser.parse(generator(new_ast).code);
-    // traverse(new_ast, {
-    //     MemberExpression(path){
-    //         let property = path.node.property;
-    //         if (!property) return;
-    //         if (property.value === "renderedBuffer"){
-    //             let parentPath = path.parentPath;
-    //             while (parentPath.type !== 'VariableDeclaration'){
-    //                 parentPath = parentPath.parentPath;
-    //             }
-    //             let declarations = parentPath.node.declarations;
-    //             if (!declarations) return;
-    //             let identifierName = declarations[0].id;
-    //             let newVar = type.variableDeclaration('var',
-    //                 [type.variableDeclarator(identifierName, type.stringLiteral("902f0fe98719b779ea37f27528dfb0aa"))]);
-    //             parentPath.replaceWith(newVar)
-    //         }
-    //     }
-    // })
+    new_ast = parser.parse(generator(new_ast).code);
+    traverse(new_ast, {
+        MemberExpression(path){
+            let property = path.node.property;
+            if (!property) return;
+            if (property.value === "renderedBuffer"){
+                let parentPath = path.parentPath;
+                while (parentPath.type !== 'VariableDeclaration'){
+                    parentPath = parentPath.parentPath;
+                }
+                let declarations = parentPath.node.declarations;
+                if (!declarations) return;
+                let identifierName = declarations[0].id;
+                let newVar = type.variableDeclarator(identifierName, type.stringLiteral("902f0fe98719b779ea37f27528dfb0aa"));
+                // parentPath.replaceWith(newVar)
+                parentPath.insertAfter(newVar);
+            }
+        }
+    })
 
+    // 注入代码
+    new_ast = parser.parse(generator(new_ast).code);
+    traverse(new_ast, {
+        ExpressionStatement(path){
+            if (path.container.length < 5) return;
+            // 获取临近的几个节点
+            let expressionValue = path.node.expression.value;
+            let nextPath = path.getSibling(path.key + 1);
+            let nextNextPath = path.getSibling(path.key + 2);
+
+            // 判断临近的这几个节点的值都是""
+            if (type.isExpressionStatement(nextPath) && type.isExpressionStatement(nextNextPath)){
+                let nextPathValue = nextPath.node.expression.value;
+                let nextNextValue = nextNextPath.node.expression.value;
+                if (expressionValue === "" && nextPathValue === "" && nextNextValue === ""){
+                    // 获取父节点的父节点
+                    let parentPath = path.parentPath.parentPath;
+                    // 判断js代码中是否有indexOf
+                    if (!type.isIfStatement(parentPath)) return;
+                    let ifTestCase = parentPath.node.test;
+                    let ifTestCaseCode = generate_js([ifTestCase]);
+                    if (ifTestCaseCode.indexOf("indexOf") === -1) return;
+
+                    // 定位到要进行替换的语句
+                    let previousPath = path.getSibling(path.key - 2);
+                    let expression = previousPath.node.expression;
+                    if (type.isAssignmentExpression(expression)){
+                        let left = expression.left;
+                        let right = expression.right;
+                        if (!type.isIdentifier(left)) return;
+                        let leftValue = left.name;
+                        let rightValue = generate_js([right])
+                        let templateCode = `var lastD = "";
+            try{
+                lastD = fs.readFileSync("d$a.js", {
+                    encoding: "utf-8"
+                })
+            }catch (e){}
+            if (lastD){
+                ${leftValue} = JSON.parse(lastD);
+                fs.writeFileSync("d$a.js", JSON.stringify(${rightValue}), {
+                    encoding: "utf-8"
+                });
+            }else{
+                ${leftValue} = ${rightValue};
+                fs.writeFileSync("d$a.js", JSON.stringify(${leftValue}), {
+                    encoding: "utf-8"
+                });
+            }`
+                        let replaceAst = parser.parse(templateCode);
+                        previousPath.replaceWithMultiple(replaceAst.program.body);
+                    }
+
+                }
+            }
+        }
+    })
 
     code = generator(new_ast).code
     // fs.writeFileSync("E:\\个人\\SpiderCollection\\易盾\\ast_watchman_result_v3.js", code);

@@ -361,7 +361,7 @@ class Application(object):
             captcha_id = self.get_captcha_id(pt_experience_captcha_drag_js_file)
             conf_infos = self.get_conf(captcha_id)
             js_config_infos = self.get_js_config()
-            print(js_config_infos)
+            # print(js_config_infos)
             bid = conf_infos.get("data", {}).get("ac", {}).get("bid")
             watch_man_js_file = self.download_watch_man_js(js_config_infos)
             is_init_watchman = self.init_watchman(bid, "YD20160637306799", js_config_infos,

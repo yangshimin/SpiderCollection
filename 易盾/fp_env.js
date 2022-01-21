@@ -1,43 +1,9 @@
 const OfflineAudioContext = require("web-audio-engine").OfflineAudioContext;
 
-// try {
-//   var f = new OfflineAudioContext(1, 44100, 44100),
-//       m = f["createOscillator"]();
-//   m["type"] = "triangle";
-//   m["frequency"]["value"] = 10000;
-//   var h = f["createDynamicsCompressor"]();
-//   h["threshold"] && (h["threshold"]["value"] = -50);
-//   h["knee"] && (h["knee"]["value"] = 40);
-//   h["ratio"] && (h["ratio"]["value"] = 12);
-//   h["reduction"] && (h["reduction"]["value"] = -20);
-//   h["attack"] && (h["attack"]["value"] = 0);
-//   h["release"] && (h["release"]["value"] = 0.25);
-//   m["connect"](h);
-//   h["connect"](f["destination"]);
-//   m["start"](0);
-//   setTimeout(function () {
-//
-//
-//     f["oncomplete"] = function () {};
-//
-//     f = null;
-//   }, 1000);
-//
-//
-//   f["startRendering"]();
-// } catch (l) {
-//   console.log(l);
-// }
-
-
 require("fake-indexeddb/auto");
 const fs = require('fs');
 var sleep = require('sleep');
 var dtaEventTarget = require('./simpleEventTarget').EventTarget;
-
-var xml_http_request = require('xhr2');
-var XMLHttpRequest = xml_http_request.XMLHttpRequest;
-XMLHttpRequest.prototype.withCredentials = true;
 
 var openDatabase = require('websql');
 var navigator = require("./navigator").navigator;
@@ -86,6 +52,8 @@ var Window = function () {
 global.Window = Window
 Object.setPrototypeOf(window, Window.prototype);
 Object.setPrototypeOf(Window.prototype, dtaEventTarget.prototype);
+
+XMLHttpRequest = dom.window.XMLHttpRequest;
 
 history = new Object();
 history.length = 2;

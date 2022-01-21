@@ -24,16 +24,16 @@ api.post('/initWatchMan', function (req, res){
     let config_info = JSON.parse(req.body.js_config_info);
     let product_number = req.body.productNumber;
 
-    // let convert_watch_man_code = convert(watch_file_path);
-    // let watchManExecuteCode = envCode + "\n" + convert_watch_man_code + "\n" + getAcTokenJs;
-    // fs.writeFileSync("watchManExecute.js", watchManExecuteCode, {
-    //     encoding: "utf-8"
-    // });
-
-    console.log("start init watchman")
-    let watchManExecuteCode = fs.readFileSync("watchManExecute.js", {
+    let convert_watch_man_code = convert(watch_file_path);
+    let watchManExecuteCode = envCode + "\n" + convert_watch_man_code + "\n" + getAcTokenJs;
+    fs.writeFileSync("watchManExecute.js", watchManExecuteCode, {
         encoding: "utf-8"
-    })
+    });
+
+    // console.log("start init watchman")
+    // let watchManExecuteCode = fs.readFileSync("watchManExecute.js", {
+    //     encoding: "utf-8"
+    // })
 
     eval(watchManExecuteCode)
     initWatchMan(config_info, product_number);
