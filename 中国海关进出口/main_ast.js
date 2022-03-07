@@ -11,7 +11,7 @@ var type = require("@babel/types");
 // generator 也有其他参数，具体参考文档: https://babeljs.io/docs/en/@babel-generator
 var generator = require("@babel/generator").default;
 
-const js_code = fs.readFileSync("E:\\个人\\SpiderCollection\\中国海关进出口\\防debugger.js", {
+const js_code = fs.readFileSync("F:\\code\\SpiderCollection\\中国海关进出口\\防debugger.js", {
     encoding: "utf-8"
 });
 
@@ -82,9 +82,6 @@ for (var i=0; i<=3; i++){
     traverse(new_ast, {
         VariableDeclarator(path){
             let idName = path.node.id.name;
-            if (idName === '_0x28907a'){
-                debugger
-            }
 
             let binding = path.scope.getBinding(idName);
             if (binding.referencePaths.length === 0){
@@ -117,6 +114,7 @@ traverse(new_ast, {
                     }else{
                         let propertyName = parentPath.node.property.value;
                         let objectName = parentPath.node.object.name;
+
                         let parentParentPath = parentPath.parentPath;
                         if (!parentParentPath.node.right) return;
                         // 如果right 还是MemberExpression 则继续找
@@ -130,6 +128,7 @@ traverse(new_ast, {
                             }
                         }else{
                             totalObj[objectName][propertyName] = parentParentPath.node.right;
+                            parentParentPath.remove();
                         }
                     }
                 })
@@ -139,13 +138,109 @@ traverse(new_ast, {
 })
 new_ast = parser.parse(generator(new_ast).code);
 
-// 函数花指令解密
+// 在生成totalObj对象后根据key把相关的代码删除掉
+let totalObjKeys = Object.keys(totalObj)
+for (var i=0; i<=totalObjKeys.length; i++){
+    let keyName = totalObjKeys[i];
+    traverse(new_ast, {
+        VariableDeclarator(path){
+            let idName = path.node.id.name;
+            if (idName === keyName){
+                let binding = path.scope.getBinding(idName);
+                if (binding.referencePaths.length !== 0){
+                    path.remove()
+                    binding.referencePaths.map(function (nodePath) {
+                        let parentPath = nodePath.parentPath;
+                        if (parentPath.type === "VariableDeclarator"){
+                            console.log(parentPath.toString());
+                            parentPath.remove()
+                        }else{
+                            console.log(parentPath.parentPath.toString());
+                            parentPath.parentPath.remove();
+                        }
+                    })
+                }
+            }
+        }
+    })
+    new_ast = parser.parse(generator(new_ast).code);
+}
+
+new_ast = parser.parse(generator(new_ast).code);
+
+function replaceCode(path, template_obj, arguments){
+    if (type.isFunctionExpression(template_obj)){
+        let templateFuncBody = template_obj.body.body[0];
+        let realFuncBody = templateFuncBody.argument;
+
+        if (type.isBinaryExpression(realFuncBody)){  // return 语句的body是二项式的情况
+            let newBinaryExpression = type.BinaryExpression(realFuncBody.operator, arguments[0], arguments[1])
+            path.replaceWith(newBinaryExpression)
+        }else if(type.isCallExpression(realFuncBody)){  // return 语句的body是一个函数调用的情况
+            let templateObjArgument = template_obj.params;
+
+            if (realFuncBody.callee.object && realFuncBody.callee.property){
+                let callEePropertyValue = realFuncBody.callee.property.value;
+                let callEeObjectName = realFuncBody.callee.object.name;
+                let template_objs = totalObj[callEeObjectName]
+
+                if (template_objs && template_objs[callEePropertyValue]){
+                    replaceCode(path, template_objs[callEePropertyValue], arguments)
+                }
+            }else if(realFuncBody.callee.name === templateObjArgument[0].name){
+                let newCallExpression = type.CallExpression(arguments[0], arguments.slice(1))
+                path.replaceWith(newCallExpression);
+            }else{
+                debugger
+            }
+
+        }else{
+            debugger
+        }
+    }else{
+        debugger
+    }
+}
+
+// 花指令解密
 traverse(new_ast, {
-    CallExpression(path){
+    CallExpression(path){   // 函数花指令解密
+        let callee = path.node.callee;
+        let arguments = path.node.arguments;
+
+        if (!callee || !callee.object) return;
+        let objectName = callee.object.name;
+        let propertyValue = callee.property.value;
+
+        if (!objectName || !propertyValue) return;
+        let template_objs = totalObj[objectName];
+        if (!template_objs) return;
+
+        let template_obj = template_objs[propertyValue];
+        if (!template_obj) return;
+        replaceCode(path, template_obj, arguments)
+    },
+    MemberExpression(path){   // 字符串花指令解密
+        let objectName = path.node.object.name;
+        let propertyValue = path.node.property.value;
+
+        if (!objectName || !propertyValue) return;
+        let templateObjs = totalObj[objectName];
+        if (!templateObjs) return;
+
+        let templateObj = templateObjs[propertyValue];
+        if (!templateObj) return;
+
+        if (type.isStringLiteral(templateObj)){
+            path.replaceWith(templateObj);
+        }else{
+            debugger
+        }
 
     }
 })
 
+new_ast = parser.parse(generator(new_ast).code);
 
 code = generator(new_ast).code
-fs.writeFileSync("E:\\个人\\SpiderCollection\\中国海关进出口\\result.js", code);
+fs.writeFileSync("F:\\code\\SpiderCollection\\中国海关进出口\\result_v1.js", code);

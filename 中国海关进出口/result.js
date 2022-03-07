@@ -449,7 +449,7 @@
       return function (_0x3ca6b6, _0x42649f) {
         null == _0x3ca6b6 && Error("ctx is null!"), null != _0x42649f && 0x10 == _0x42649f["length"] || Error(_0x40bb32["oGwFB"]), _0x3ca6b6["mode"] = 0x0, _0x4bb41b(_0x3ca6b6['sk'], _0x42649f), _0x3ca6b6['sk'] = _0x3ca6b6['sk']["reverse"]();
       }(_0x21fbad, _0x1f5250), function (_0x5329c3) {
-        if (_0x40bb32['ffBwx'](_0x40bb32['nSwqq'], "gNyVV")) return function (_0x30b923) {}["constructor"]("while (true) {}")["apply"](vBRwPh['Oflfj']);else {
+        if (_0x40bb32['ffBwx'](_0x40bb32['nSwqq'], "gNyVV")) return function (_0x30b923) {}["constructor"]("while (true) {}")["apply"]('counter');else {
           for (var _0x5c03f8 = '', _0x184bf1 = new Uint8Array(_0x5329c3), _0x196644 = _0x184bf1["byteLength"], _0x186cc1 = 0x0; _0x40bb32['Vcbyb'](_0x186cc1, _0x196644); _0x186cc1++) _0x5c03f8 += String['fromCharCode'](_0x184bf1[_0x186cc1]);
 
           return decodeURIComponent(escape(_0x5c03f8));
