@@ -11,4 +11,5 @@
 - [x] 数美滑块
 - [x] 点评_token
 - [x] 豆瓣读书
-- [x] 中国海关进出口 
+- [x] 中国海关进出口
+- [x] bilibili heart wasm
