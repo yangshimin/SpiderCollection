@@ -480,9 +480,9 @@ try {
             function H(n, t, r) {
                 var o = e;
                 Hd++,
-                    ut(o("PT5ndF5fTQ"));
+                    ut('PX11054');
                 var i = U(n, t, r);
-                return dt(o("PT5ndF5fTQ")),
+                return dt('PX11054'),
                     i
             }
             function J() {
@@ -3243,7 +3243,7 @@ try {
                 return Sd[YT]
             }
             function si() {
-                return di() ? Sd._pxUuid || Nn("uuid") || ht() : ht()
+                return di() ? window._pxUuid || Nn("uuid") || ht() : ht()
             }
             function Ti() {
                 op = At("pxcts")
@@ -3735,6 +3735,7 @@ try {
                         i.d['PX11073'] = li())
                 }
                 nc(n);
+                debugger;
                 var c = ni()
                     , u = qn(v(n), tc(Hh.tag, Hh.fTag))
                     , d = {
@@ -3746,24 +3747,25 @@ try {
                     pc: u
                 }
                     , l = xp(n, d)
-                    , f = [th + l, eh + Hh.appID, rh + Hh.tag, oh + ep, ah + Hh.fTag, ch + Zh++, hh + Sh]
+                    , f = ['payload=' + l, 'appId=' + Hh.appID, 'tag=' + Hh.tag, 'uuid=' + ep, 'ft=' + Hh.fTag, 'seq=' + Zh++, 'en=' + Sh]
                     , s = ci();
-                s && f.push(ih + s),
-                c && f.push(uh + c),
+                debugger;
+                s && f.push('xuuid=' + s),
+                c && f.push('cs=' + c),
                     ut('PX10717'),
-                u && f.push(dh + u),
+                u && f.push('pc=' + u),
                     dt('PX10717');
                 var T = Hh.getSid()
                     , p = Ai(ai());
-                (T || p) && f.push(lh + (T || si()) + p);
+                (T || p) && f.push('sid=' + (T || si()) + p);
                 var h = Hh.getCustomParams();
-                qo() && f.push(fh + qo()),
-                $T && f.push(sh + $T);
+                qo() && f.push('vid=' + qo()),
+                $T && f.push('jsc=' + $T);
                 var m = Ar();
-                m && f.push(Th + m);
+                m && f.push('ci=' + m);
                 var y = ui();
-                return y && f.push(ph + y),
-                op && f.push(yh + op),
+                return y && f.push('pxhd=' + y),
+                op && f.push('cts=' + op),
                 h.length >= 0 && f.push.apply(f, h),
                     dt('PX10975'),
                     f
@@ -6426,7 +6428,10 @@ try {
                         }
                     }
                     if (0 !== i.length) {
-                        for (var l = Za(i), f = l.join("&"), s = {
+                        debugger;
+                        var param_res = Za(i);
+                        console.log("params is: ", param_res);
+                        for (var l = param_res, f = l.join("&"), s = {
                             D: r
                         }, T = 'PX10689', p = void 0, h = 0; h < i.length; h++) {
                             var m = i[h];
