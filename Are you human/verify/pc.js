@@ -1,3 +1,10 @@
+btoa = function(text){
+    return new Buffer.from(text, 'binary').toString('base64');
+};
+atob = function(base64){
+    return new Buffer.from(base64, 'base64').toString('binary');
+};
+
 function x(n, t) {
     var e = (65535 & n) + (65535 & t);
     return (n >> 16) + (t >> 16) + (e >> 16) << 16 | 65535 & e
@@ -177,6 +184,9 @@ function at(n) {
     }
     return t + e
 }
+function U(n, t, e) {
+    return t ? e ? G(t, n) : j(t, n) : e ? L(n) : W(n)
+}
 
 function qn(n, t) {
     var e = j(n, t);
@@ -187,7 +197,68 @@ function qn(n, t) {
     } catch (n) {}
 }
 
-n = '[{"t":"PX10816","d":{"PX10360":"https://www.walmart.ca/blocked?url=L2VuL2lwL2dvb2dsZS1jaHJvbWVjYXN0LzYwMDAxOTg3NDY1MDI=&uuid=1cf08f24-a113-11ec-bac1-566b70446877&vid=&","PX10929":0,"PX11186":"Win32","PX10622":0,"PX10272":3324,"PX10970":3600,"PX10094":1647421879759,"PX11004":1647421879763,"PX10206":"1cf08f24-a113-11ec-bac1-566b70446877","PX10088":true,"PX11031":"PX10463","PX10384":"pxhc","PX11073":false}}]'
-t = '1cf08f24-a113-11ec-bac1-566b70446877:v7.2.4:245'
-res = qn(t, n)
-console.log(res);
+xp = function(n, t, uuid) {
+    var e = n.slice()
+        , r = wp()
+        , o = JSON.stringify(e);
+    e = $d(it(o, 50));
+    var i = uuid;
+    return e = Vi(r, e, Fp(r, e.length, i))
+}
+
+wp = function() {
+    var n = ai() || "1604064986000";
+    return it($d(n), 10)
+}
+
+function ai() {
+    return undefined
+}
+
+function it(n, t) {
+    for (var e = "", r = 0; r < n.length; r++)
+        e += String.fromCharCode(t ^ n.charCodeAt(r));
+    return e
+}
+$d = function(n) {
+    return btoa(encodeURIComponent(n).replace(/%([0-9A-F]{2})/g, function(n, t) {
+        return String.fromCharCode("0x" + t)
+    }))
+}
+
+function Vi(n, t, e) {
+    for (var r = "", o = 0, i = n.split(""), a = 0; a < n.length; a++)
+        r += t.substring(o, e[a] - a - 1) + i[a],
+            o = e[a] - a - 1;
+    return r += t.substring(o)
+}
+
+Fp = function(n, t, e) {
+    for (var r = it($d(e), 10), o = [], i = -1, a = 0; a < n.length; a++) {
+        var c = Math.floor(a / r.length + 1)
+            , u = a >= r.length ? a % r.length : a
+            , d = r.charCodeAt(u) * r.charCodeAt(c);
+        d > i && (i = d)
+    }
+    for (var l = 0; n.length > l; l++) {
+        var f = Math.floor(l / r.length) + 1
+            , s = l % r.length
+            , T = r.charCodeAt(s) * r.charCodeAt(f);
+        for (T >= t && (T = Qp(T, 0, i, 0, t - 1)); -1 !== o.indexOf(T); )
+            T += 1;
+        o.push(T)
+    }
+    return o.sort(function(n, t) {
+        return n - t
+    })
+}
+
+Qp = function(n, t, e, r, o) {
+    return Math.floor((n - t) / (e - t) * (o - r) + r)
+}
+
+n = [{'t': 'PX10816', 'd': {'PX10041': undefined, 'PX10088': true, 'PX10094': 1647485978416, 'PX10206': '', 'PX10987': undefined, 'PX10970': 3600, 'PX11004': 1647485978419, 'PX10360': 'https://www.walmart.ca/blocked?url=L2VuL2lwL2dvb2dsZS1jaHJvbWVjYXN0LzYwMDAxOTg3NDY1MDI=&uuid=1cf08f24-a113-11ec-bac1-566b70446877&vid=&', 'PX10929': 0, 'PX11186': 'Win32', 'PX10622': 0, 'PX11031': 'PX10463', 'PX11073': false, 'PX10384': 'pxhc', 'PX10272': 3211}}]
+d = {'vid': '', 'tag': 'v7.2.4', 'appID': 'PXnp9B16Cq', 'cu': '', 'cs': undefined, 'pc': '2826144548271192'}
+uuid = "1cf08f24-a113-11ec-bac1-566b70446877"
+res = xp(n, d, uuid)
+console.log(res)

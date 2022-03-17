@@ -1,0 +1,173 @@
+{
+	"PX10249": '64556c77', // '64556c77' te(window.console.log)
+	"PX10238": "",
+	"PX10995": "10207b2f", // te(Object.prototype.toString)
+	"PX10567": "10207b2f", // te(navigator.toString)
+	"PX11192":  // On("" + (Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), 'webdriver').get || "") + (n.value || ""))
+	"PX10065": true, // !!window.Worklet
+	"PX11153": true, // !!window.AudioWorklet
+	"PX10509": true, // !!window.AudioWorkletNode
+	"PX10227": true, // !!window.isSecureContext
+	"PX10364": "",
+	"PX10379": "9f762773", // te(bd.documentElement.dispatchEvent)
+	"PX11072": "dae10548", // te(window.localStorage.setItem)
+	"PX11115": "", // te(navigator.getOwnPropertyDescriptor)
+	"PX10601": "a3d12c4", // te(navigator.hasOwnProperty)
+	"PX10680": "82002457", // te(Object.getOwnPropertyDescriptor)
+	"PX11211": "a3d12c4" // te(Object.prototype.hasOwnProperty)
+	"PX10757": true,
+	"PX11081": true,
+	"PX10232": true,
+	"PX10926": true,
+	"PX10239": 16608324, // window.performance['memory']['usedJSHeapSize']
+	"PX10267": 4294705152, // window.performance['memory']['jsHeapSizeLimit']
+	"PX10551": 22263500, // window.performance['memory']['totalJSHeapSize']
+	"PX10558": window.Date(),
+	"PX10236": false,
+    "PX10400": false,
+    "PX10530": false,
+    "PX11060": true,
+    "PX10801": 0,
+    "PX10394": false,
+    "PX10058": "visible",
+    "PX11123": false,
+    "PX10096": 0,
+    "PX10872": 1920,
+    "PX11028": true,
+    "PX10366": 1040,
+    "PX10585": "missing",
+    "PX10976": true,
+    "PX10250": true,
+    "PX10259": false,
+    "PX10156": true,
+    "PX10774": true,
+    "PX10750": false,
+    "PX11158": 0,
+    "PX10213": true,
+    "PX10283": true,
+    "PX10116": true,
+    "PX11176": true,
+    "PX10351": false,
+    "PX10365": true,
+	"PX10010": false,
+    "PX10225": false,
+    "PX10855": false,
+    "PX11065": false,
+    "PX10456": false,
+    "PX10441": false,
+    "PX10098": false,
+    "PX10557": false,
+    "PX10170": false,
+    "PX10824": false,
+    "PX10087": false,
+    "PX11042": false,
+	"PX11002": true,
+	"PX10056": undefined,
+	"PX10410": false,
+	"PX10482": undefined,
+	"PX11018": false,
+	"PX10905": undefined,
+	"PX10362": undefined,
+	"PX10992": undefined,
+	"PX10218": 'e0eaf10e',         // 观察值是否变化
+	"PX10162": '7d688b1b',
+	"PX10940": '7766a52d',
+	"PX11209": '180dd7e3',
+	"PX10498": '6a90378d',
+	"PX11055": '144|66|66|172|80',
+	"PX10422": 111,
+	"PX10316": true,
+	"PX10659": true,
+	"PX11148": false,
+	"PX10742": false,
+	"PX10323": 1,
+	"PX10846": 1,
+	"PX11015": "",
+	"PX10599": ['loadTimes', 'csi', 'app', 'runtime'],
+	"PX10790": ['PDF Viewer', 'Chrome PDF Viewer', 'Chromium PDF Viewer', 'Microsoft Edge PDF Viewer', 'WebKit built-in PDF'],
+	"PX11010": 5,
+	"PX11043": true,
+	"PX10289": true,
+	"PX11075": undefined,
+	"PX10093": true,
+	"PX10604": true,
+	"PX10296": 'zh-CN',
+	"PX11186": 'Win32',
+	"PX10397": ['zh-CN'],
+	"PX10472": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
+	"PX10758": true,
+	"PX10099": -480,
+	"PX10336": 8,
+	"PX10373": 1,
+	"PX10914": undefined,
+	"PX10802": 'Gecko',
+	"PX10628": '20030107',
+	"PX11039": '5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
+	"PX10174": true,
+	"PX10547": true,
+	"PX10775": 2,
+	"PX10539": 'Netscape',
+	"PX10516": undefined,
+	"PX10189": 'Mozilla',
+	"PX10390": true,
+	"PX10963": 200,
+	"PX10081": false,
+	"PX10399": 8.65,
+	"PX10273": "4g",
+	"PX10595": true,
+	"PX10822": true,
+	"PX11205": true,
+	"PX10561": 1920,
+	"PX10499": 1080,
+	"PX10843": 1920,
+	"PX10850": 1040,
+	"PX11113": '1920X1080',
+	"PX10724": 24,
+	"PX10089": 24,
+	"PX10204": 503,
+	"PX11138": 937,
+	"PX11170": 0,
+	"PX11174": 0,
+	"PX10243": true,
+	"PX10800": false,
+	"PX10929": 0,
+	"PX10248": 2,
+	"PX10705": 'Error\n    at wn (https://www.walmart.ca/px/PXnp9B16Cq/init.js:791:26)\n    at ie (https://www.walmart.ca/px/PXnp9B16Cq/init.js:1649:36)\n    at re (https://www.walmart.ca/px/PXnp9B16Cq/init.js:1607:34)\n    at https://www.walmart.ca/px/PXnp9B16Cq/init.js:1604:37',
+	"PX10360": 'https://www.walmart.ca/blocked?url=L2VuL2lwL2dvb2dsZS1jaHJvbWVjYXN0LzYwMDAxOTg3NDY1MDI=&uuid=1cf08f24-a113-11ec-bac1-566b70446877&vid=&',
+	"PX10311": [],
+	"PX10744": "",
+	"PX10046": false,
+	"PX10565": true,
+	"PX10141": 1647501610444,   // 不知道这个时间是怎么来的
+	"PX10418": '55005972100367925245',   // 第一次请求中返回的cls
+	"PX11147": undefined,
+	"PX11181": 5715,      // 第一次请求中返回的yp
+	"PX11102": undefined,
+	"PX11135": [],         // 检查input标签的一些属性, 需要多次验证是否为空值
+	"PX10891": 1,
+	"PX10522": U(ep, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),
+	"PX10840": 'c8pg4qbcdjjiuuh51ho0',   //第一次请求中的wcs
+	"PX10464": U(qo(), 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),     // qo()是第一次请求中的sid
+	"PX10080": U(r, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36')   // qo()是第一次请求中的sid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
