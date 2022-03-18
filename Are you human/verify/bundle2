@@ -1,4 +1,4 @@
-{
+n = {
 	"PX10249": '64556c77', // '64556c77' te(window.console.log)
 	"PX10238": "",
 	"PX10995": "10207b2f", // te(Object.prototype.toString)
@@ -48,6 +48,10 @@
     "PX10116": true,
     "PX11176": true,
     "PX10351": false,
+    "PX10712": 3,
+    "PX10555": 5,
+    "PX10347": 0,
+    "PX10119": 0,
     "PX10365": true,
 	"PX10010": false,
     "PX10225": false,
@@ -138,36 +142,22 @@
 	"PX10744": "",
 	"PX10046": false,
 	"PX10565": true,
-	"PX10141": 1647501610444,   // 不知道这个时间是怎么来的
+	"PX10141": 1647501610444,   // 第一次请求返回的sts
 	"PX10418": '55005972100367925245',   // 第一次请求中返回的cls
 	"PX11147": undefined,
-	"PX11181": 5715,      // 第一次请求中返回的yp
+	"PX11181": 5715,      // 第一次请求中返回的drc
 	"PX11102": undefined,
 	"PX11135": [],         // 检查input标签的一些属性, 需要多次验证是否为空值
 	"PX10891": 1,
-	"PX10522": U(ep, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),
+	"PX10522": U(ep, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'), // ep 是uuid
 	"PX10840": 'c8pg4qbcdjjiuuh51ho0',   //第一次请求中的wcs
-	"PX10464": U(qo(), 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),     // qo()是第一次请求中的sid
-	"PX10080": U(r, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36')   // qo()是第一次请求中的sid
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	"PX10464": U(qo(), 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),     // qo()是第一次请求中的vid
+	"PX10080": U(r, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'),   // r是第一次请求中的sid
+    "PX10622": 1,
+    "PX10272": 4211,
+    "PX10970": 3600,
+    "PX10094": (new Date).getTime(),
 }
+
+n["PX10041"] = n["PX10094"] + 269
+n[it(n['PX10418'], n['PX10141'] % 10 + 2)] = it(n['PX10418'], n['PX10141'] % 10 + 1)

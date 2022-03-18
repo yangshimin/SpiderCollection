@@ -1,15 +1,15 @@
-var {window, document, screen, navigator, location} = require('./env');
-
-var btoa = function (param) {
-    return new Buffer(param).toString('base64');
-};
-
-var atob = function (param) {
-    return new Buffer(param, 'base64').toString();
-}
-
-window.atob = atob;
-window.btoa = btoa;
+// var {window, document, screen, navigator, location} = require('./env');
+//
+// var btoa = function (param) {
+//     return new Buffer(param).toString('base64');
+// };
+//
+// var atob = function (param) {
+//     return new Buffer(param, 'base64').toString();
+// }
+//
+// window.atob = atob;
+// window.btoa = btoa;
 /** @license Copyright (C) 2014-2019 PerimeterX, Inc (www.perimeterx.com). Content of this file can not be copied and/or distributed. **/
 
 try {
@@ -305,7 +305,6 @@ try {
                 return K(n, r - -213)
             }
 
-            debugger
             if (true) {
                 var u = document['createElement']('a');
                 return u.href = 'https://www.walmart.ca/px/PXnp9B16Cq/captcha/captcha.js?a=c&m=0&g=undefined',
