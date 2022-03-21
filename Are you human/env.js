@@ -14,7 +14,7 @@ var sessionStorage = require('./sessionStorage');
 var fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const jsdom = require("jsdom");
 
-var index_code = fs.readFileSync("block.html", {
+var index_code = fs.readFileSync("E:\\个人\\SpiderCollection\\Are you human\\block.html", {
     encoding: "utf-8"
 });
 const {JSDOM} = jsdom;

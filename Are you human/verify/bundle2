@@ -157,6 +157,11 @@ n = {
     "PX10272": 4211,
     "PX10970": 3600,
     "PX10094": (new Date).getTime(),
+    "PX10088": true,
+    "PX10028": undefined,
+    "PX10206": uuid,
+    "PX10276": undefined,
+    "PX10384": "pxhc"
 }
 
 n["PX10041"] = n["PX10094"] + 269

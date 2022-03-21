@@ -1,3 +1,4 @@
+
 btoa = function(text){
     return new Buffer.from(text, 'binary').toString('base64');
 };
@@ -257,8 +258,9 @@ Qp = function(n, t, e, r, o) {
     return Math.floor((n - t) / (e - t) * (o - r) + r)
 }
 
-n = [{'t': 'PX10816', 'd': {'PX10041': undefined, 'PX10088': true, 'PX10094': 1647485978416, 'PX10206': '', 'PX10987': undefined, 'PX10970': 3600, 'PX11004': 1647485978419, 'PX10360': 'https://www.walmart.ca/blocked?url=L2VuL2lwL2dvb2dsZS1jaHJvbWVjYXN0LzYwMDAxOTg3NDY1MDI=&uuid=1cf08f24-a113-11ec-bac1-566b70446877&vid=&', 'PX10929': 0, 'PX11186': 'Win32', 'PX10622': 0, 'PX11031': 'PX10463', 'PX11073': false, 'PX10384': 'pxhc', 'PX10272': 3211}}]
-d = {'vid': '', 'tag': 'v7.2.4', 'appID': 'PXnp9B16Cq', 'cu': '', 'cs': undefined, 'pc': '2826144548271192'}
+
+
 uuid = "1cf08f24-a113-11ec-bac1-566b70446877"
-res = xp(n, d, uuid)
+vid = "36d901cb-a8ef-11ec-99b9-447a59545151"
+res = j("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36", '36d90e83-a8ef-11ec-99b9-447a59545151')
 console.log(res)
