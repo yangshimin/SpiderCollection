@@ -18,7 +18,7 @@ from chinese_select.yolo.src.tool import draw
 def run_click(path):
     """方式一"""
     result = discern.text_predict(orientation.location_predict(path), path)
-    draw(path, result)
+    # draw(path, result)
     return result
 
 
@@ -38,8 +38,8 @@ def generate_click_points(res):
             for str_ in content:
                 crop = contains[str_]
                 # point_x 和 point_y 就是点击的坐标，需要保存起来，生成轨迹的时候需要
-                point_x = crop[0] + random.randint(0, crop[2] - crop[0])
-                point_y = crop[1] + random.randint(0, crop[3] - crop[1])
+                point_x = crop[0] + int((crop[2] - crop[0]) // 2)
+                point_y = crop[1] + int((crop[3] - crop[1]) // 2)
                 click_list.append((point_x, point_y))
                 h = point_x / CODE_WIDTH * 100
                 u = point_y / CODE_HEIGHT * 100

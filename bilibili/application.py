@@ -15,6 +15,7 @@ import sys
 import random
 import logging
 import requests
+from retrying import retry
 from urllib.parse import urlparse
 
 from chinese_select.config import IMAGE_DIR
@@ -276,6 +277,7 @@ class JiYanTextSelect(object):
             image_path = f"{get_md5(image_res.content)}.jpg"
             resize_img = resize_img_keep_ratio(image_res.content, (288, 258))
             cv2.imwrite(image_path, resize_img)
+            return image_path
             # with open(image_path, "wb") as f:
             #     try:
             #         f.write(image_res.content)
@@ -323,9 +325,11 @@ class JiYanTextSelect(object):
                           "Chrome/86.0.4240.183 Safari/537.36",
         }
 
-        time.sleep(1)
-        url = url.format(gt=self.gt, challenge=self.challenge,
-                         w=self.get_click_w(image_infos, image_path), t=int(time.time()) * 1000)
+        try:
+            validate_w = self.get_click_w(image_infos, image_path)
+        except Exception as e:
+            raise Exception("识别图片位置出现异常")
+        url = url.format(gt=self.gt, challenge=self.challenge, w=validate_w, t=int(time.time()) * 1000)
         res = self.s.get(url, headers=header)
         if res.status_code == 200:
             logging.info("请求点击验证成功")
@@ -342,6 +346,7 @@ class JiYanTextSelect(object):
         else:
             logging.error("提交验证请求失败")
 
+    @retry(stop_max_attempt_number=10, wait_fixed=10000)
     def scheduler(self):
         self.get_gt_challenge()
         self.get_type()
@@ -358,7 +363,7 @@ if __name__ == "__main__":
     app = JiYanTextSelect()
     app.scheduler()
 
-    # image_path = r'C:\Users\fausty\Downloads\test.jpg'
+    # image_path = r'F:\code\SpiderCollection\bilibili\6abe589195dcb8d58b05379ca4f7502b.jpg'
     # click_list, points = generate_click_points(run_click(image_path))
     # track_list = get_click_track(click_list)
     # print(track_list)
