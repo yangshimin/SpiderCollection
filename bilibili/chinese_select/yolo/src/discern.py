@@ -13,10 +13,10 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from torchvision.transforms.functional import to_tensor
 
-from yolo.src.utils.cnn_model import ConvNet
-from yolo.src.utils.network_torch import CRNN
-from yolo.src.setting import crnn_opt
-from yolo.src.setting import cnn_opt
+from chinese_select.yolo.src.utils.cnn_model import ConvNet
+from chinese_select.yolo.src.utils.network_torch import CRNN
+from chinese_select.yolo.src.setting import crnn_opt
+from chinese_select.yolo.src.setting import cnn_opt
 
 
 """加载模型"""

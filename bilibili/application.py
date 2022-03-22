@@ -17,10 +17,10 @@ import logging
 import requests
 from urllib.parse import urlparse
 
-from bilibili.chinese_select.config import IMAGE_DIR
-from bilibili.chinese_select.track import get_track, get_click_track
-from bilibili.chinese_select.yolo.mode_one import generate_click_points, run_click
-from bilibili.public_func import get_md5
+from chinese_select.config import IMAGE_DIR
+from chinese_select.track import get_track, get_click_track
+from chinese_select.yolo.mode_one import generate_click_points, run_click
+from public_func import get_md5, resize_img_keep_ratio
 
 formatter = '%(asctime)s - %(filename)s[line:%(lineno)d] -%(levelname)s: %(message)s'
 logging.basicConfig(level=logging.INFO, stream=sys.stdout, format=formatter)
@@ -46,7 +46,7 @@ class JiYanTextSelect(object):
             "method": "GET",
             "scheme": "https",
             "accept": "application/json, text/plain, */*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "zh,en-GB;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "origin": "https://www.bilibili.com",
@@ -73,7 +73,7 @@ class JiYanTextSelect(object):
             "path": urlparse(url).path,
             "scheme": "https",
             "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "zh,en-GB;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -118,7 +118,7 @@ class JiYanTextSelect(object):
             "method": "GET",
             "scheme": "https",
             "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -175,7 +175,7 @@ class JiYanTextSelect(object):
             f"lang=zh-cn&pt=0&client_type=web&w={self.check_w}&callback=geetest_{int(time.time()) * 1000}"
         headers = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -195,17 +195,17 @@ class JiYanTextSelect(object):
                     self.type = check_infos.get("data", {}).get("result")
                     logging.info("无感验证返回信息成功")
                 else:
-                    logging.error("无感验证返回信息异常")
+                    raise Exception("无感验证返回信息异常")
             else:
-                logging.error("正则匹配无感验证信息失败")
+                raise Exception("正则匹配无感验证信息失败")
         else:
-            logging.error("请求无感验证信息失败")
+            raise Exception("请求无感验证信息失败")
 
     def get_image_info(self):
         url = "https://api.geetest.com/get.php"
         headers = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -257,7 +257,7 @@ class JiYanTextSelect(object):
             "scheme": "https",
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,"
                       "*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -272,15 +272,18 @@ class JiYanTextSelect(object):
             if not os.path.exists(image_dir):
                 os.makedirs(image_dir)
 
-            image_path = os.path.join(image_dir, f"{get_md5(image_res.content)}.jpg")
-            with open(image_path, "wb") as f:
-                try:
-                    f.write(image_res.content)
-                except Exception as e:
-                    logging.error(f"保存验证码图片失败: {e.args}")
-                else:
-                    logging.info(f"保存验证码图片成功: {image_path}")
-                    return image_path
+            # image_path = os.path.join(image_dir, f"{get_md5(image_res.content)}.jpg")
+            image_path = f"{get_md5(image_res.content)}.jpg"
+            resize_img = resize_img_keep_ratio(image_res.content, (288, 258))
+            cv2.imwrite(image_path, resize_img)
+            # with open(image_path, "wb") as f:
+            #     try:
+            #         f.write(image_res.content)
+            #     except Exception as e:
+            #         logging.error(f"保存验证码图片失败: {e.args}")
+            #     else:
+            #         logging.info(f"保存验证码图片成功: {image_path}")
+            #         return image_path
         else:
             logging.error('请求验证码图片失败')
 
@@ -309,7 +312,7 @@ class JiYanTextSelect(object):
               "pt=0&client_type=web&w={w}&&callback=geetest_{t}"
         header = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -354,3 +357,9 @@ class JiYanTextSelect(object):
 if __name__ == "__main__":
     app = JiYanTextSelect()
     app.scheduler()
+
+    # image_path = r'C:\Users\fausty\Downloads\test.jpg'
+    # click_list, points = generate_click_points(run_click(image_path))
+    # track_list = get_click_track(click_list)
+    # print(track_list)
+    # print(points)

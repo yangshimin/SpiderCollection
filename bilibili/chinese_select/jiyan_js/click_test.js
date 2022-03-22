@@ -4653,9 +4653,9 @@ var ye, be = (ye = {
                 $_BIFCO = $_BIFAl[1];
             $_BIFAl.shift();
             var $_BIFDd = $_BIFAl[0];
-            var e = this[$_BIFCO(361)];
-            return this[$_BIFCO(361)] = [],
-                this[$_BIFBz(584)](this[$_BIFBz(517)](e));
+            var e = this["$_FFA"];
+            return this["$_FFA"] = [],
+                this["$_EHi"](this["$_BGDO"](e));
         },
         "$_BGHX": function () {
             var $_BIFGQ = $_Cp,
@@ -5195,10 +5195,12 @@ Ie[$_CGCK(284)] = {
         var $_BJJDb = $_BJJAh[0];
         var temp = new Array();
         for (var i=0; i < e.length; i++){
-            var point_str = e[i]["x"] + "_" + e[i]["y"];
-            temp.push(point_str);
+            if (e[i]['eval_point']){
+                var point_str = e[i]['eval_point']["x"] + "_" + e[i]['eval_point']["y"];
+                temp.push(point_str);
+            }
         };
-        var confirm_point = temp.pop();
+        // var confirm_point = temp.pop();
         var click_point_str = temp.join(",");
         var n = this,
             r = n[$_BJJBm(15)],
@@ -5545,11 +5547,16 @@ Ie[$_CGCK(284)] = {
             $_CBBCI = $_CBBAN[1];
         $_CBBAN.shift();
         var $_CBBDX = $_CBBAN[0];
+        var realPoint = []
+        for (var i=0; i < pointer.length; i++){
+            realPoint.push(pointer[i]["real_point"]);
+        }
         return {
-            "ca": pointer,
-            "v": $_CBBBP(701),
-            "$_EU": be[$_CBBBP(622)],
+            "ca": realPoint,
+            "v": "3.0.2",
+            // "$_EU": be[$_CBBBP(622)],
             "me": true,
+            "te": false,
             "tm": new Ee()["$_BGJs"]()
         };
     }
@@ -5558,16 +5565,26 @@ Ie[$_CGCK(284)] = {
 token = get_token();
 function click_w(gt, challenge, call_infos, tracks, points) {
     var ee = {
-        "$_BIEs": Math.round(new Date()),
         "protocol": "https://",
         "is_next": true,
+        "area": undefined,
+        "autoReset": true,
+        "debugConfig": undefined,
+        "zoomEle": undefined,
+        "hideClose": undefined,
+        "hideRefresh": undefined,
+        "hideSuccess": undefined,
+        "remUnit": undefined,
+        "skin_path": undefined,
+        "post": undefined,
         "type": "click",
         "gt": gt,
         "challenge": challenge,
         "lang": "zh-cn",
-        "https": true,
-        "offline": false,
-        "product": "float",
+        "https": false,
+        "offline": undefined,
+        "product": "embed",
+        "timeout": undefined,
         "api_server": "api.geetest.com",
         "static_servers": [
             "static.geetest.com/",
@@ -5575,9 +5592,6 @@ function click_w(gt, challenge, call_infos, tracks, points) {
         ],
         "isPC": true,
         "width": "100%",
-        "$_CFZ": {
-            "pt": 0
-        },
 
     };
     var init_config = Object.assign(ee, call_infos);
@@ -5585,6 +5599,7 @@ function click_w(gt, challenge, call_infos, tracks, points) {
     // t['$_BFHD']()
     t['$_BHFo']['$_FFA'] = tracks;
     var config = t['$_CACr'](points, 4054)
+    config["nnqv"] = '1114883951';
     var _ = new H()['encrypt'](token);
     var a = X["encrypt"](JSON.stringify(config), token);
     var c = R["$_EIv"](a);

@@ -110,8 +110,8 @@ def get_click_track(points):
     """点击点选验证码上的汉字和最后点击确认这期间的鼠标轨迹"""
     # 随机设置一个起始坐标点
     start_point = (
-        CONFIRM_START_POINT[0] + random.randint(100, 150),
-        CONFIRM_START_POINT[1] + random.randint(100, 250)
+        CONFIRM_START_POINT[0] + random.randint(10, 20),
+        CONFIRM_START_POINT[1] + random.randint(5, 15)
     )
 
     data_contains = list()

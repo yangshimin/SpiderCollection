@@ -12,10 +12,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import NullLocator
 
-from yolo.src.utils.models import *
-from yolo.src.utils.datasets import *
-from yolo.src.utils.utils import *
-from yolo.src.setting import yolo_opt as opt
+from .utils.models import *
+from .utils.datasets import *
+from .utils.utils import *
+from .setting import yolo_opt as opt
 
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'

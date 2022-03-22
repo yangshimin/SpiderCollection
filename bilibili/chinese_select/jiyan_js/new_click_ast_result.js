@@ -4960,6 +4960,7 @@
           }, false);
         },
         "dfST": function (e, t) {
+          debugger
           var r = this;
           var n = r["nkIq"];
           var i = r["hESX"];
@@ -5014,6 +5015,7 @@
                 "ep": o["ep"]
               };
 
+              debugger
               var _ = window["_gct"](a);
 
               if (_["lang"]) {
@@ -5032,6 +5034,7 @@
           }
 
           try {
+            debugger
             o["rp"] = Z(n["gt"] + n["challenge"] + o["passtime"]);
             var u = r["fTbG"]();
             var f = Q["encrypt"](de["stringify"](o), r["gCdf"]());
@@ -5431,6 +5434,7 @@
             var _ = t["right"] - t["left"],
                 c = t["bottom"] - t["top"];
 
+            debugger
             var l = (i - o) / _ * 100,
                 u = (s - a) / c * 100;
 
@@ -6293,6 +6297,7 @@
               "y": e["lvJF"]()
             };
 
+            debugger
             if (CcZz(o, t)) {
               a["t"] = 1;
             } else if (CcZz(s, t)) {
@@ -6475,6 +6480,7 @@
           return t;
         },
         "xUlH": function (e, t, r, n) {
+          debugger
           var i = this;
           var s = i["pjsI"];
           s["oBPv"](e);
@@ -6543,6 +6549,7 @@
           var t = e["pjsI"];
           var r = new XpfY();
           t["sUGz"](function (e) {
+            debugger
             r["oBPv"](e["icew"] + "_" + e["jGXc"]);
           });
           return r["qbZG"](",");

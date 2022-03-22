@@ -7,13 +7,13 @@
 # @Software: PyCharm
 
 # 验证码图片的宽和高
-CODE_WIDTH, CODE_HEIGHT = 258, 258
+CODE_WIDTH, CODE_HEIGHT = 256, 256
 
 # 验证码图片左上角的坐标
-CODE_START_POINT = (312, 332)
+CODE_START_POINT = (336, 331)
 
 # 验证码确认按钮左上角的坐标
-CONFIRM_START_POINT = (474, 595)
+CONFIRM_START_POINT = (499, 595)
 
 
 # 验证码图片保存的目录

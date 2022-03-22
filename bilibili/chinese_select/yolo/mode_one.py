@@ -9,10 +9,10 @@
 """
 import random
 
-from bilibili.config import CODE_WIDTH, CODE_HEIGHT, CONFIRM_START_POINT, CODE_START_POINT
-from bilibili.chinese_select.yolo.src import orientation
-from bilibili.chinese_select.yolo.src import discern
-from bilibili.chinese_select.yolo.src.tool import draw
+from config import CODE_WIDTH, CODE_HEIGHT, CONFIRM_START_POINT, CODE_START_POINT
+from chinese_select.yolo.src import orientation
+from chinese_select.yolo.src import discern
+from chinese_select.yolo.src.tool import draw
 
 
 def run_click(path):
@@ -44,21 +44,30 @@ def generate_click_points(res):
                 h = point_x / CODE_WIDTH * 100
                 u = point_y / CODE_HEIGHT * 100
                 points.append({
-                    "x": int(h * 100),
-                    "y": int(u * 100),
-                    "t": 0,
-                    "dt": random.randint(500, 999)
+                    "eval_point": {
+                        "x": int(h * 100),
+                        "y": int(u * 100),
+                    },
+                    "real_point": {
+                        "x": CODE_START_POINT[0] + point_x,
+                        "y": CODE_START_POINT[1] + point_y,
+                        "t": 1,
+                        "dt": random.randint(500, 999)
+                    }
+
                 })
             else:
-                point_x = CONFIRM_START_POINT[0] + random.randint(10, 122)
-                point_y = CONFIRM_START_POINT[1] + random.randint(10, 42)
+                point_x = CONFIRM_START_POINT[0] + random.randint(10, 50)
+                point_y = CONFIRM_START_POINT[1] + random.randint(10, 30)
                 click_list.append((point_x, point_y))
                 # 添加点击确认的坐标信息
                 points.append({
-                    "x": point_x,
-                    "y": point_y,
-                    "t": 3,
-                    "dt": random.randint(500, 1200)
+                    "real_point": {
+                        "x": point_x,
+                        "y": point_y,
+                        "t": 3,
+                        "dt": random.randint(500, 1200)
+                    }
                 })
             return click_list, points
 
@@ -67,7 +76,7 @@ if __name__ == '__main__':
 
     import time
     import random
-    path = "test/image.jpg"
+    path = r"E:\个人\SpiderCollection\bilibili\chinese_select\image\test.jpg"
     start = time.time()
     res = run_click(path)
     print(res)

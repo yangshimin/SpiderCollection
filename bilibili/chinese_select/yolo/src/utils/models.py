@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-from yolo.src.utils.utils import bbox_wh_iou, bbox_iou
+from .utils import bbox_wh_iou, bbox_iou
 
 
 def parse_model_config(path):
