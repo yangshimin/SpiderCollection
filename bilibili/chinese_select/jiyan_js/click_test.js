@@ -5596,7 +5596,7 @@ function click_w(gt, challenge, call_infos, tracks, points) {
     var init_config = Object.assign(ee, call_infos);
     var t = new Ie(init_config);
     // t['$_BFHD']()
-    // t['$_BHFo']['$_FFA'] = tracks;
+    t['$_BHFo']['$_FFA'] = tracks;
     var config = t['$_CACr'](points, 4054)
     config["nnqv"] = '1114883951';
     var _ = new H()['encrypt'](token);

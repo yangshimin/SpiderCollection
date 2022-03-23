@@ -25,6 +25,7 @@ def run_click(path):
 def generate_click_points(res):
         print(res)
         contains = dict()
+        time.sleep(3)
         content = ""
         points = []
         for info in res:

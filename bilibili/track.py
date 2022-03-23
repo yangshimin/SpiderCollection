@@ -8,7 +8,7 @@
 import time
 import random
 import numpy as np
-from config import CODE_START_POINT, CONFIRM_START_POINT
+from config import CODE_START_POINT, CONFIRM_START_POINT, START_POINT
 
 
 def ease_out_bounce(x):
@@ -110,8 +110,8 @@ def get_click_track(points):
     """点击点选验证码上的汉字和最后点击确认这期间的鼠标轨迹"""
     # 随机设置一个起始坐标点
     start_point = (
-        CONFIRM_START_POINT[0] + random.randint(100, 150),
-        CONFIRM_START_POINT[1] + random.randint(100, 250)
+        START_POINT[0] + random.randint(100, 150),
+        START_POINT[1] + random.randint(5, 30)
     )
 
     data_contains = list()
@@ -133,13 +133,12 @@ def get_click_track(points):
             else:
                 t = t + random.randint(2, 10)
                 data_contains.append(["move", point[0], point[1], t, "pointermove"])
-                t = t + random.randint(50, 80)
+                t = t + random.randint(200, 300)
                 data_contains.append(["down", point[0], point[1], t, "pointerdown"])
                 if click_index == len(points) - 1:
                     # 点击确认时有个focus
-                    t = t + random.randint(2, 5)
                     data_contains.append(["focus", t])
-                data_contains.append(["up", point[0], point[1], t + 25, "pointerup"])
+                data_contains.append(["up", point[0], point[1], t + random.randint(80, 150), "pointerup"])
 
         start_point = point
 
@@ -148,10 +147,9 @@ def get_click_track(points):
 
 if __name__ == "__main__":
     track_infos = [
-        (794, 674),
-        (882, 564),
-        (871, 486),
-        (704, 662),
-        (898, 778)
+        (143, 215),
+        (194, 116),
+        (548, 616)
     ]
+
     print(get_click_track(track_infos))
