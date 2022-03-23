@@ -15,12 +15,13 @@ import sys
 import random
 import logging
 import requests
+from retrying import retry
 from urllib.parse import urlparse
 
-from bilibili.chinese_select.config import IMAGE_DIR
-from bilibili.chinese_select.track import get_track, get_click_track
-from bilibili.chinese_select.yolo.mode_one import generate_click_points, run_click
-from bilibili.public_func import get_md5
+from config import IMAGE_DIR
+from track import get_track, get_click_track
+from chinese_select.yolo.mode_one import generate_click_points, run_click
+from public_func import get_md5, resize_img_keep_ratio
 
 formatter = '%(asctime)s - %(filename)s[line:%(lineno)d] -%(levelname)s: %(message)s'
 logging.basicConfig(level=logging.INFO, stream=sys.stdout, format=formatter)
@@ -38,6 +39,7 @@ class JiYanTextSelect(object):
         self.params_s = None
         self.type = None
         self.image_url = None
+        self.token = None
 
     def get_gt_challenge(self):
         url = f"https://passport.bilibili.com/x/passport-login/captcha?source=main_mini&t={random.random()}"
@@ -46,7 +48,7 @@ class JiYanTextSelect(object):
             "method": "GET",
             "scheme": "https",
             "accept": "application/json, text/plain, */*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "zh,en-GB;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "origin": "https://www.bilibili.com",
@@ -62,6 +64,7 @@ class JiYanTextSelect(object):
             infos = res.json()
             self.gt = infos.get("data", {}).get("geetest", {}).get("gt")
             self.challenge = infos.get("data", {}).get("geetest", {}).get("challenge")
+            self.token = infos.get("data", {}).get("token")
         else:
             logging.error("请求gt和challenge失败")
 
@@ -73,7 +76,7 @@ class JiYanTextSelect(object):
             "path": urlparse(url).path,
             "scheme": "https",
             "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "zh,en-GB;q=0.9,en;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -118,7 +121,7 @@ class JiYanTextSelect(object):
             "method": "GET",
             "scheme": "https",
             "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -137,7 +140,7 @@ class JiYanTextSelect(object):
             "callback": f"geetest_{int(time.time()) * 1000}"
         }
 
-        res = self.s.get(url, data=body, headers=headers)
+        res = self.s.get(url, params=body, headers=headers)
         if res.status_code == 200:
             init_infos = re.search(r"geetest_\d+\((.*)\)", res.text)
             if init_infos:
@@ -175,7 +178,7 @@ class JiYanTextSelect(object):
             f"lang=zh-cn&pt=0&client_type=web&w={self.check_w}&callback=geetest_{int(time.time()) * 1000}"
         headers = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -195,17 +198,17 @@ class JiYanTextSelect(object):
                     self.type = check_infos.get("data", {}).get("result")
                     logging.info("无感验证返回信息成功")
                 else:
-                    logging.error("无感验证返回信息异常")
+                    raise Exception("无感验证返回信息异常")
             else:
-                logging.error("正则匹配无感验证信息失败")
+                raise Exception("正则匹配无感验证信息失败")
         else:
-            logging.error("请求无感验证信息失败")
+            raise Exception("请求无感验证信息失败")
 
     def get_image_info(self):
         url = "https://api.geetest.com/get.php"
         headers = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -257,7 +260,7 @@ class JiYanTextSelect(object):
             "scheme": "https",
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,"
                       "*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "accept-encoding": "gzip, deflate, br",
+            "accept-encoding": "gzip, deflate",
             "accept-language": "en-GB,en;q=0.9,zh;q=0.8,zh-CN;q=0.7,ja;q=0.6",
             "cache-control": "no-cache",
             "pragma": "no-cache",
@@ -273,14 +276,18 @@ class JiYanTextSelect(object):
                 os.makedirs(image_dir)
 
             image_path = os.path.join(image_dir, f"{get_md5(image_res.content)}.jpg")
-            with open(image_path, "wb") as f:
-                try:
-                    f.write(image_res.content)
-                except Exception as e:
-                    logging.error(f"保存验证码图片失败: {e.args}")
-                else:
-                    logging.info(f"保存验证码图片成功: {image_path}")
-                    return image_path
+            # image_path = f"{get_md5(image_res.content)}.jpg"
+            resize_img = resize_img_keep_ratio(image_res.content, (288, 258))
+            cv2.imwrite(image_path, resize_img)
+            return image_path
+            # with open(image_path, "wb") as f:
+            #     try:
+            #         f.write(image_res.content)
+            #     except Exception as e:
+            #         logging.error(f"保存验证码图片失败: {e.args}")
+            #     else:
+            #         logging.info(f"保存验证码图片成功: {image_path}")
+            #         return image_path
         else:
             logging.error('请求验证码图片失败')
 
@@ -309,7 +316,7 @@ class JiYanTextSelect(object):
               "pt=0&client_type=web&w={w}&&callback=geetest_{t}"
         header = {
             "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -320,9 +327,11 @@ class JiYanTextSelect(object):
                           "Chrome/86.0.4240.183 Safari/537.36",
         }
 
-        time.sleep(1)
-        url = url.format(gt=self.gt, challenge=self.challenge,
-                         w=self.get_click_w(image_infos, image_path), t=int(time.time()) * 1000)
+        try:
+            validate_w = self.get_click_w(image_infos, image_path)
+        except Exception as e:
+            raise Exception("识别图片位置出现异常")
+        url = url.format(gt=self.gt, challenge=self.challenge, w=validate_w, t=int(time.time()) * 1000)
         res = self.s.get(url, headers=header)
         if res.status_code == 200:
             logging.info("请求点击验证成功")
@@ -332,6 +341,7 @@ class JiYanTextSelect(object):
                 print(validate_infos)
                 if validate_infos["status"] == "success" and validate_infos["data"]["result"] == "success":
                     logging.info("点击验证成功")
+                    return validate_infos["data"]["validate"]
                 else:
                     logging.error("点击验证失败")
             else:
@@ -339,6 +349,7 @@ class JiYanTextSelect(object):
         else:
             logging.error("提交验证请求失败")
 
+    @retry(stop_max_attempt_number=10, wait_fixed=10000)
     def scheduler(self):
         self.get_gt_challenge()
         self.get_type()
@@ -348,9 +359,23 @@ class JiYanTextSelect(object):
         self.get_check_info()
         image_infos = self.get_image_info()
         image_path = self.save_image()
-        self.get_validate(image_infos, image_path)
+        validate = self.get_validate(image_infos, image_path)
+        validate_info = {
+            "gt": self.gt,
+            "challenge": self.challenge,
+            "token": self.token,
+            "validate": validate
+        }
+        print(validate_info)
+        return validate_info
 
 
 if __name__ == "__main__":
     app = JiYanTextSelect()
     app.scheduler()
+
+    # image_path = r'E:\person code\SpiderCollection\bilibili\image\c4cfc41d5284524ecdae85f5a625e078.jpg'
+    # click_list, points = generate_click_points(run_click(image_path))
+    # track_list = get_click_track(click_list)
+    # print(track_list)
+    # print(points)
