@@ -9,7 +9,7 @@ import ddddocr
 import cv2
 
 det = ddddocr.DdddOcr(det=True)
-image_path = r'E:\person code\SpiderCollection\bilibili\image\586cf9983a6001b38d9784f958a5b51b.jpg'
+image_path = r'E:\person code\SpiderCollection\bilibili\image\0bb144012e12a8302f94d8aecc9ac671.jpg'
 
 with open(image_path, 'rb') as f:
     image = f.read()

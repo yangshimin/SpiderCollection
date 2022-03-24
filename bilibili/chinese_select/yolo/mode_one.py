@@ -8,7 +8,7 @@
 @time: 2020/8/31 9:16
 """
 import random
-
+import time
 from config import CODE_WIDTH, CODE_HEIGHT, CONFIRM_START_POINT, CODE_START_POINT
 from chinese_select.yolo.src import orientation
 from chinese_select.yolo.src import discern
@@ -75,12 +75,9 @@ def generate_click_points(res):
 
 if __name__ == '__main__':
 
-    import time
-    import random
     path = r"E:\个人\SpiderCollection\bilibili\chinese_select\image\test.jpg"
-    start = time.time()
+
     res = run_click(path)
     print(res)
-    print("识别耗时为：", time.time() - start)
     # draw(path, res)
     print(generate_click_points(res))

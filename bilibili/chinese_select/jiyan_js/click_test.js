@@ -1,3 +1,4 @@
+var navigator = require("./navigator").navigator;
 var window = new Object();
 window.parseFloat = parseFloat;
 window.parseInt = parseInt;
@@ -19,8 +20,8 @@ head.translate = true;
 head.dir = "";
 head.hidden = false;
 head.id = "";
-head.innerHTML = '<title>验证形式展示-极验交互安全</title><link rel="shortcut ic"';
-head.innerText ="验证形式展示-极验交互安全↵                var lang = (navigato";
+head.innerHTML = `\n    <meta charset="UTF-8">\n    <title>哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</title>\n    <meta name="description"`;
+head.innerText =`\n    \n    哔哩哔哩 (゜-゜)つロ 干杯~-bilibili\n    \n    \n    \n    \n    \n    \n    body {\n\n margin: 0;`;
 head.inputMode = ""
 head.appendChild = function(name){
     return {
@@ -90,55 +91,16 @@ document.getElementsByTagName = function (name){
 window.document = document;
 
 location = new Object();
+location.hash = "";
+location.host = "www.bilibili.com";
+location.hostname = "www.bilibili.com";
+location.href = "https://www.bilibili.com/";
+location.origin = "https://www.bilibili.com";
+location.pathname = "/";
 location.port = "";
-location.protocol = "http:";
+location.protocol = "https:";
 window.location = location;
 
-navigator = new Object();
-navigator.appCodeName = "Mozilla";
-navigator.appName = "Netscape";
-navigator.appVersion = "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36";
-navigator.bluetooth = {};
-navigator.clipboard = {};
-navigator.cookieEnabled = true;
-navigator.credentials = {};
-navigator.deviceMemory = 8;
-navigator.doNotTrack = null;
-navigator.geolocation = {};
-navigator.keyboard = {}
-navigator.language = "zh";
-navigator.languages = ["zh", "en-GB", "zh-CN", "ja"];
-navigator.maxTouchPoints = 0;
-navigator.hardwareConcurrency = 4;
-navigator.onLine = true;
-navigator.platform = "Win32";
-navigator.usb = {}
-navigator.product = "Gecko";
-navigator.productSub = "20030107";
-navigator.userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36";
-navigator.vendor = "Google Inc.";
-navigator.vendorSub = "";
-navigator.plugins = [
-    {
-        "description": "Portable Document Format",
-        "filename": "internal-pdf-viewer",
-        "length": 1,
-        "name": "Chrome PDF Plugin"
-    },
-    {
-        "description": "",
-        "filename": "mhjfbmdgcfjbbpaeojofohoefgiehjai",
-        "length": 1,
-        "name": "Chrome PDF Viewer",
-    },
-    {
-        "description": "",
-        "filename": "internal-nacl-plugin",
-        "length": 2,
-        "name": "Native Client",
-    }
-]
-navigator.connection = {"downlink": 10, "effectiveType": "4g", "onchange": null, "rtt": 50, "saveData": false}
 window.navigator = navigator;
 
 history = new Object();

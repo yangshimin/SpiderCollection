@@ -19,8 +19,8 @@ head.translate = true;
 head.dir = "";
 head.hidden = false;
 head.id = "";
-head.innerHTML = '<title>验证形式展示-极验交互安全</title><link rel="shortcut ic"';
-head.innerText ="验证形式展示-极验交互安全↵                var lang = (navigato";
+head.innerHTML = `\n    <meta charset="UTF-8">\n    <title>哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</title>\n    <meta name="description"`;
+head.innerText =`\n    \n    哔哩哔哩 (゜-゜)つロ 干杯~-bilibili\n    \n    \n    \n    \n    \n    \n    body {\n\n margin: 0;`;
 head.inputMode = ""
 head.appendChild = function(name){
     return {

@@ -96,6 +96,7 @@ class Login(object):
         }
         login_res = self.s.post(self.login_url, data=login_data, headers=headers)
         if login_res.status_code == 200:
+            print(login_res.text)
             if login_res.json()["data"].get("status") == 0:
                 logging.info("登录成功")
             else:

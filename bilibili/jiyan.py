@@ -5,6 +5,8 @@
 # @Email   : fausty@synnex.com
 # @File    : application.py
 # @Software: PyCharm
+import base64
+
 import ddddocr
 import json
 import cv2
@@ -236,7 +238,7 @@ class JiYanTextSelect(object):
             "callback": f"geetest_{int(time.time()) * 1000}",
         }
 
-        res = self.s.get(url, data=data, headers=headers)
+        res = self.s.get(url, params=data, headers=headers)
         if res.status_code == 200:
             logging.info("请求验证码图片信息成功")
             image_infos = re.search(r"geetest_\d+\((.*)\)", res.text)
@@ -330,6 +332,7 @@ class JiYanTextSelect(object):
         try:
             validate_w = self.get_click_w(image_infos, image_path)
         except Exception as e:
+            logging.error(e.args)
             raise Exception("识别图片位置出现异常")
         url = url.format(gt=self.gt, challenge=self.challenge, w=validate_w, t=int(time.time()) * 1000)
         res = self.s.get(url, headers=header)
@@ -360,6 +363,8 @@ class JiYanTextSelect(object):
         image_infos = self.get_image_info()
         image_path = self.save_image()
         validate = self.get_validate(image_infos, image_path)
+        if not validate:
+            raise Exception("validate value异常")
         validate_info = {
             "gt": self.gt,
             "challenge": self.challenge,
