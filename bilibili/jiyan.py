@@ -31,8 +31,11 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout, format=formatter)
 
 class JiYanTextSelect(object):
 
-    def __init__(self):
-        self.s = requests.Session()
+    def __init__(self, session):
+        if session is None:
+            self.s = requests.Session()
+        else:
+            self.s = session
         self.gt = None
         self.w = None
         self.check_w = None

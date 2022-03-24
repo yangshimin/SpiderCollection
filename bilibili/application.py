@@ -51,9 +51,8 @@ class Login(object):
         else:
             logging.error("请求login 的key失败")
 
-    @staticmethod
-    def get_validate_info():
-        text_select = JiYanTextSelect()
+    def get_validate_info(self):
+        text_select = JiYanTextSelect(self.s)
         return text_select.scheduler()
 
     def decrypt_pwd(self, key, hash_):
@@ -97,6 +96,7 @@ class Login(object):
         login_res = self.s.post(self.login_url, data=login_data, headers=headers)
         if login_res.status_code == 200:
             print(login_res.text)
+            print(login_res.cookies)
             if login_res.json()["data"].get("status") == 0:
                 logging.info("登录成功")
             else:
