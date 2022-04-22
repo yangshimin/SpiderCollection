@@ -1,0 +1,8 @@
+1.先执行startTracking函数, 会执行bpd函数进行第一次sensor_data的计算并注册诸多监听事件
+2. 执行calc_fp函数, 并计算canvas数据并重置bmak中的一些属性, 然后执行bpd函数进行第二次sensor_data的计算
+3. 输入TRACKING ID时，会触发mousedown或keypress或pointerdown事件，会根据鼠标的轨迹重置bmak中一些属性的值, 然后执行bpd函数进行多次的sensor_data的计算
+
+
+if (oSession.responseCode == 200 && oSession.RequestHeaders.HTTPMethod == "GET" && oSession.uriContains("jktKEg")){
+			oSession.LoadResponseFromFile("E:\\person code\\SpiderCollection\\fedex\\init_result.js")
+			}

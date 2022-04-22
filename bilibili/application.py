@@ -126,6 +126,6 @@ class Login(object):
 
 
 if __name__ == "__main__":
-    app = Login("", "")
+    app = Login("17602888734", "843113495gh")
     app.login()
     app.get_account_info()
