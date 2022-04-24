@@ -1,3 +1,6 @@
+var document = {};
+var dtaEventTarget = require('./simpleEventTarget').EventTarget
+Object.setPrototypeOf(document, dtaEventTarget.prototype)
 var cookie_abck = 'E17D02DCE06BAD6FCBB777666AA425E4~-1~YAAQhfw7F4izcBKAAQAAWyBmUAeN49MOMSw/jkf406YrhM9qYu3ol3lBTcRdmQneYUHF/qWEBQs67JWJCxVeFnzHtFE/1CBGikBTmJKanD/Rw2KyIRA0eIz1qVCbqWK2ZsMvMenBqgYaOqnAinsaSwwxFdyIPI9cbIhoN7ZKvmthmAUg+OlSJjufnLpyaWV9/+JPa+rNPQOICtiVAak56sRUto+RnNzyTZdt9jp96IV//GFuzsyrN2rYerCrchJKEoeJ/fcY49KqRBnx+jmwjtWJyFv6p/oa6+gcSXvVG7VjaiTJdGMu85pTX41hp9fdlyVIDXJfeGYk0azEJHQ3hpE0i6y3FvFWPAtYYUmth7dKZVZFzqpRZtyMng==~-1~-1~-1'
 var _cf = _cf || [];
 var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed") ? bmak : {
@@ -207,6 +210,8 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
     },
     startdoadma: function () {
         0 == bmak["doadma_en"] && (
+            document["addEventListener"]("deviceorientation", bmak["cdoa"], !0),
+                document["addEventListener"]("devicemotion", bmak["cdma"], !0),
             bmak["doadma_en"] = 1),
             bmak["doa_throttle"] = 0,
             bmak["dma_throttle"] = 0;
@@ -429,7 +434,6 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
     },
     hvc: function () {
         // 一个未知事件的注册函数
-        debugger;
         try {
             var t = 1;
             document[bmak["hn"]] && (t = 0), bmak["lvc"](t);
@@ -445,6 +449,117 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
     },
     apicall_bm: function (t, a, e) {
         bmak["dcs"] = 0;
+    },
+    mn_init: function () {
+        var t = 200;
+        bmak["pstate"] && (t = 100), setInterval(bmak["mn_poll"], t);
+    },
+    mn_update_challenge_details: function (t) {
+        bmak["mn_sen"] = t[0],
+            bmak["mn_abck"] = t[1],
+            bmak["mn_psn"] = t[2],
+            bmak["mn_cd"] = t[3],
+            bmak["mn_tout"] = t[4],
+            bmak["mn_stout"] = t[5],
+            bmak["mn_ct"] = t[6],
+            bmak["mn_ts"] = bmak["start_ts"],
+            bmak["mn_cc"] = bmak["mn_abck"] + bmak["start_ts"] + bmak["mn_psn"];
+    },
+    mn_get_new_challenge_params: function (t) {
+        var a = null,
+            e = null,
+            n = null;
+        if (null != t)
+            for (var o = 0; o < t["length"]; o++) {
+                var m = t[o];
+
+                if (m["length"] > 0) {
+                    for (var r = m[0], i = bmak["mn_abck"] + bmak["start_ts"] + m[2], c = (m[3], m[6]), b = 0; b < bmak["mn_lcl"] && 1 == r && bmak["mn_lc"][b] != i; b++);
+
+                    b == bmak["mn_lcl"] && (a = o, 2 == c && (e = o), 3 == c && (n = o));
+                }
+            }
+        return null != n && bmak["pstate"] ? t[n] : null == e || bmak["pstate"] ? null == a || bmak["pstate"] ? null : t[a] : t[e];
+    },
+    mn_poll: function () {
+        if (0 == bmak["mn_state"] && (bmak["pstate"] || bmak["pdet"])) {
+            var t = bmak["get_mn_params_from_abck"](),
+                a = bmak["mn_get_new_challenge_params"](t);
+            null != a && (bmak["mn_update_challenge_details"](a),
+            bmak["mn_sen"] && (bmak["mn_state"] = 1,
+                bmak["mn_mc_indx"] = 0,
+                bmak["mn_al"] = [],
+                bmak["mn_il"] = [],
+                bmak["mn_tcl"] = [],
+                bmak["mn_lg"] = [],
+                bmak["mn_rts"] = bmak["get_cf_date"](),
+                bmak["mn_rt"] = bmak["mn_rts"] - bmak["start_ts"],
+                bmak["mn_wt"] = 0,
+                setTimeout(bmak["mn_w"], bmak["mn_tout"])));
+        }
+    },
+    encode_utf8: function (t) {
+        return unescape(encodeURIComponent(t));
+    },
+    rotate_right: function (t, a) {
+        return t >>> a | t << 32 - a;
+    },
+    bdm: function (t, a) {
+        for (var e = 0, n = 0; n < t["length"]; ++n) e = (e << 8 | t[n]) >>> 0, e %= a;
+
+        return e;
+    },
+    mn_pr: function () {
+        return bmak["mn_al"]["join"](",") + ";" + bmak["mn_tcl"]["join"](",") + ";" + bmak["mn_il"]["join"](",") + ";" + bmak["mn_lg"]["join"](",") + ";";
+    },
+    mn_s: function (t) {
+        var a = [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298],
+            e = 1779033703,
+            n = 3144134277,
+            o = 1013904242,
+            m = 2773480762,
+            r = 1359893119,
+            i = 2600822924,
+            c = 528734635,
+            b = 1541459225,
+            d = bmak["encode_utf8"](t),
+            s = 8 * d["length"];
+        d += String["fromCharCode"](128);
+
+        for (var k = d["length"] / 4 + 2, l = Math["ceil"](k / 16), u = new Array(l), _ = 0; _ < l; _++) {
+            u[_] = new Array(16);
+
+            for (var f = 0; f < 16; f++) u[_][f] = d["charCodeAt"](64 * _ + 4 * f) << 24 | d["charCodeAt"](64 * _ + 4 * f + 1) << 16 | d["charCodeAt"](64 * _ + 4 * f + 2) << 8 | d["charCodeAt"](64 * _ + 4 * f + 3) << 0;
+        }
+
+        var p = s / Math["pow"](2, 32);
+        u[l - 1][14] = Math["floor"](p), u[l - 1][15] = s;
+
+        for (var h = 0; h < l; h++) {
+            for (var v, g = new Array(64), w = e, y = n, E = o, S = m, C = r, v = i, A = c, B = b, _ = 0; _ < 64; _++) {
+                var x, M, j, L, P, T;
+                _ < 16 ? g[_] = u[h][_] : (x = bmak["rotate_right"](g[_ - 15], 7) ^ bmak["rotate_right"](g[_ - 15], 18) ^ g[_ - 15] >>> 3, M = bmak["rotate_right"](g[_ - 2], 17) ^ bmak["rotate_right"](g[_ - 2], 19) ^ g[_ - 2] >>> 10, g[_] = g[_ - 16] + x + g[_ - 7] + M), M = bmak["rotate_right"](C, 6) ^ bmak["rotate_right"](C, 11) ^ bmak["rotate_right"](C, 25), j = C & v ^ ~C & A, L = B + M + j + a[_] + g[_], x = bmak["rotate_right"](w, 2) ^ bmak["rotate_right"](w, 13) ^ bmak["rotate_right"](w, 22), P = w & y ^ w & E ^ y & E, T = x + P, B = A, A = v, v = C, C = S + L >>> 0, S = E, E = y, y = w, w = L + T >>> 0;
+            }
+
+            e += w, n += y, o += E, m += S, r += C, i += v, c += A, b += B;
+        }
+
+        return [e >> 24 & 255, e >> 16 & 255, e >> 8 & 255, 255 & e, n >> 24 & 255, n >> 16 & 255, n >> 8 & 255, 255 & n, o >> 24 & 255, o >> 16 & 255, o >> 8 & 255, 255 & o, m >> 24 & 255, m >> 16 & 255, m >> 8 & 255, 255 & m, r >> 24 & 255, r >> 16 & 255, r >> 8 & 255, 255 & r, i >> 24 & 255, i >> 16 & 255, i >> 8 & 255, 255 & i, c >> 24 & 255, c >> 16 & 255, c >> 8 & 255, 255 & c, b >> 24 & 255, b >> 16 & 255, b >> 8 & 255, 255 & b];
+    },
+    mn_w: function () {
+        try {
+            for (var t = 0, a = 0, e = 0, n = "", o = bmak["get_cf_date"](), m = bmak["mn_cd"] + bmak["mn_mc_indx"]; 0 == t;) {
+                n = Math["random"]()["toString"](16);
+                var r = bmak["mn_cc"] + m["toString"]() + n,
+                    i = bmak["mn_s"](r);
+                if (0 == bmak["bdm"](i, m)) t = 1, e = bmak["get_cf_date"]() - o, bmak["mn_al"]["push"](n), bmak["mn_tcl"]["push"](e), bmak["mn_il"]["push"](a), 0 == bmak["mn_mc_indx"] && (bmak["mn_lg"]["push"](bmak["mn_abck"]), bmak["mn_lg"]["push"](bmak["mn_ts"]), bmak["mn_lg"]["push"](bmak["mn_psn"]), bmak["mn_lg"]["push"](bmak["mn_cc"]), bmak["mn_lg"]["push"](bmak["mn_cd"]["toString"]()), bmak["mn_lg"]["push"](m["toString"]()), bmak["mn_lg"]["push"](n), bmak["mn_lg"]["push"](r), bmak["mn_lg"]["push"](i), bmak["mn_lg"]["push"](bmak["mn_rt"]));
+                else if ((a += 1) % 1e3 == 0 && (e = bmak["get_cf_date"]() - o) > bmak["mn_stout"]) return bmak["mn_wt"] += e, void setTimeout(bmak["mn_w"], bmak["mn_stout"]);
+            }
+
+            bmak["mn_mc_indx"] += 1, bmak["mn_mc_indx"] < bmak["mn_mc_lmt"] ? setTimeout(bmak["mn_w"], e) : (bmak["mn_mc_indx"] = 0, bmak["mn_lc"][bmak["mn_lcl"]] = bmak["mn_cc"], bmak["mn_ld"][bmak["mn_lcl"]] = bmak["mn_cd"], bmak["mn_lcl"] = bmak["mn_lcl"] + 1, bmak["mn_state"] = 0, bmak["mn_lg"]["push"](bmak["mn_wt"]), bmak["mn_lg"]["push"](bmak["get_cf_date"]()), bmak["mn_r"][bmak["mn_abck"] + bmak["mn_psn"]] = bmak["mn_pr"](), bmak["js_post"] && (bmak["aj_type"] = 8, 2 == bmak["mn_ct"] && (bmak["dcs"] = 1), bmak["bpd"](), bmak["pd"](!0)));
+        } catch (t) {
+            bmak["sd_debug"](",mn_w:" + t);
+        }
     },
     pd: function (t) {
         bmak["check_stop_protocol"]() || bmak["check_ipr_signals"]() ? (
@@ -609,7 +724,30 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
     },
     np: function () {
         bmak["nav_perm"] = 8;
-        Promise.resolve().then(() => [1, 1, 3, 2, 1, 1, 4, 4, 2, 4, 1, 3, 2, 2, 2, 4, 3, 1, 2, 2]).then(res =>bmak['nav_perm']=res.join(","), console.log("执行了np函数", bmak['nav_perm']))
+
+        setTimeout(function(){
+            bmak['nav_perm'] = [1, 1, 3, 2, 1, 1, 4, 4, 2, 4, 1, 3, 2, 2, 2, 4, 3, 1, 2, 2].join("");
+            console.log("执行了np函数 nav_perm", bmak['nav_perm']);
+
+        }, 100);
+
+        // function promise_np(){
+        //     let p = new Promise(function(resolve, reject){
+        //         setTimeout(function(){
+        //             res = [1, 1, 3, 2, 1, 1, 4, 4, 2, 4, 1, 3, 2, 2, 2, 4, 3, 1, 2, 2].join("");
+        //             resolve(res);
+        //
+        //         }, 100);
+        //     })
+        //     return p
+        // }
+        //
+        // promise_np().then(
+        //     function(data){
+        //         bmak['nav_perm']=data;
+        //         console.log("执行了np函数 nav_perm", bmak['nav_perm'])
+        //     }
+        // );
     },
     cal_dis: function (t) {
         var a = t[0] - t[1],
@@ -702,13 +840,11 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
         return a;
     },
     build_pua: function () {
-        Promise.resolve().then(() => [
-            "Mozilla/5.0 (",
-            "Windows;10.0.0;x86;64;)",
-            " AppleWebKit/537.36 (KHTML, like Gecko) Chrome/",
-            "100.0.4896.88",
-            " Safari/537.36"
-        ]).then(res =>bmak['pua']=res.join(","), console.log("执行了build_pua函数", bmak['pua']))
+        setTimeout(function(){
+            bmak['nav_perm'] = [1, 1, 3, 2, 1, 1, 4, 4, 2, 4, 1, 3, 2, 2, 2, 4, 3, 1, 2, 2].join("");
+            console.log("执行了np函数 nav_perm", bmak['nav_perm']);
+
+        }, 200);
     },
     od: function (t, a) {
         try {
@@ -729,6 +865,35 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
         } catch (t) {}
 
         return t;
+    },
+    ats: function (t) {
+        for (var a = "", e = 0; e < t["length"]; e++) a += 2 == t[e]["toString"](16)["length"] ? t[e]["toString"](16) : "0" + t[e]["toString"](16);
+
+        return a;
+    },
+    csh: function () {
+            var a = "'Microsoft Huihui - Chinese (Simplified, PRC)_zh-CNMicrosoft Kangkang - Chinese (Simplified, PRC)_zh-CNMicrosoft Yaoyao - Chinese (Simplified, PRC)_zh-CNGoogle Deutsch_de-DEGoogle US English_en-USGoogle UK English Female_en-GBGoogle UK English Male_en-GBGoogle español_es-ESGoogle español de Estados Unidos_es-USGoogle français_fr-FRGoogle हिन्दी_hi-INGoogle Bahasa Indonesia_id-IDGoogle italiano_it-ITGoogle 日本語_ja-JPGoogle 한국의_ko-KRGoogle Nederlands_nl-NLGoogle polski_pl-PLGoogle português do Brasil_pt-BRGoogle русский_ru-RUGoogle 普通话（中国大陆）_zh-CNGoogle 粤語（香港）_zh-HKGoogle 國語（臺灣）_zh-TW'"
+            bmak["ssh"] = bmak["ats"](bmak["mn_s"](a));
+    },
+    fm: function () {
+        var e = "Monospace:1056,192;Wingdings 2:1056,192;ITC Bodoni 72 Bold:1056,192;Menlo:1593,253;Gill Sans MT:1593,253;Lucida Sans:1593,253;Bodoni 72:1593,253;Serif:1056,192;Shree Devanagari 714:1056,192;Microsoft Tai Le:1463,244;Nimbus Roman No 9 L:1463,244;Candara:1388,235;Press Start 2P:1388,235;Waseem:1593,253;"
+        bmak["fmh"] = bmak["ats"](bmak["mn_s"](e));
+
+        bmak["fmz"] = 1
+    },
+    wgl: function () {
+        bmak["wv"] = "n",
+            bmak["wr"] = "n",
+            bmak["weh"] = "n",
+            bmak["wl"] = 0,
+        (bmak["wv"] = "b",
+            bmak["wr"] = "b",
+            bmak["weh"] = "b",
+        (bmak["weh"] = bmak["ats"](bmak["mn_s"](JSON["stringify"](['ANGLE_instanced_arrays', 'EXT_blend_minmax', 'EXT_color_buffer_half_float', 'EXT_disjoint_timer_query', 'EXT_float_blend', 'EXT_frag_depth', 'EXT_sRGB', 'EXT_shader_texture_lod', 'EXT_texture_compression_bptc', 'EXT_texture_compression_rgtc', 'EXT_texture_filter_anisotropic', 'KHR_parallel_shader_compile', 'OES_element_index_uint', 'OES_fbo_render_mipmap', 'OES_standard_derivatives', 'OES_texture_float', 'OES_texture_float_linear', 'OES_texture_half_float', 'OES_texture_half_float_linear', 'OES_vertex_array_object', 'WEBGL_color_buffer_float', 'WEBGL_compressed_texture_s3tc', 'WEBGL_compressed_texture_s3tc_srgb', 'WEBGL_debug_renderer_info', 'WEBGL_debug_shaders', 'WEBGL_depth_texture', 'WEBGL_draw_buffers', 'WEBGL_lose_context', 'WEBGL_multi_draw', 'WEBKIT_EXT_texture_filter_anisotropic', 'WEBKIT_WEBGL_compressed_texture_s3tc', 'WEBKIT_WEBGL_depth_texture', 'WEBKIT_WEBGL_lose_context']))),
+            bmak["wl"] = 33,
+            (bmak["wv"] = 'Google Inc. (NVIDIA)',
+                bmak["wr"] = 'ANGLE (NVIDIA, NVIDIA GeForce GTX 750 Ti Direct3D11 vs_5_0 ps_5_0, D3D11-27.21.14.5671)')));
+
     },
     bpd: function () {
         console.log("开始生成sensor_data")
@@ -763,7 +928,7 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
                 w = g["join"](","),
                 y = "" + bmak["ab"](bmak["fpcf"]["fpValstr"]);
 
-            bmak["firstLoad"] ? bmak["np"]() : bmak[_acxj[0]](), !bmak["hbCalc"] && (0 == bmak["js_post"] || bmak["aj_indx"] > 0) && (setTimeout(bmak["fm"], 4e3), setTimeout(bmak["wgl"], 4e3), bmak["hbCalc"] = !0);
+            bmak["firstLoad"] ? bmak["np"]() : bmak["csh"](), !bmak["hbCalc"] && (0 == bmak["js_post"] || bmak["aj_indx"] > 0) && (setTimeout(bmak["fm"], 4e3), setTimeout(bmak["wgl"], 4e3), bmak["hbCalc"] = !0);
             var E = "";
             bmak["hbCalc"] && (E = bmak["fmh"] + "," + bmak["fmz"] + "," + bmak["ssh"] + "," + bmak["wv"] + "," + bmak["wr"] + "," + bmak["weh"] + "," + bmak["wl"]);
             var S = bmak["sed"](),
@@ -807,12 +972,15 @@ var bmak = bmak && bmak["hasOwnProperty"]("ver") && bmak["hasOwnProperty"]("sed"
                 D = Math["floor"](bmak["get_cf_date"]() / 36e5),
                 N = bmak["get_cf_date"](),
                 R = F + bmak["od"](D, F) + bmak["sensor_data"];
-            debugger;
             bmak["sensor_data"] = R + ";" + (bmak["get_cf_date"]() - t) + ";" + bmak["tst"] + ";" + (bmak["get_cf_date"]() - N);
         } catch (t) {}
 
         console.log("sensor_data is: ", bmak["sensor_data"])
         bmak["sd_debug"]("</bpd>");
+    },
+    calc_fp: function () {
+        bmak["fpcf"]["fpVal"](),
+        bmak["js_post"] && (bmak["aj_type"] = 9, bmak["bpd"](), bmak["pd"](!0));
     },
 
 };
@@ -833,7 +1001,6 @@ var init_func = !function (t){
             a["cache"] = {};
         },
         a["fpVal"] = function () {
-            debugger
             a["fpValCalculated"] = !0;
 
             try {
@@ -856,9 +1023,10 @@ var init_func = !function (t){
                 m = -1,   // navigator["doNotTrack"] ? navigator["doNotTrack"] : -1
                 r = "default";
             r = bmak["runFonts"] ? bmak["altFonts"] ? a["fonts_optm"]() : a["fonts"]() : "dis";
+            a["rCFP"] = '-848723031';
             return [
-                a["canvas"]("<@nv45. F1n63r,Pr1n71n6!"),
-                a["canvas"]("m,Ev!xV67BaU> eh2m<f3AG3@"),
+                '420217769',    // '420217769'  a["canvas"]("<@nv45. F1n63r,Pr1n71n6!")
+                '1243744842',  // '1243744842' a["canvas"]("m,Ev!xV67BaU> eh2m<f3AG3@")
                 r,
                 a["pluginInfo"](),
                 a["sessionStorageKey"](),
@@ -877,20 +1045,11 @@ var init_func = !function (t){
             "Windows Media Player Plug-in Dynamic Link Library", "Google Talk Plugin Video Renderer", "Edge PDF Viewer",
             "Shockwave for Director", "Default Browser Helper", "Silverlight Plug-In"],
         a["pluginInfo"] = function () {
-            if (void 0 === navigator["plugins"]) return null;
-
-            for (var t = a["PLUGINS"]["length"], e = "", n = 0; n < t; n++) {
-                var o = a["PLUGINS"][n];
-                void 0 !== navigator["plugins"][o] && (e = e + "," + n);
-            }
-
-            return e;
+            return ',7';
         },
         a["canvas"] = function (t) {
             try {
                 if (void 0 !== a["cache"]["canvas"]) return a["cache"]["canvas"];
-                var e = -1;
-
                 var n = document["createElement"]("canvas");
 
                 if (n["width"] = 280, n["height"] = 60, n["style"]["display"] = "none", "function" == typeof n["getContext"]) {
@@ -924,7 +1083,6 @@ var init_func = !function (t){
 
                     a["rCFP"] = d["toString"]();
                 }
-
                 return e;
             } catch (t) {
                 return "exception";
@@ -1063,10 +1221,33 @@ var init_func = !function (t){
 
 var first_get_sensor_data = function(){
     bmak["to"]();
+    document["addEventListener"]("touchmove", bmak["htm"], !0),
+        document["addEventListener"]("touchstart", bmak["hts"], !0),
+        document["addEventListener"]("touchend", bmak["hte"], !0),
+        document["addEventListener"]("touchcancel", bmak["htc"], !0),
+        document["addEventListener"]("mousemove", bmak["hmm"], !0),
+        document["addEventListener"]("click", bmak["hc"], !0),
+        document["addEventListener"]("mousedown", bmak["hmd"], !0),
+        document["addEventListener"]("mouseup", bmak["hmu"], !0),
+        document["addEventListener"]("pointerdown", bmak["hpd"], !0),
+        document["addEventListener"]("pointerup", bmak["hpu"], !0),
+        document["addEventListener"]("keydown", bmak["hkd"], !0),
+        document["addEventListener"]("keyup", bmak["hku"], !0),
+        document["addEventListener"]("keypress", bmak["hkp"], !0),
     bmak["rve"]();
     bmak["informinfo"] = bmak["getforminfo"]();
     bmak["js_post"] && (bmak["aj_type"] = 0, bmak["bpd"](), bmak["pd"](!0)), bmak["firstLoad"] = !1;
+    bmak["mn_init"]();
+    // bmak["calc_fp"]()
+    return bmak["nav_perm"]
+}
+
+var second_get_sensor_data = function(){
+    // setTimeout(function(){console.log("计算第二次sensor_data")}, 1000)
+    bmak["calc_fp"]()
+    return bmak["nav_perm"]
 }
 
 
-console.log(first_get_sensor_data())
+// first_get_sensor_data()
+// second_get_sensor_data()

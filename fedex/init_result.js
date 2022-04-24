@@ -306,6 +306,7 @@ var _cf = _cf || [],
         return r = null != window["document"]["documentElement"]["getAttribute"]("selenium") ? "1" : "0", [t, a, e, n, o, m, r]["join"](",");
       },
       cma: function (t, a) {
+          // mouse事件的回调函数(mousemove click mousedown mouseup)
         try {
           if (1 == a && bmak["mme_cnt"] < bmak["mme_cnt_lmt"] || 1 != a && bmak["mduce_cnt"] < bmak["mduce_cnt_lmt"]) {
             var e = t || window["event"],
@@ -383,6 +384,7 @@ var _cf = _cf || [],
         }
       },
       cpa: function (t, a) {
+          // pointer事件的回调函数调度(pointerdown pointerup)
         try {
           var e = !1;
 
@@ -532,6 +534,7 @@ var _cf = _cf || [],
         return 1 == (null == e ? -1 : bmak["get_type"](e)) && bmak["fidcnt"] > 12 && -2 == t ? 1 : 0;
       },
       cka: function (t, a) {
+          // keyup和keypress事件的回调函数调度
         try {
           var e = t || window["event"],
               n = -1,
@@ -560,6 +563,7 @@ var _cf = _cf || [],
         } catch (t) {}
       },
       cta: function (t, a) {
+          // touch事件的回调函数调度(touchmove touchstart touchend touchcancel)
         try {
           if (1 == a && bmak["tme_cnt"] < bmak["tme_cnt_lmt"] || 1 != a && bmak["tduce_cnt"] < bmak["tduce_cnt_lmt"]) {
             var e = t || window["event"],
@@ -585,6 +589,8 @@ var _cf = _cf || [],
         return -1;
       },
       cdoa: function (t) {
+          // deviceorientation 事件的回调函数
+          console.log("deviceorientation: ", t);
         try {
           if (bmak["doe_cnt"] < bmak["doe_cnt_lmt"] && bmak["doa_throttle"] < 2 && t) {
             var a = bmak["get_cf_date"]() - bmak["start_ts"],
@@ -599,6 +605,8 @@ var _cf = _cf || [],
         } catch (t) {}
       },
       cdma: function (t) {
+          // devicemotion事件的回调函数
+          console.log("devicemotion: ", t);
         try {
           if (bmak["dme_cnt"] < bmak["dme_cnt_lmt"] && bmak["dma_throttle"] < 2 && t) {
             var a = bmak["get_cf_date"]() - bmak["start_ts"],
@@ -654,42 +662,68 @@ var _cf = _cf || [],
         return bmak["get_cf_date"]() - bmak["start_ts"];
       },
       htm: function (t) {
+          // touchmove事件的回调函数
+          console.log("touchmove: ", t)
         bmak["cta"](t, 1);
       },
       hts: function (t) {
+          // touchstart事件的回调函数
+          console.log("touchstart: ", t)
         bmak["cta"](t, 2);
       },
       hte: function (t) {
+          // touchend事件的回调函数
+          console.log("touchend: ", t)
         bmak["cta"](t, 3);
       },
       htc: function (t) {
+          // touchcancel事件的回调函数
+          console.log("touchcancel: ", t)
         bmak["cta"](t, 4);
       },
       hmm: function (t) {
-        bmak["cma"](t, 1);
+          // mousemove事件的回调函数
+          // console.log("mousemove: ", t)
+        // bmak["cma"](t, 1);
       },
       hc: function (t) {
+          // click事件的回调函数
+          console.log("click: ", t)
         bmak["cma"](t, 2);
       },
       hmd: function (t) {
+          // mousedown事件的回调函数
+          console.log("mousedown: ", t)
         bmak["cma"](t, 3);
       },
       hmu: function (t) {
+          // mouseup事件的回调函数
+          console.log("mouseup: ", t)
         bmak["cma"](t, 4);
       },
       hpd: function (t) {
+          // pointerdown事件的回调函数
+          console.log("pointerdown: ", t)
         bmak["cpa"](t, 3);
       },
       hpu: function (t) {
+          // pointerup事件的回调函数
+          console.log("pointerup: ", t)
         bmak["cpa"](t, 4);
       },
       hkd: function (t) {
+          // keydown事件的回调函数
+          console.log("keydown: ", t)
         bmak["cka"](t, 1);
       },
       hku: function (t) {
+          // keyup事件的回调函数
+          console.log("keyup: ", t)
         bmak["cka"](t, 2);
       },
       hkp: function (t) {
+          // keypress事件的回调函数
+          console.log("keypress: ", t)
         bmak["cka"](t, 3);
       },
       form_submit: function () {
@@ -852,7 +886,6 @@ var _cf = _cf || [],
               D = Math["floor"](bmak["get_cf_date"]() / 36e5),
               N = bmak["get_cf_date"](),
               R = F + bmak["od"](D, F) + bmak["sensor_data"];
-          debugger;
           bmak["sensor_data"] = R + ";" + (bmak["get_cf_date"]() - t) + ";" + bmak["tst"] + ";" + (bmak["get_cf_date"]() - N);
         } catch (t) {}
 
@@ -894,6 +927,7 @@ var _cf = _cf || [],
         } catch (t) {}
       },
       hvc: function () {
+          // 一个未知事件的注册函数
         debugger;
         try {
           var t = 1;
@@ -901,10 +935,12 @@ var _cf = _cf || [],
         } catch (t) {}
       },
       hb: function (t) {
-        debugger
+          // 失去焦点的时事件回调函数
+          debugger
         bmak["lvc"](2);
       },
       hf: function (t) {
+          // 获得焦点的事件回调函数
         debugger
         bmak["lvc"](3);
       },
@@ -1317,7 +1353,6 @@ if (function (t) {
         o = navigator["javaEnabled"] ? navigator["javaEnabled"]() : -1,
         m = navigator["doNotTrack"] ? navigator["doNotTrack"] : -1,
         r = "default";
-        debugger;
     r = bmak["runFonts"] ? bmak["altFonts"] ? a["fonts_optm"]() : a["fonts"]() : "dis";
     return [a["canvas"]("<@nv45. F1n63r,Pr1n71n6!"), a["canvas"]("m,Ev!xV67BaU> eh2m<f3AG3@"), r, a["pluginInfo"](), a["sessionStorageKey"](), a["localStorageKey"](), a["indexedDbKey"](), a["timezoneOffsetKey"](), a["webrtcKey"](), t, e, n, o, m]["join"](";");
   },
@@ -1338,7 +1373,6 @@ if (function (t) {
     }
 
     console.log("计算plugin Info 的值: ", e);
-    debugger
     return e;
   },
       a["canvas"] = function (t) {
@@ -1360,7 +1394,6 @@ if (function (t) {
               o["arc"](80, 10, 20, 0, Math["PI"], !1),
               o["stroke"]();
           var m = n["toDataURL"]();
-          debugger
           e = 0;
 
           for (var r = 0; r < m["length"]; r++) {
@@ -1382,7 +1415,6 @@ if (function (t) {
           a["rCFP"] = d["toString"]();
         }
       }
-      debugger
       return e;
     } catch (t) {
       return "exception";
@@ -1508,7 +1540,6 @@ if (function (t) {
   },
       a["hasIndexedDB"] = function () {return !!window["indexedDB"];};
 }(bmak), bmak["firstLoad"]) {
-  debugger;
   if (bmak["sd_debug"]("<init/>"), _cf["length"] > 0) {
     for (var bm_counter = 0; bm_counter < _cf["length"]; bm_counter++) bmak["applyFunc"](_cf[bm_counter]);
 
