@@ -501,12 +501,12 @@ var _cf = _cf || [],
         var e = a["getAttribute"]("name");
 
         if (null == e) {
-          var n = a["getAttribute"]("id");
-          return null == n ? -1 : bmak["ab"](n);
+            var n = a["getAttribute"]("id");
+            return null == n ? -1 : bmak["ab"](n);
         }
 
         return bmak["ab"](e);
-      },
+        },
       cc: function (t) {
         var a = t % 4;
         2 == a && (a = 3);
@@ -713,12 +713,14 @@ var _cf = _cf || [],
       },
       hkd: function (t) {
           // keydown事件的回调函数
-          console.log("keydown: ", t)
+          console.log("keydown: ", t);
+          debugger;
         bmak["cka"](t, 1);
       },
       hku: function (t) {
           // keyup事件的回调函数
-          console.log("keyup: ", t)
+          console.log("keyup: ", t);
+          debugger;
         bmak["cka"](t, 2);
       },
       hkp: function (t) {
@@ -811,7 +813,6 @@ var _cf = _cf || [],
       },
       bpd: function () {
         console.log("开始生成sensor_data")
-        debugger
         bmak["sd_debug"]("<bpd>");
         var t = 0;
 
@@ -936,12 +937,12 @@ var _cf = _cf || [],
       },
       hb: function (t) {
           // 失去焦点的时事件回调函数
-          debugger
+          console.log("onbulr: ", t)
         bmak["lvc"](2);
       },
       hf: function (t) {
           // 获得焦点的事件回调函数
-        debugger
+          console.log("focus: ", t)
         bmak["lvc"](3);
       },
       rve: function () {
