@@ -12,39 +12,32 @@ api.use(bodyParser.urlencoded({
     extended: false
 }));
 
-api.post('/cookie', function (req, res){
-    let envCode = fs.readFileSync("env.js", {
-        encoding: "utf-8"
-    });
-    let zeroCode = fs.readFileSync("0.js", {
-        encoding: "utf-8"
-    });
-    let oneCode = fs.readFileSync("1.js", {
-        encoding: "utf-8"
-    });
-    let twoCode = fs.readFileSync("2.js", {
-        encoding: "utf-8"
-    });
+api.post('/init', function(req, res){
     let cookie = req.body.cookie;
-    let cookie_str = "document.cookie = " + "'" + cookie + "'"
-    let js_code = envCode + "\n" + cookie_str + ";\n" + req.body.code + "\n" +
-        zeroCode + "\n" + oneCode + "\n" + twoCode + "\n"
-
-    fs.writeFileSync("execute.js", js_code, {
-        encoding: "utf-8"
-    });
-
-    eval(js_code)
-    setTimeout(function(){
-        var gmpCookie = eval("document.cookie")
-        console.log(gmpCookie)
-        res.send(gmpCookie);
-    }, 2000);
-
-
-
-
+    fedex_ins.init(cookie)
+    res.send({"status": "Success"})
 })
+
+api.get('/first_get_sensor_data', function(req, res){
+    let sensor_data = fedex_ins.first_get_sensor_data();
+    res.send(sensor_data);
+})
+
+api.get('/second_get_sensor_data', function(req, res){
+    let sensor_data = fedex_ins.second_get_sensor_data();
+    res.send(sensor_data);
+})
+
+api.get('/third_get_sensor_data', function(req, res){
+    let sensor_data = fedex_ins.third_get_sensor_data();
+    res.send(sensor_data);
+})
+
+api.get('/fourth_get_sensor_data', function(req, res){
+    let sensor_data = fedex_ins.fourth_get_senor_data();
+    res.send(sensor_data);
+})
+
 
 
 var server = api.listen(8090, function (){

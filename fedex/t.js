@@ -2,11 +2,11 @@ var dtaEventTarget = require('./simpleEventTarget').EventTarget;
 var event = require('./event').RobotEvent;
 
 var win_ = global;
+var event_ins = new event();
 
 let fedex_sensor_data = function(){
     this.document = {};
     Object.setPrototypeOf(this.document, dtaEventTarget.prototype)
-    var event_ins = new event();
 
     var _cf = _cf || [];
     win_.cookie_abck = ""
@@ -1318,6 +1318,7 @@ fedex_sensor_data.prototype.fourth_get_senor_data = function(){
     this.document.dispatchEvent(event_ins.get_mouseup(640, 458, 146, 60, {"name": "", "id": "btnSingleTrack"}));
     this.document.dispatchEvent(event_ins.get_click(640, 458, 146, 60, {"name": "", "id": "btnSingleTrack"}));
     this.document.dispatchEvent(event_ins.get_onblur());
+    return bmak["sensor_data"]
 }
 
 
