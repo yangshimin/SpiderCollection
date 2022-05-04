@@ -4,6 +4,7 @@
 
 - [ ] amazon
 - [ ] glassdoor_cfoud
+- [x] fedex
 - [x] 易盾
 - [x] 药监局
 - [x] 抖音
