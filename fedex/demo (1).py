@@ -10,6 +10,7 @@ import requests
 from abck import AbckCookie
 
 session = requests.Session()
+client_id = None
 
 
 def get_params():
@@ -31,6 +32,9 @@ def get_params():
     res = session.get(url, headers=headers)
     if res.status_code == 200:
         logging.info("请求clientId和clientSecret成功")
+        json_data = res.json()
+        global client_id
+        client_id = json_data['clientID']
         return res.json()
     else:
         logging.error("请求clientId和clientSecret失败")
@@ -97,9 +101,40 @@ def get_query_token(query_config_info):
     return get_token(data)
 
 
+def login(s):
+    url = f"https://api.fedex.com/user/v2/login"
+    headers = {
+        "Accept": "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-GB;q=0.8,en;q=0.7,ja;q=0.6",
+        "Authorization": "Bearer " + client_id,
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Type": "application/json",
+        "Host": "api.fedex.com",
+        "Origin": "https://www.fedex.com",
+        "Pragma": "no-cache",
+        "Referer": "https://www.fedex.com/zh-cn/home.html",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/101.0.4951.41 Safari/537.36",
+        "X-clientid": "WCDO",
+        "X-locale": "en_US",
+        "X-loggedin": "true",
+        "X-version": "1.0",
+    }
+    params = {
+        "_": int(time.time())
+    }
+
+    res = s.get(url, json=params, headers=headers)
+    print(f"login 设置_abck: {s.cookies.get_dict()['_abck']}")
+    return s
+
+
 def get_abck_cookie(s):
     abck = AbckCookie(s)
     s = abck.valid_sensor_data()
+    s = login(s)
     return s
 
 
@@ -129,11 +164,11 @@ def query(token, track_number_list):
             "content-type": "application/json",
             "origin": "https://www.fedex.com",
             "pragma": "no-cache",
-            "referer": "https://www.fedex.com/en-cn/home.html",
+            "referer": "https://www.fedex.com/zh-cn/home.html",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/98.0.4758.82 Safari/537.36",
             "x-clientid": "WTRK",
-            "x-locale": "en_CN",
+            "x-locale": "en_US",
             "x-requested-with": "XMLHttpRequest",
             "x-version": "1.0.0",
         }
@@ -143,7 +178,7 @@ def query(token, track_number_list):
             logging.info("查询成功")
             print(res.json())
         else:
-            logging.error("查询失败")
+            logging.error(f"查询失败: {res.status_code}")
 
 
 if __name__ == "__main__":

@@ -723,7 +723,7 @@ let fedex_sensor_data = function(){
             return t["push"]("x12:" + u), t["join"](",");
         },
         gd: function () {
-            var t = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36",
+            var t = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36',
                 a = "" + bmak["ab"](t),
                 e = bmak["start_ts"] / 2,
                 n = -1,
@@ -880,8 +880,8 @@ let fedex_sensor_data = function(){
         },
         build_pua: function () {
             setTimeout(function(){
-                bmak['nav_perm'] = [1, 1, 3, 2, 1, 1, 4, 4, 2, 4, 1, 3, 2, 2, 2, 4, 3, 1, 2, 2].join("");
-                console.log("执行了np函数 nav_perm", bmak['nav_perm']);
+                bmak['nav_perm'] = ['Mozilla/5.0 (', 'Windows;10.0.0;x86;64;)', ' AppleWebKit/537.36 (KHTML, like Gecko) Chrome/', '101.0.4951.41', ' Safari/537.36'].join("");
+                console.log("执行了build_pua函数 nav_perm", bmak['nav_perm']);
 
             }, 200);
         },

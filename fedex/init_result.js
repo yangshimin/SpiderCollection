@@ -290,7 +290,6 @@ var _cf = _cf || [],
       },
       sed: function () {
         var t;
-        console.log("获取window['$cdc_asdjflasutopfhvcZLmcfl_'], ", window["$cdc_asdjflasutopfhvcZLmcfl_"] || document["$cdc_asdjflasutopfhvcZLmcfl_"])
         t = window["$cdc_asdjflasutopfhvcZLmcfl_"] || document["$cdc_asdjflasutopfhvcZLmcfl_"] ? "1" : "0";
         var a;
         a = null != window["document"]["documentElement"]["getAttribute"]("webdriver") ? "1" : "0";

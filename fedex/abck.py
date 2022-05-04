@@ -1,5 +1,6 @@
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
+import time
 import requests
 
 
@@ -17,14 +18,15 @@ class AbckCookie(object):
     def valid_sensor_data(self):
         requests.post(self.init_url, {"cookie": self.init_cookie})
 
-        sensor_data = requests.get(self.first_get_sensor_data_url).text
+        sensor_data = self.session.get(self.first_get_sensor_data_url).text
         self.post_sensor_data(sensor_data)
 
-        requests.get(self.second_get_sensor_data_url)
-        requests.get(self.third_get_sensor_data_url)
-
-        sensor_data = requests.get(self.fourth_get_sensor_data_url).text
+        self.session.get(self.second_get_sensor_data_url)
         self.post_sensor_data(sensor_data)
+
+        self.session.get(self.third_get_sensor_data_url)
+
+        self.session.get(self.fourth_get_sensor_data_url)
 
         return self.session
 
@@ -54,6 +56,7 @@ class AbckCookie(object):
             print(f"提交后abck: {self.session.cookies.get_dict()['_abck']}")
         else:
             print("提交验证sensor_data失败")
+
 
 
 
