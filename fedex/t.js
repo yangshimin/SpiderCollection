@@ -138,8 +138,8 @@ let fedex_sensor_data = function(){
             return t = t["toLowerCase"](), "text" == t || "search" == t || "url" == t || "email" == t || "tel" == t || "number" == t ? 0 : "password" == t ? 1 : 2;
         },
         isIgn: function (t) {
-            var a = document["activeElement"];
-            if (null == document["activeElement"]) return 0;
+            var a = win_["activeElement"];
+            if (null == win_["activeElement"]) return 0;
             var e = a["type"];
             return 1 == (null == e ? -1 : bmak["get_type"](e)) && bmak["fidcnt"] > 12 && -2 == t ? 1 : 0;
         },
@@ -249,6 +249,7 @@ let fedex_sensor_data = function(){
         },
         cdma: function (t) {
             // devicemotion事件的回调函数
+            console.log("deviceorientation和devicemotion的事件回调函数")
             try {
                 if (bmak["dme_cnt"] < bmak["dme_cnt_lmt"] && bmak["dma_throttle"] < 2 && t) {
                     var a = bmak["get_cf_date"]() - bmak["start_ts"],
@@ -291,54 +292,67 @@ let fedex_sensor_data = function(){
 
         htm: function (t) {
             // touchmove事件的回调函数
+            console.log("touchmove:", t)
             bmak["cta"](t, 1);
         },
         hts: function (t) {
             // touchstart事件的回调函数
+            console.log("touchstart:", t)
             bmak["cta"](t, 2);
         },
         hte: function (t) {
             // touchend事件的回调函数
+            console.log("touchend:", t)
             bmak["cta"](t, 3);
         },
         htc: function (t) {
             // touchcancel事件的回调函数
+            console.log("touchcancel:", t)
             bmak["cta"](t, 4);
         },
         hmm: function (t) {
             // mousemove事件的回调函数
+            console.log("mousemove:", t)
             bmak["cma"](t, 1);
         },
         hc: function (t) {
             // click事件的回调函数
+            console.log("click:", t)
             bmak["cma"](t, 2);
         },
         hmd: function (t) {
             // mousedown事件的回调函数
+            console.log("mousedown:", t)
             bmak["cma"](t, 3);
         },
         hmu: function (t) {
             // mouseup事件的回调函数
+            console.log("mouseup:", t)
             bmak["cma"](t, 4);
         },
         hpd: function (t) {
             // pointerdown事件的回调函数
+            console.log("pointerdown:", t)
             bmak["cpa"](t, 3);
         },
         hpu: function (t) {
             // pointerup事件的回调函数
+            console.log("pointerup:", t)
             bmak["cpa"](t, 4);
         },
         hkd: function (t) {
             // keydown事件的回调函数
+            console.log("keydown:", t)
             bmak["cka"](t, 1);
         },
         hku: function (t) {
             // keyup事件的回调函数
+            console.log("keyup:", t)
             bmak["cka"](t, 2);
         },
         hkp: function (t) {
             // keypress事件的回调函数
+            console.log("keypress:", t)
             bmak["cka"](t, 3);
         },
         cta: function (t, a) {
@@ -468,7 +482,7 @@ let fedex_sensor_data = function(){
         },
         getforminfo: function () {
             var a = '0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;';
-            var t = '0,-1,0,1,2588,1468,0;0,-1,0,1,1386,447,0;1,0,0,1,1649,331,0;0,-1,0,0,1498,-1,0;0,-1,0,1,-1,1500,0;0,-1,0,1,-1,1684,0;0,-1,0,1,-1,1684,0;0,-1,0,1,-1,1684,0;0,-1,0,1,2563,-1,0;';
+            var t = '0,-1,0,1,1386,447,0;1,0,0,1,1649,331,0;0,-1,0,0,1498,-1,0;0,-1,0,1,2588,1468,0;0,-1,0,1,-1,1500,0;0,-1,0,1,-1,1684,0;0,-1,0,1,-1,1684,0;0,-1,0,1,-1,1684,0;0,-1,0,1,2563,-1,0;';
             return null == bmak["ins"] && (bmak["ins"] = a), bmak["cns"] = a, t;
         },
         patp: function (t) {
@@ -639,7 +653,7 @@ let fedex_sensor_data = function(){
         },
         gf: function (t) {
             var a;
-            if (a = null == t ? document["activeElement"] : t, null == document["activeElement"]) return -1;
+            if (a = null == t ? win_["activeElement"] : t, null == win_["activeElement"]) return -1;
             var e = a["name"];
 
             if (null == e) {
@@ -950,7 +964,7 @@ let fedex_sensor_data = function(){
                     r = "t_en",
                     i = o + "," + m + "," + r,
                     c = bmak["getforminfo"](),
-                    b = 'https://www.fedex.com/en-cn/home.html',
+                    b = 'https://www.fedex.com/zh-cn/home.html',
                     d = bmak["aj_type"] + "," + bmak["aj_indx"];
                 !bmak["fpcf"]["fpValCalculated"] && (0 == bmak["js_post"] || bmak["aj_indx"] > 0) && bmak["fpcf"]["fpVal"]();
 
@@ -1069,10 +1083,11 @@ fedex_sensor_data.prototype.init = function(cookie){
                     m = -1,   // navigator["doNotTrack"] ? navigator["doNotTrack"] : -1
                     r = "default";
                 r = bmak["runFonts"] ? bmak["altFonts"] ? a["fonts_optm"]() : a["fonts"]() : "dis";
-                a["rCFP"] = '-848723031';
+                a["rCFP"] = '1709966440';
+                a['rVal'] = "605";
                 return [
-                    '420217769',    // '420217769'  a["canvas"]("<@nv45. F1n63r,Pr1n71n6!")
-                    '1243744842',  // '1243744842' a["canvas"]("m,Ev!xV67BaU> eh2m<f3AG3@")
+                    '875325766',    // '875325766'  a["canvas"]("<@nv45. F1n63r,Pr1n71n6!")
+                    '54528711',  // '54528711' a["canvas"]("m,Ev!xV67BaU> eh2m<f3AG3@")
                     r,
                     a["pluginInfo"](),
                     a["sessionStorageKey"](),
@@ -1292,18 +1307,18 @@ fedex_sensor_data.prototype.first_get_sensor_data = function(){
 }
 
 fedex_sensor_data.prototype.second_get_sensor_data = function(){
-    // setTimeout(function(){console.log("计算第二次sensor_data")}, 1000)
     bmak["calc_fp"]()
     return bmak["sensor_data"]
 }
 
 fedex_sensor_data.prototype.third_get_sensor_data = function(){
+    this.document.dispatchEvent(event_ins.get_focus());
     this.document.dispatchEvent(event_ins.get_pointerdown(196, 469, 435, 58));
     this.document.dispatchEvent(event_ins.get_mousedown(196, 469, 435, 58, {"name": "trackingnumber", "id": "trackingnumber"}));
-    this.document.activeElement = {"name": "trackingnumber", "id": "trackingnumber", "type": "text"};
     this.document.dispatchEvent(event_ins.get_pointerup(196, 469, 435, 58));
     this.document.dispatchEvent(event_ins.get_mouseup(196, 469, 435, 58, {"name": "trackingnumber", "id": "trackingnumber"}));
     this.document.dispatchEvent(event_ins.get_click(196, 469, 435, 58, {"name": "trackingnumber", "id": "trackingnumber"}));
+    win_.activeElement = {"name": "trackingnumber", "id": "trackingnumber", "type": "text"};
     this.document.dispatchEvent(event_ins.get_keydown());
     this.document.dispatchEvent(event_ins.get_keyup());
     return bmak["sensor_data"]
@@ -1311,9 +1326,9 @@ fedex_sensor_data.prototype.third_get_sensor_data = function(){
 
 fedex_sensor_data.prototype.fourth_get_senor_data = function(){
     this.document.dispatchEvent(event_ins.get_focus());
+    win_.activeElement = {"name": "", "id": "btnSingleTrack", "type": "submit"};
     this.document.dispatchEvent(event_ins.get_pointerdown(640, 458, 146, 60));
     this.document.dispatchEvent(event_ins.get_mousedown(640, 458, 146, 60, {"name": "", "id": "btnSingleTrack"}));
-    this.document.activeElement = {"name": "", "id": "btnSingleTrack", "type": "submit"};
     this.document.dispatchEvent(event_ins.get_pointerup(640, 458, 146, 60));
     this.document.dispatchEvent(event_ins.get_mouseup(640, 458, 146, 60, {"name": "", "id": "btnSingleTrack"}));
     this.document.dispatchEvent(event_ins.get_click(640, 458, 146, 60, {"name": "", "id": "btnSingleTrack"}));

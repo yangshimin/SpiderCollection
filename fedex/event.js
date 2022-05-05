@@ -412,6 +412,14 @@ RobotEvent.prototype.mousemove_to = function (x1, y1, x2, y2){
     // 暂时还未实现
 }
 
+RobotEvent.prototype.get_devicemotion = function(){
+    return this.generate_devicemotion_deviceorientation_event("devicemotion")
+}
+
+RobotEvent.prototype.get_deviceorientation = function(){
+    return this.generate_devicemotion_deviceorientation_event("deviceorientation")
+}
+
 RobotEvent.prototype.get_focus = function(){
     return this.generate_focus_blur_event("focus");
 }
@@ -484,6 +492,19 @@ RobotEvent.prototype.generate_key_event = function (key_event_type){
     let local_time =  new Date().getTime();
     key_event_temp['timeStamp'] = local_time - this.refresh_page_time;
     return key_event_temp;
+}
+
+RobotEvent.prototype.generate_devicemotion_deviceorientation_event = function (emotion_event){
+    let emotion_event_temp = {};
+    if (emotion_event === "devicemotion"){
+        emotion_event_temp = devicemotion_event;
+    }else if (emotion_event === "deviceorientation"){
+        emotion_event_temp = deviceorientation_event;
+    }
+
+    let local_time =  new Date().getTime();
+    emotion_event_temp['timeStamp'] = local_time - this.refresh_page_time;
+    return emotion_event_temp;
 }
 
 RobotEvent.prototype.generate_focus_blur_event = function (focus_blur_event){

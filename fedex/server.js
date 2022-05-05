@@ -23,17 +23,20 @@ api.get('/first_get_sensor_data', function(req, res){
     res.send(sensor_data);
 })
 
-api.get('/second_get_sensor_data', function(req, res){
+api.post('/second_get_sensor_data', function(req, res){
+    fedex_ins.set_cookie_abck(req.body.cookie)
     let sensor_data = fedex_ins.second_get_sensor_data();
     res.send(sensor_data);
 })
 
-api.get('/third_get_sensor_data', function(req, res){
+api.post('/third_get_sensor_data', function(req, res){
+    fedex_ins.set_cookie_abck(req.body.cookie)
     let sensor_data = fedex_ins.third_get_sensor_data();
     res.send(sensor_data);
 })
 
-api.get('/fourth_get_sensor_data', function(req, res){
+api.post('/fourth_get_sensor_data', function(req, res){
+    fedex_ins.set_cookie_abck(req.body.cookie)
     let sensor_data = fedex_ins.fourth_get_senor_data();
     res.send(sensor_data);
 })

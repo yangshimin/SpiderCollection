@@ -652,6 +652,7 @@ var _cf = _cf || [],
           l && 0 != l["length"] && (f = 1), !u || 0 == u["length"] || f && u == l || (_ = 1), 2 != s && (t = t + s + "," + n + "," + _ + "," + b + "," + i + "," + r + "," + f + ";"), a = a + _ + ";";
         }
 
+        console.log("getforminfo value is: ", t)
         return null == bmak["ins"] && (bmak["ins"] = a), bmak["cns"] = a, t;
       },
       startdoadma: function () {
@@ -719,7 +720,7 @@ var _cf = _cf || [],
       hku: function (t) {
           // keyup事件的回调函数
           console.log("keyup: ", t);
-          debugger;
+          // debugger;
         bmak["cka"](t, 2);
       },
       hkp: function (t) {
@@ -867,7 +868,8 @@ var _cf = _cf || [],
             void 0 !== bmak["mn_r"][L] && (x = bmak["mn_r"][L]);
           }
 
-          void 0 !== navigator["userAgentData"] && bmak["isChrome"]() && bmak["build_pua"](), bmak["sensor_data"] = bmak["ver"] + "-1,2,-94,-100," + n + "-1,2,-94,-131," + bmak["pua"] + "-1,2,-94,-101," + i + "-1,2,-94,-105," + bmak["informinfo"] + "-1,2,-94,-102," + c + "-1,2,-94,-108," + bmak["kact"] + "-1,2,-94,-110," + bmak["mact"] + "-1,2,-94,-117," + bmak["tact"] + "-1,2,-94,-111," + bmak["doact"] + "-1,2,-94,-109," + bmak["dmact"] + "-1,2,-94,-114," + bmak["pact"] + "-1,2,-94,-103," + bmak["vcact"] + "-1,2,-94,-112," + b + "-1,2,-94,-115," + w + "-1,2,-94,-106," + d, bmak["sensor_data"] = bmak["sensor_data"] + "-1,2,-94,-119," + bmak["mr"] + "-1,2,-94,-122," + S + "-1,2,-94,-123," + A + "-1,2,-94,-124," + B + "-1,2,-94,-126," + x + "-1,2,-94,-127," + bmak["nav_perm"];
+          void 0 !== navigator["userAgentData"] && bmak["isChrome"]() && bmak["build_pua"](),
+              bmak["sensor_data"] = bmak["ver"] + "-1,2,-94,-100," + n + "-1,2,-94,-131," + bmak["pua"] + "-1,2,-94,-101," + i + "-1,2,-94,-105," + bmak["informinfo"] + "-1,2,-94,-102," + c + "-1,2,-94,-108," + bmak["kact"] + "-1,2,-94,-110," + bmak["mact"] + "-1,2,-94,-117," + bmak["tact"] + "-1,2,-94,-111," + bmak["doact"] + "-1,2,-94,-109," + bmak["dmact"] + "-1,2,-94,-114," + bmak["pact"] + "-1,2,-94,-103," + bmak["vcact"] + "-1,2,-94,-112," + b + "-1,2,-94,-115," + w + "-1,2,-94,-106," + d, bmak["sensor_data"] = bmak["sensor_data"] + "-1,2,-94,-119," + bmak["mr"] + "-1,2,-94,-122," + S + "-1,2,-94,-123," + A + "-1,2,-94,-124," + B + "-1,2,-94,-126," + x + "-1,2,-94,-127," + bmak["nav_perm"];
           var P = 24 ^ bmak["ab"](bmak["sensor_data"]);
           bmak["sensor_data"] = bmak["sensor_data"] + "-1,2,-94,-70," + bmak["fpcf"]["fpValstr"] + "-1,2,-94,-80," + y + "-1,2,-94,-116," + bmak["o9"] + "-1,2,-94,-118," + P + "-1,2,-94,-129," + E + "-1,2,-94,-121,", bmak["sd_debug"](",s1:" + bmak["sensor_data"]["slice"](0, 10));
         } catch (t) {
@@ -928,7 +930,7 @@ var _cf = _cf || [],
       },
       hvc: function () {
           // 一个未知事件的注册函数
-        debugger;
+        // debugger;
         try {
           var t = 1;
           document[bmak["hn"]] && (t = 0), bmak["lvc"](t);
@@ -1014,6 +1016,7 @@ var _cf = _cf || [],
         e["send"](o);
       },
       apicall_bm: function (t, a, e) {
+          // debugger;
         console.log("提交sensor_data请求")
         var n;
         void 0 !== window["XMLHttpRequest"] ? n = new XMLHttpRequest() : void 0 !== window["XDomainRequest"] ? (n = new XDomainRequest(), n["onload"] = function () {
@@ -1225,6 +1228,7 @@ var _cf = _cf || [],
         return a;
       },
       calc_fp: function () {
+          debugger
         bmak["fpcf"]["fpVal"](),
         bmak["js_post"] && (bmak["aj_type"] = 9, bmak["bpd"](), bmak["pd"](!0));
       },
