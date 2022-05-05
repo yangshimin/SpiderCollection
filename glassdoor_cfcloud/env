@@ -1,0 +1,190 @@
+let _module = undefined
+let process = undefined
+let global = undefined
+
+SHA256 = function (s) {
+    var t, v, w, x;
+    return t = {}, t["pJrHy"] = function (z, A) {
+        return z + A;
+    }, t["ZpmFF"] = function (z, A) {
+        return z >> A;
+    }, t["myOEZ"] = function (z, A) {
+        return z | A;
+    }, t["neFfE"] = function (z, A) {
+        return z >>> A;
+    }, t["ToLyE"] = function (z, A) {
+        return z - A;
+    }, t["QTAJk"] = function (z, A) {
+        return z < A;
+    }, t["RsvqG"] = function (z, A) {
+        return z > A;
+    }, t["HJFGP"] = function (z, A) {
+        return z | A;
+    }, t["JaoGy"] = function (z, A) {
+        return z >> A;
+    }, t["fRjXg"] = function (z, A) {
+        return z + A;
+    }, t["AUqXO"] = "0123456789abcdef", t["iGWsY"] = function (z, A) {
+        return z & A;
+    }, t["kmArX"] = function (z, A) {
+        return z + A;
+    }, t["wMdlc"] = function (z, A) {
+        return z * A;
+    }, t["dUIny"] = function (z, A) {
+        return z - A;
+    }, t["blmEi"] = function (z, A) {
+        return z % A;
+    }, t["mAnHt"] = "pJCig", t["nLUiT"] = "ZJhPN", t["tuIPC"] = function (z, A) {
+        return z >> A;
+    }, t["vGnwX"] = function (z, A) {
+        return z << A;
+    }, t["FFMtj"] = function (z, A) {
+        return z << A;
+    }, t["ITELN"] = function (z, A) {
+        return z >> A;
+    }, t["LsUma"] = "5|15|11|10|3|14|9|8|16|7|1|2|0|6|12|4|13", t["wnynV"] = function (y, z, A) {
+        return y(z, A);
+    }, t["BDmet"] = function (y, z, A) {
+        return y(z, A);
+    }, t["HgLqc"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ywpig"] = function (y, z, A) {
+        return y(z, A);
+    }, t["bTCTp"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ezEJw"] = function (y, z, A) {
+        return y(z, A);
+    }, t["xCaOS"] = function (z, A) {
+        return z ^ A;
+    }, t["QHdbi"] = function (y, z, A) {
+        return y(z, A);
+    }, t["ffbal"] = function (y, z, A) {
+        return y(z, A);
+    }, t["pBmob"] = function (y, z, A) {
+        return y(z, A);
+    }, t["OafBq"] = function (z, A) {
+        return z ^ A;
+    }, t["jDydM"] = function (z, A) {
+        return z ^ A;
+    }, t["VPWGh"] = function (z, A) {
+        return z & A;
+    }, t["FkiGe"] = function (z, A) {
+        return z / A;
+    }, v = t, w = function w(y, z) {
+        var A;
+        return A = v["pJrHy"](y & 65535, z & 65535), (y >> 16) + (z >> 16) + v["ZpmFF"](A, 16) << 16 | A & 65535;
+    }, x = function x(y, z) {
+        return v["myOEZ"](v["neFfE"](y, z), y << v["ToLyE"](32, z));
+    }, s = function (y, A, z) {
+        for (y = y["replace"](/\r\n/g, "\n"), z = "", A = 0; A < y["length"]; A++) {
+            var B;
+            B = y["charCodeAt"](A);
+            if (128 > B) {
+                z += String["fromCharCode"](B);
+            } else {
+                v["QTAJk"](127, B) && v["RsvqG"](2048, B) ? z += String["fromCharCode"](v["HJFGP"](v["JaoGy"](B, 6), 192)) : (z += String["fromCharCode"](v["JaoGy"](B, 12) | 224), z += String["fromCharCode"](v["HJFGP"](v["JaoGy"](B, 6) & 63, 128))), z += String["fromCharCode"](v["HJFGP"](B & 63, 128));
+            }
+        }
+        return z;
+    }(s), function (y, A, z) {
+        for (z = "", A = 0; A < 4 * y["length"]; z += v["fRjXg"](v["AUqXO"]["charAt"](v["iGWsY"](y[v["JaoGy"](A, 2)] >> v["kmArX"](v["wMdlc"](8, v["dUIny"](3, A % 4)), 4), 15)), v["AUqXO"]["charAt"](y[A >> 2] >> v["wMdlc"](8, 3 - v["blmEi"](A, 4)) & 15)), A++) ;
+        return z;
+    }(function (z, A, C, B) {
+        if (B = {}, B["tsnyJ"] = function (V, W) {
+            return V + W;
+        }, C = B, v["mAnHt"] !== v["nLUiT"]) {
+            var D, E, F, G, H;
+            for (D = [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298], E = [1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225], F = Array(64), z[v["tuIPC"](A, 5)] |= v["vGnwX"](128, v["dUIny"](24, A % 32)), z[v["FFMtj"](v["ITELN"](A + 64, 9), 4) + 15] = A, G = 0; v["QTAJk"](G, z["length"]); G += 16) {
+                var I, J;
+                for (I = v["LsUma"]["split"]("|"), J = 0; !![];) {
+                    switch (I[J++]) {
+                        case "0":
+                            E[3] = v["wnynV"](w, O, E[3]);
+                            continue;
+                        case "1":
+                            E[1] = v["BDmet"](w, R, E[1]);
+                            continue;
+                        case "2":
+                            E[2] = w(P, E[2]);
+                            continue;
+                        case "3":
+                            var K = E[4];
+                            continue;
+                        case "4":
+                            E[6] = v["HgLqc"](w, N, E[6]);
+                            continue;
+                        case "5":
+                            var L = E[0];
+                            continue;
+                        case "6":
+                            E[4] = v["ywpig"](w, K, E[4]);
+                            continue;
+                        case "7":
+                            E[0] = v["bTCTp"](w, L, E[0]);
+                            continue;
+                        case "8":
+                            var M = E[7];
+                            continue;
+                        case "9":
+                            var N = E[6];
+                            continue;
+                        case "10":
+                            var O = E[3];
+                            continue;
+                        case "11":
+                            var P = E[2];
+                            continue;
+                        case "12":
+                            E[5] = v["ezEJw"](w, Q, E[5]);
+                            continue;
+                        case "13":
+                            E[7] = v["ezEJw"](w, M, E[7]);
+                            continue;
+                        case "14":
+                            var Q = E[5];
+                            continue;
+                        case "15":
+                            var R = E[1];
+                            continue;
+                        case "16":
+                            for (H = 0; 64 > H; H++) {
+                                var S;
+                                if (S = H, 16 > H) var T = z[H + G]; else {
+                                    var U;
+                                    T = F[H - 2];
+                                    T = v["xCaOS"](x(T, 17), x(T, 19)) ^ T >>> 10;
+                                    T = w(T, F[v["dUIny"](H, 7)]);
+                                    U = F[H - 15];
+                                    U = v["xCaOS"](x(U, 7) ^ v["ezEJw"](x, U, 18), v["neFfE"](U, 3));
+                                    T = v["QHdbi"](w, w(T, U), F[H - 16]);
+                                }
+                                F[S] = T;
+                                S = K;
+                                S = v["ffbal"](x, S, 6) ^ v["ffbal"](x, S, 11) ^ v["pBmob"](x, S, 25);
+                                S = v["pBmob"](w, w(w(v["pBmob"](w, M, S), v["OafBq"](v["iGWsY"](K, Q), ~K & N)), D[H]), F[H]);
+                                M = L;
+                                M = v["jDydM"](x(M, 2) ^ x(M, 13), x(M, 22));
+                                T = w(M, L & R ^ L & P ^ v["VPWGh"](R, P));
+                                M = N;
+                                N = Q;
+                                Q = K;
+                                K = v["pBmob"](w, O, S);
+                                O = P;
+                                P = R;
+                                R = L;
+                                L = w(S, T);
+                            }
+                            continue;
+                    }
+                    break;
+                }
+            }
+            return E;
+        } else var V = function V() {
+            return C["tsnyJ"]("\\u", ("0000" + w["charCodeAt"](0)["toString"](16))["slice"](-4));
+        };
+    }(function (y, A, z) {
+        for (z = [], A = 0; A < 8 * y["length"]; z[A >> 5] |= v["VPWGh"](y["charCodeAt"](v["FkiGe"](A, 8)), 255) << v["dUIny"](24, A % 32), A += 8) ;
+        return z;
+    }(s), 8 * s["length"]));
+};
